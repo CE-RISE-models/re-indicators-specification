@@ -1,5 +1,7 @@
 # CE-RISE RE-Indicators Specification Data Model
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17610026.svg)](https://doi.org/10.5281/zenodo.17610026)
+
 This repository provides the data model specifying the RE-indicators in the CE-RISE project.
 
 ---
