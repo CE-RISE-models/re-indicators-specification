@@ -56,8 +56,11 @@ Neither the European Union nor the granting authority can be held responsible fo
 Licensed under [Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).  
 Attribution: CE-RISE project (Grant Agreement No. 101092281) and the individual authors/partners as indicated.
 
+<a href="https://www.empa.cch" target="_blank" rel="noopener noreferrer">
+  <img src="https://www.empa.ch/image/company_logo?img_id=31464838&t=1762532293211" alt="EMPA logo" height="20"/>
+</a>
 <a href="https://www.nilu.com" target="_blank" rel="noopener noreferrer">
-  <img src="https://nilu.no/wp-content/uploads/2023/12/nilu-logo-seagreen-rgb-300px.png" alt="NILU logo" width="40"/>
+  <img src="https://nilu.no/wp-content/uploads/2023/12/nilu-logo-seagreen-rgb-300px.png" alt="NILU logo" height="20"/>
 </a>
 
 Developed by EMPA and NILU (Riccardo Boero — ribo@nilu.no) within the CE-RISE project.
