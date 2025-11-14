@@ -6,25 +6,40 @@ on:
 
 jobs:
     build-and-deploy:
-        runs-on: docker
-        container:
-            image: python:3.11-slim
+        runs-on: ubuntu-latest
         steps:
+            - name: Debug - Check environment
+              run: |
+                  echo "Repository: $GITHUB_REPOSITORY"
+                  echo "Ref: $GITHUB_REF"
+                  echo "Event: $GITHUB_EVENT_NAME"
+                  echo "Runner: $RUNNER_NAME"
+                  pwd
+                  ls -la
+
             - name: Checkout repository
               uses: actions/checkout@v4
 
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+
             - name: Install dependencies
               run: |
-                  apt-get update && apt-get install -y git gettext-base
                   pip install --no-cache-dir linkml pyyaml
 
             - name: Generate schema files
               run: |
+                  echo "Generating schema files..."
                   mkdir -p generated
                   make all
+                  echo "Generated files:"
+                  ls -la generated/
 
             - name: Extract project metadata
               run: |
+                  echo "Extracting metadata from repository..."
                   python3 << 'EOF'
                   import yaml
                   import json
@@ -66,6 +81,9 @@ jobs:
 
                   # Source the environment variables
                   source set_env.sh
+                  echo "Project Title: $PROJECT_TITLE"
+                  echo "Project Description: $PROJECT_DESCRIPTION"
+                  echo "Repository URL: $REPO_URL"
 
             - name: Create index.html
               run: |
@@ -195,26 +213,39 @@ jobs:
 
             - name: Setup Git for Pages
               run: |
+                  echo "Setting up Git configuration..."
                   git config --global user.email "ci@codeberg.org"
                   git config --global user.name "CI Bot"
                   git config --global init.defaultBranch pages
+                  git remote -v
 
             - name: Deploy to Pages branch
               run: |
+                  echo "Starting deployment to pages branch..."
+
                   # Create a new orphan branch for pages
+                  echo "Creating orphan pages branch..."
                   git checkout --orphan pages
 
                   # Remove all files from staging
+                  echo "Cleaning staging area..."
                   git rm -rf . || true
 
                   # Copy generated files
+                  echo "Copying generated files..."
                   cp -r generated/* .
+                  echo "Files to deploy:"
+                  ls -la
 
                   # Add all files
                   git add -A
+                  git status
 
                   # Commit
+                  echo "Committing files..."
                   git commit -m "Deploy generated schema files"
 
                   # Force push to pages branch
+                  echo "Pushing to pages branch..."
                   git push origin pages --force
+                  echo "Deployment complete!"
