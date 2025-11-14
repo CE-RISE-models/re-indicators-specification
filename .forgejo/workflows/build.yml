@@ -87,7 +87,7 @@ jobs:
 
             - name: Create index.html
               run: |
-                  cat > generated/index.html << 'EOF'
+                  cat > generated/index.html << EOF
                   <!DOCTYPE html>
                   <html lang="en">
                   <head>
@@ -206,10 +206,6 @@ jobs:
                   </body>
                   </html>
                   EOF
-
-                  # Substitute environment variables
-                  envsubst < generated/index.html > generated/index_temp.html
-                  mv generated/index_temp.html generated/index.html
 
             - name: Setup Git for Pages
               run: |
