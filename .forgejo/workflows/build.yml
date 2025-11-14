@@ -29,19 +29,11 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install linkml pyyaml
-                  # Verify installation
-                  python -m pip show linkml
-                  which linkml || echo "linkml not in PATH"
-                  python -c "import linkml; print(linkml.__version__)"
 
             - name: Generate schema files
               run: |
                   echo "Generating schema files..."
-                  mkdir -p generated
-                  # Use python -m to run LinkML commands
-                  python -m linkml.generators.jsonschemagen model/model.yaml -o generated/schema.json
-                  python -m linkml.generators.shaclgen model/model.yaml -o generated/shacl.ttl
-                  python -m linkml.generators.owlgen model/model.yaml -o generated/model.owl
+                  make all
                   echo "Generated files:"
                   ls -la generated/
 
