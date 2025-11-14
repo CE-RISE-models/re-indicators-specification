@@ -27,9 +27,8 @@ classes:
     # These define the structure of indicators
     # ============================================
 
-    IndicatorSpecification:
-        description: Specification of an indicator for a product category
-        abstract: true
+    IndicatorProductConfiguration:
+        description: Configuration linking an indicator to a product with specific parameters
         attributes:
             id:
                 range: string
@@ -49,11 +48,29 @@ classes:
                 required: true
             description:
                 range: string
-            parameters:
-                range: ParameterSpecification
+            parameter_applications:
+                range: ParameterApplication
                 multivalued: true
                 inlined: true
-                description: Parameters that compose this indicator
+                description: Parameters with their weights for this product
+
+    ParameterApplication:
+        description: Application of a parameter to a specific product with its weight
+        attributes:
+            parameter_ref:
+                range: string
+                required: true
+                description: Reference to a ParameterSpecification
+            weight:
+                range: float
+                required: true
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: Weight of this parameter for this product
+            applicable_questions:
+                range: string
+                multivalued: true
+                description: IDs of questions from the parameter that apply to this product
 
     ParameterSpecification:
         description: A parameter within an indicator with its questions

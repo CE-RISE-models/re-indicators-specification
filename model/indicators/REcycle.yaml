@@ -1,7 +1,7 @@
 id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle
 name: re_indicators_recycle
 title: REcycle Indicator Specifications
-description: Recyclability indicator specifications for all product categories
+description: Recyclability indicator specifications with reusable parameters and questions
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -13,7 +13,7 @@ imports:
 
 classes:
     # ============================================
-    # PARAMETER 1: DOCUMENTATION (fully specified)
+    # REUSABLE PARAMETERS AND QUESTIONS
     # ============================================
 
     Documentation_Parameter:
@@ -21,32 +21,33 @@ classes:
         description: Documentation availability parameter
         attributes:
             id:
-                range: string
                 ifabsent: string(P1_documentation)
             name:
-                range: string
                 ifabsent: string(Documentation availability)
-            weight:
-                range: float
             questions:
-                range: QuestionSpecification
+                range: DocumentationQuestion
                 multivalued: true
                 inlined: true
+
+    DocumentationQuestion:
+        is_a: QuestionSpecification
+        union_of:
+            - Q1_1_UniqueIdentifier
+            - Q1_2_BOM
+            - Q1_3_SafetyManual
+            - Q1_4_DisassemblyManual
 
     Q1_1_UniqueIdentifier:
         is_a: QuestionSpecification
         attributes:
             id:
-                range: string
                 ifabsent: string(Q1.1)
             text:
-                range: string
                 ifabsent: string(Unique Product identifier (product type, brand, commercial name, model, serie number))
             weight:
-                range: float
                 ifabsent: float(0.05)
             answer_options:
-                range: AnswerOption
+                range: DocumentationAnswerOption
                 multivalued: true
                 inlined: true
 
@@ -54,16 +55,13 @@ classes:
         is_a: QuestionSpecification
         attributes:
             id:
-                range: string
                 ifabsent: string(Q1.2)
             text:
-                range: string
                 ifabsent: string(Bill of material (BOM))
             weight:
-                range: float
                 ifabsent: float(0.45)
             answer_options:
-                range: AnswerOption
+                range: DocumentationAnswerOption
                 multivalued: true
                 inlined: true
 
@@ -71,16 +69,13 @@ classes:
         is_a: QuestionSpecification
         attributes:
             id:
-                range: string
                 ifabsent: string(Q1.3)
             text:
-                range: string
                 ifabsent: string(Safety manual)
             weight:
-                range: float
                 ifabsent: float(0.25)
             answer_options:
-                range: AnswerOption
+                range: DocumentationAnswerOption
                 multivalued: true
                 inlined: true
 
@@ -88,83 +83,74 @@ classes:
         is_a: QuestionSpecification
         attributes:
             id:
-                range: string
                 ifabsent: string(Q1.4)
             text:
-                range: string
                 ifabsent: string(Disassembly manual)
             weight:
-                range: float
                 ifabsent: float(0.25)
             answer_options:
-                range: AnswerOption
+                range: DocumentationAnswerOption
                 multivalued: true
                 inlined: true
 
     # Documentation availability answer options
+    DocumentationAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Doc_PubliclyAvailable
+            - Doc_IndependentRecyclers
+            - Doc_AuthorizedRecyclers
+            - Doc_ManufacturersOnly
+            - Doc_NotAvailable
+
     Doc_PubliclyAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                range: string
                 ifabsent: string(doc_public)
             text:
-                range: string
                 ifabsent: string(Publicly available)
             score:
-                range: float
                 ifabsent: float(5)
 
     Doc_IndependentRecyclers:
         is_a: AnswerOption
         attributes:
             id:
-                range: string
                 ifabsent: string(doc_independent)
             text:
-                range: string
                 ifabsent: string(Available to independent recyclers)
             score:
-                range: float
                 ifabsent: float(4)
 
     Doc_AuthorizedRecyclers:
         is_a: AnswerOption
         attributes:
             id:
-                range: string
                 ifabsent: string(doc_authorized)
             text:
-                range: string
                 ifabsent: string(Available to manufacturer-authorized recyclers providers)
             score:
-                range: float
                 ifabsent: float(3)
 
     Doc_ManufacturersOnly:
         is_a: AnswerOption
         attributes:
             id:
-                range: string
                 ifabsent: string(doc_manufacturers)
             text:
-                range: string
                 ifabsent: string(Available to manufactures only)
             score:
-                range: float
                 ifabsent: float(1)
 
     Doc_NotAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                range: string
                 ifabsent: string(doc_not_available)
             text:
-                range: string
                 ifabsent: string(Document is not available)
             score:
-                range: float
                 ifabsent: float(0)
 
     # ============================================
@@ -176,14 +162,9 @@ classes:
         description: Material composition parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                range: string
                 ifabsent: string(P2_material_composition)
             name:
-                range: string
                 ifabsent: string(Material composition)
-            weight:
-                range: float
-            # TODO: Add questions once specified
 
     # ============================================
     # PARAMETER 3: DEPOLLUTION (placeholder)
@@ -194,14 +175,9 @@ classes:
         description: Depollution parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                range: string
                 ifabsent: string(P3_depollution)
             name:
-                range: string
                 ifabsent: string(Depollution)
-            weight:
-                range: float
-            # TODO: Add questions once specified
 
     # ============================================
     # PARAMETER 4: DISMANTLING (placeholder)
@@ -212,14 +188,9 @@ classes:
         description: Dismantling parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                range: string
                 ifabsent: string(P4_dismantling)
             name:
-                range: string
                 ifabsent: string(Dismantling)
-            weight:
-                range: float
-            # TODO: Add questions once specified
 
     # ============================================
     # PARAMETER 5: RECYCLABILITY RATE (placeholder)
@@ -230,14 +201,9 @@ classes:
         description: Recyclability rate parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                range: string
                 ifabsent: string(P5_recyclability_rate)
             name:
-                range: string
                 ifabsent: string(Recyclability rate)
-            weight:
-                range: float
-            # TODO: Add questions once specified
 
     # ============================================
     # PARAMETER 6: TAKEBACK SCHEME (placeholder)
@@ -248,81 +214,99 @@ classes:
         description: Take-back scheme bonus parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                range: string
                 ifabsent: string(P6_takeback_scheme)
             name:
-                range: string
                 ifabsent: string(Take back scheme_Bonus)
-            weight:
-                range: float
             is_bonus:
-                range: boolean
                 ifabsent: boolean(true)
-            # TODO: Add questions once specified
 
     # ============================================
-    # PRODUCT-SPECIFIC APPLICATIONS
+    # INDICATOR-PRODUCT CONFIGURATIONS
     # ============================================
 
-    REcycle_PV:
-        is_a: IndicatorSpecification
-        description: Recyclability indicator for PV panels
+    REcycle_Configuration:
+        is_a: IndicatorProductConfiguration
+        description: Base configuration for REcycle indicator
+        abstract: true
+        attributes:
+            indicator_type:
+                ifabsent: IndicatorType(REcycle)
+
+    # Example configurations showing how products use parameters with different weights
+    REcycle_PV_Config:
+        is_a: REcycle_Configuration
+        description: Configuration for REcycle applied to PV panels
         attributes:
             id:
-                range: string
                 ifabsent: string(REcycle_PV)
-            indicator_type:
-                range: IndicatorType
-                ifabsent: IndicatorType(REcycle)
             product_category:
-                range: ProductCategoryType
                 ifabsent: ProductCategoryType(PV)
             name:
-                range: string
                 ifabsent: string(Recyclability Index for PV Panels)
-            parameters:
-                range: ParameterSpecification
-                multivalued: true
+            parameter_applications:
+                inlined_as_list: true
                 inlined: true
+                ifabsent:
+                    - parameter_ref: P1_documentation
+                      weight: 0.1
+                    - parameter_ref: P2_material_composition
+                      weight: 0.3
+                    - parameter_ref: P3_depollution
+                      weight: 0.1
+                    - parameter_ref: P4_dismantling
+                      weight: 0.1
+                    - parameter_ref: P5_recyclability_rate
+                      weight: 0.4
+                    - parameter_ref: P6_takeback_scheme
+                      weight: 0.1
 
-    REcycle_PV_Documentation:
-        is_a: Documentation_Parameter
+    REcycle_Battery_Config:
+        is_a: REcycle_Configuration
+        description: Configuration for REcycle applied to Batteries
         attributes:
-            weight:
-                range: float
-                ifabsent: float(0.1)
+            id:
+                ifabsent: string(REcycle_Battery)
+            product_category:
+                ifabsent: ProductCategoryType(Battery)
+            name:
+                ifabsent: string(Recyclability Index for Batteries)
+            parameter_applications:
+                inlined_as_list: true
+                inlined: true
+                ifabsent:
+                    - parameter_ref: P1_documentation
+                      weight: 0.15
+                    - parameter_ref: P2_material_composition
+                      weight: 0.35
+                    - parameter_ref: P3_depollution
+                      weight: 0.2
+                    - parameter_ref: P5_recyclability_rate
+                      weight: 0.25
+                    - parameter_ref: P6_takeback_scheme
+                      weight: 0.05
+                    # Note: P4_dismantling not included for batteries
 
-    REcycle_PV_MaterialComposition:
-        is_a: MaterialComposition_Parameter
+    REcycle_Laptop_Config:
+        is_a: REcycle_Configuration
+        description: Configuration for REcycle applied to Laptops
         attributes:
-            weight:
-                range: float
-                ifabsent: float(0.3)
-
-    REcycle_PV_Depollution:
-        is_a: Depollution_Parameter
-        attributes:
-            weight:
-                range: float
-                ifabsent: float(0.1)
-
-    REcycle_PV_Dismantling:
-        is_a: Dismantling_Parameter
-        attributes:
-            weight:
-                range: float
-                ifabsent: float(0.1)
-
-    REcycle_PV_RecyclabilityRate:
-        is_a: RecyclabilityRate_Parameter
-        attributes:
-            weight:
-                range: float
-                ifabsent: float(0.4)
-
-    REcycle_PV_TakebackScheme:
-        is_a: TakebackScheme_Parameter
-        attributes:
-            weight:
-                range: float
-                ifabsent: float(0.1)
+            id:
+                ifabsent: string(REcycle_Laptop)
+            product_category:
+                ifabsent: ProductCategoryType(Laptop)
+            name:
+                ifabsent: string(Recyclability Index for Laptops)
+            parameter_applications:
+                inlined_as_list: true
+                inlined: true
+                ifabsent:
+                    - parameter_ref: P1_documentation
+                      weight: 0.1
+                    - parameter_ref: P2_material_composition
+                      weight: 0.25
+                    - parameter_ref: P3_depollution
+                      weight: 0.15
+                    - parameter_ref: P4_dismantling
+                      weight: 0.2
+                    - parameter_ref: P5_recyclability_rate
+                      weight: 0.3

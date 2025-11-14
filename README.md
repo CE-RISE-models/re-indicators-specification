@@ -21,44 +21,76 @@ This repository provides the data model specifying the RE-indicators in the CE-R
 
 ---
 
-## Indicator Specifications
+## Data Model Structure
 
-The data model separates core abstractions from concrete specifications:
+The CE-RISE RE-Indicators data model implements a three-layer architecture for maximum reusability and clear versioning:
 
-### Model Architecture
+### 1. Core Model Layer (`model/model.yaml`)
+Defines abstract classes that form the foundation:
+- **Indicators**: The 5 RE indicators (REcycle, REuse, REpair, REmanufacture, REfurbish)
+- **Parameters**: Scoreable components within indicators (e.g., Documentation availability)
+- **Questions**: Individual assessment questions with weights
+- **Assessments**: Structure for recording actual product evaluations
 
-- **Core Model** (`model/model.yaml`): Defines abstract classes for indicators, parameters, questions, and assessments
-- **Indicator Specifications** (`model/indicators/`): Concrete implementations with actual questions, weights, and scoring
+### 2. Indicator Specifications Layer (`model/indicators/`)
+Defines the concrete parameters and questions for each indicator:
 
-### Design Philosophy
-
-Each indicator file (e.g., `REcycle.yaml`) contains:
-
-1. **Shared Components**: Parameters, questions, and answer options common across products
-2. **Product-Specific Applications**: Concrete specifications that reference shared components with product-specific weights
-
-Example structure:
 ```yaml
-# Shared parameter (defined once)
-Documentation_Parameter:
-  questions: [Q1, Q2, Q3]
+# Example: REcycle indicator structure
+REcycle:
+  Parameters (same for all products):
+    - Documentation availability
+    - Material composition  
+    - Depollution
+    - Dismantling
+    - Recyclability rate
+    - Take-back scheme (bonus)
   
-# Product applications (different weights)
-REcycle_PV_Documentation:
-  is_a: Documentation_Parameter
-  weight: 0.1
-  
-REcycle_Battery_Documentation:  
-  is_a: Documentation_Parameter
-  weight: 0.15
+  Questions per parameter (same for all products using that parameter):
+    Documentation:
+      - Q1.1: Unique Product identifier (weight: 0.05)
+      - Q1.2: Bill of materials (weight: 0.45)
+      - Q1.3: Safety manual (weight: 0.25)
+      - Q1.4: Disassembly manual (weight: 0.25)
 ```
 
-### Benefits
+### 3. Product Configurations Layer
+Specifies how indicators apply to specific products:
 
-- **No Duplication**: Common questions and answers defined once
-- **Flexible Weights**: Each product can have different parameter weights  
-- **Easy Maintenance**: Changes to common questions apply to all products
-- **Version Control**: All specifications versioned together through git tags
+```yaml
+REcycle for PV (v1.0):
+  - Documentation (weight: 0.1) → uses Q1.1, Q1.2, Q1.3, Q1.4
+  - Material composition (weight: 0.3) → uses its defined questions
+  - Depollution (weight: 0.1) → uses its defined questions
+  - Dismantling (weight: 0.1) → uses its defined questions
+  - Recyclability rate (weight: 0.4) → uses its defined questions
+  - Take-back scheme (weight: 0.1) → uses its defined questions
+
+REcycle for Battery (v1.0):
+  - Documentation (weight: 0.15) → uses Q1.1, Q1.2, Q1.3, Q1.4
+  - Material composition (weight: 0.35) → uses its defined questions
+  - Depollution (weight: 0.2) → uses its defined questions
+  - Recyclability rate (weight: 0.25) → uses its defined questions
+  - Take-back scheme (weight: 0.05) → uses its defined questions
+  # Note: Dismantling not included for batteries
+```
+
+### Key Design Principles
+
+1. **Fixed Structure**: Indicators and parameters are always the same
+2. **Shared Questions**: All products using a parameter get the same questions
+3. **Variable Weights**: Each product can assign different weights to parameters
+4. **Optional Parameters**: Products can exclude parameters (e.g., Battery excludes Dismantling)
+5. **Version Lock**: Git tags (e.g., v1.0.0) lock the complete specification
+
+### How Versioning Works
+
+When you tag the repository (e.g., `git tag v1.0.0`), you lock:
+- The exact questions for each parameter
+- The weights for each product-parameter combination
+- The complete indicator specifications
+
+This ensures that assessments can reference a specific version and get reproducible results.
 
 ---
 
