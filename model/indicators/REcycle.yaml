@@ -1,0 +1,296 @@
+id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle
+name: re_indicators_recycle
+title: REcycle Indicator Specifications
+description: Recyclability indicator specifications for all product categories
+
+prefixes:
+    linkml: https://w3id.org/linkml/
+    re_ind: https://ce-rise-models.codeberg.page/re-indicators-specification/
+
+imports:
+    - linkml:types
+    - ../model # Import core classes
+
+classes:
+    # ============================================
+    # PARAMETER 1: DOCUMENTATION (fully specified)
+    # ============================================
+
+    Documentation_Parameter:
+        is_a: ParameterSpecification
+        description: Documentation availability parameter
+        attributes:
+            id:
+                equals_string: P1_documentation
+            name:
+                equals_string: Documentation availability
+            weight:
+                range: float
+            questions:
+                equals:
+                    - Q1_1_UniqueIdentifier
+                    - Q1_2_BOM
+                    - Q1_3_SafetyManual
+                    - Q1_4_DisassemblyManual
+
+    Q1_1_UniqueIdentifier:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                equals_string: Q1.1
+            text:
+                equals_string: "Unique Product identifier (product type, brand, commercial name, model, serie number)"
+            weight:
+                equals_number: 0.05
+            answer_options:
+                equals:
+                    - Doc_PubliclyAvailable
+                    - Doc_IndependentRecyclers
+                    - Doc_AuthorizedRecyclers
+                    - Doc_ManufacturersOnly
+                    - Doc_NotAvailable
+
+    Q1_2_BOM:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                equals_string: Q1.2
+            text:
+                equals_string: "Bill of material (BOM)"
+            weight:
+                equals_number: 0.45
+            answer_options:
+                equals:
+                    - Doc_PubliclyAvailable
+                    - Doc_IndependentRecyclers
+                    - Doc_AuthorizedRecyclers
+                    - Doc_ManufacturersOnly
+                    - Doc_NotAvailable
+
+    Q1_3_SafetyManual:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                equals_string: Q1.3
+            text:
+                equals_string: "Safety manual"
+            weight:
+                equals_number: 0.25
+            answer_options:
+                equals:
+                    - Doc_PubliclyAvailable
+                    - Doc_IndependentRecyclers
+                    - Doc_AuthorizedRecyclers
+                    - Doc_ManufacturersOnly
+                    - Doc_NotAvailable
+
+    Q1_4_DisassemblyManual:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                equals_string: Q1.4
+            text:
+                equals_string: "Disassembly manual"
+            weight:
+                equals_number: 0.25
+            answer_options:
+                equals:
+                    - Doc_PubliclyAvailable
+                    - Doc_IndependentRecyclers
+                    - Doc_AuthorizedRecyclers
+                    - Doc_ManufacturersOnly
+                    - Doc_NotAvailable
+
+    # Documentation availability answer options
+    Doc_PubliclyAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                equals_string: doc_public
+            text:
+                equals_string: "Publicly available"
+            score:
+                equals_number: 5
+
+    Doc_IndependentRecyclers:
+        is_a: AnswerOption
+        attributes:
+            id:
+                equals_string: doc_independent
+            text:
+                equals_string: "Available to independent recyclers"
+            score:
+                equals_number: 4
+
+    Doc_AuthorizedRecyclers:
+        is_a: AnswerOption
+        attributes:
+            id:
+                equals_string: doc_authorized
+            text:
+                equals_string: "Available to manufacturer-authorized recyclers providers"
+            score:
+                equals_number: 3
+
+    Doc_ManufacturersOnly:
+        is_a: AnswerOption
+        attributes:
+            id:
+                equals_string: doc_manufacturers
+            text:
+                equals_string: "Available to manufactures only"
+            score:
+                equals_number: 1
+
+    Doc_NotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                equals_string: doc_not_available
+            text:
+                equals_string: "Document is not available"
+            score:
+                equals_number: 0
+
+    # ============================================
+    # PARAMETER 2: MATERIAL COMPOSITION (placeholder)
+    # ============================================
+
+    MaterialComposition_Parameter:
+        is_a: ParameterSpecification
+        description: Material composition parameter - TO BE IMPLEMENTED
+        attributes:
+            id:
+                equals_string: P2_material_composition
+            name:
+                equals_string: Material composition
+            weight:
+                range: float
+            # TODO: Add questions once specified
+
+    # ============================================
+    # PARAMETER 3: DEPOLLUTION (placeholder)
+    # ============================================
+
+    Depollution_Parameter:
+        is_a: ParameterSpecification
+        description: Depollution parameter - TO BE IMPLEMENTED
+        attributes:
+            id:
+                equals_string: P3_depollution
+            name:
+                equals_string: Depollution
+            weight:
+                range: float
+            # TODO: Add questions once specified
+
+    # ============================================
+    # PARAMETER 4: DISMANTLING (placeholder)
+    # ============================================
+
+    Dismantling_Parameter:
+        is_a: ParameterSpecification
+        description: Dismantling parameter - TO BE IMPLEMENTED
+        attributes:
+            id:
+                equals_string: P4_dismantling
+            name:
+                equals_string: Dismantling
+            weight:
+                range: float
+            # TODO: Add questions once specified
+
+    # ============================================
+    # PARAMETER 5: RECYCLABILITY RATE (placeholder)
+    # ============================================
+
+    RecyclabilityRate_Parameter:
+        is_a: ParameterSpecification
+        description: Recyclability rate parameter - TO BE IMPLEMENTED
+        attributes:
+            id:
+                equals_string: P5_recyclability_rate
+            name:
+                equals_string: Recyclability rate
+            weight:
+                range: float
+            # TODO: Add questions once specified
+
+    # ============================================
+    # PARAMETER 6: TAKEBACK SCHEME (placeholder)
+    # ============================================
+
+    TakebackScheme_Parameter:
+        is_a: ParameterSpecification
+        description: Take-back scheme bonus parameter - TO BE IMPLEMENTED
+        attributes:
+            id:
+                equals_string: P6_takeback_scheme
+            name:
+                equals_string: Take back scheme_Bonus
+            weight:
+                range: float
+            is_bonus:
+                equals_string: true
+            # TODO: Add questions once specified
+
+    # ============================================
+    # PRODUCT-SPECIFIC APPLICATIONS
+    # ============================================
+
+    REcycle_PV:
+        is_a: IndicatorSpecification
+        description: Recyclability indicator for PV panels
+        attributes:
+            id:
+                equals_string: REcycle_PV
+            indicator_type:
+                equals_string: REcycle
+            product_category:
+                equals_string: PV
+            name:
+                equals_string: Recyclability Index for PV Panels
+            parameters:
+                equals:
+                    - REcycle_PV_Documentation
+                    - REcycle_PV_MaterialComposition
+                    - REcycle_PV_Depollution
+                    - REcycle_PV_Dismantling
+                    - REcycle_PV_RecyclabilityRate
+                    - REcycle_PV_TakebackScheme
+
+    REcycle_PV_Documentation:
+        is_a: Documentation_Parameter
+        attributes:
+            weight:
+                equals_number: 0.1
+
+    REcycle_PV_MaterialComposition:
+        is_a: MaterialComposition_Parameter
+        attributes:
+            weight:
+                equals_number: 0.3
+
+    REcycle_PV_Depollution:
+        is_a: Depollution_Parameter
+        attributes:
+            weight:
+                equals_number: 0.1
+
+    REcycle_PV_Dismantling:
+        is_a: Dismantling_Parameter
+        attributes:
+            weight:
+                equals_number: 0.1
+
+    REcycle_PV_RecyclabilityRate:
+        is_a: RecyclabilityRate_Parameter
+        attributes:
+            weight:
+                equals_number: 0.4
+
+    REcycle_PV_TakebackScheme:
+        is_a: TakebackScheme_Parameter
+        attributes:
+            weight:
+                equals_number: 0.1
