@@ -188,9 +188,9 @@ jobs:
                               </div>
                           </li>
                           <li>
-                              <a href="model.owl">OWL Ontology</a>
+                              <a href="model.ttl">OWL Ontology (Turtle)</a>
                               <div class="file-description">
-                                  OWL ontology representation of the data model
+                                  OWL ontology representation of the data model in Turtle format
                               </div>
                           </li>
                       </ul>

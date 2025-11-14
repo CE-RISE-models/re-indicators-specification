@@ -1,4 +1,4 @@
-all: generated/schema.json generated/shacl.ttl generated/model.owl
+all: generated/schema.json generated/shacl.ttl generated/model.ttl
 
 generated/schema.json: model/model.yaml
 	mkdir -p generated
@@ -10,17 +10,17 @@ generated/shacl.ttl: model/model.yaml
 	linkml generate shacl model/model.yaml > generated/shacl.ttl || (echo "Error generating SHACL"; exit 1)
 	@echo "Generated SHACL: $$(wc -l < generated/shacl.ttl) lines"
 
-generated/model.owl: model/model.yaml
+generated/model.ttl: model/model.yaml
 	mkdir -p generated
-	# OWL generation with verbose output and error checking
-	linkml generate owl model/model.yaml --no-metaclasses > generated/model.owl 2>&1 || \
+	# OWL generation produces Turtle format, so name it .ttl
+	linkml generate owl model/model.yaml --no-metaclasses > generated/model.ttl 2>&1 || \
 		(echo "Error generating OWL, trying without imports..."; \
-		 linkml generate owl model/model.yaml --no-metaclasses --no-imports > generated/model.owl 2>&1 || \
+		 linkml generate owl model/model.yaml --no-metaclasses --no-imports > generated/model.ttl 2>&1 || \
 		 (echo "OWL generation failed, creating placeholder"; \
-		  echo "# OWL generation failed - check model syntax" > generated/model.owl))
-	@echo "Generated OWL: $$(wc -l < generated/model.owl) lines"
+		  echo "# OWL generation failed - check model syntax" > generated/model.ttl))
+	@echo "Generated OWL: $$(wc -l < generated/model.ttl) lines"
 
 clean:
-	rm -rf generated/*.json generated/*.ttl generated/*.owl
+	rm -rf generated/*.json generated/*.ttl
 
 .PHONY: all clean
