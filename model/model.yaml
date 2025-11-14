@@ -77,7 +77,7 @@ classes:
                 description: Weight in the overall indicator score
             is_bonus:
                 range: boolean
-                default: false
+                ifabsent: false
                 description: Whether this is a bonus parameter
             questions:
                 range: QuestionSpecification
