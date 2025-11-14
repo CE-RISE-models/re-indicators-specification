@@ -21,136 +21,151 @@ classes:
         description: Documentation availability parameter
         attributes:
             id:
-                equals_string: P1_documentation
+                range: string
+                ifabsent: string(P1_documentation)
             name:
-                equals_string: Documentation availability
+                range: string
+                ifabsent: string(Documentation availability)
             weight:
                 range: float
             questions:
-                equals:
-                    - Q1_1_UniqueIdentifier
-                    - Q1_2_BOM
-                    - Q1_3_SafetyManual
-                    - Q1_4_DisassemblyManual
+                range: QuestionSpecification
+                multivalued: true
+                inlined: true
 
     Q1_1_UniqueIdentifier:
         is_a: QuestionSpecification
         attributes:
             id:
-                equals_string: Q1.1
+                range: string
+                ifabsent: string(Q1.1)
             text:
-                equals_string: "Unique Product identifier (product type, brand, commercial name, model, serie number)"
+                range: string
+                ifabsent: string(Unique Product identifier (product type, brand, commercial name, model, serie number))
             weight:
-                equals_number: 0.05
+                range: float
+                ifabsent: float(0.05)
             answer_options:
-                equals:
-                    - Doc_PubliclyAvailable
-                    - Doc_IndependentRecyclers
-                    - Doc_AuthorizedRecyclers
-                    - Doc_ManufacturersOnly
-                    - Doc_NotAvailable
+                range: AnswerOption
+                multivalued: true
+                inlined: true
 
     Q1_2_BOM:
         is_a: QuestionSpecification
         attributes:
             id:
-                equals_string: Q1.2
+                range: string
+                ifabsent: string(Q1.2)
             text:
-                equals_string: "Bill of material (BOM)"
+                range: string
+                ifabsent: string(Bill of material (BOM))
             weight:
-                equals_number: 0.45
+                range: float
+                ifabsent: float(0.45)
             answer_options:
-                equals:
-                    - Doc_PubliclyAvailable
-                    - Doc_IndependentRecyclers
-                    - Doc_AuthorizedRecyclers
-                    - Doc_ManufacturersOnly
-                    - Doc_NotAvailable
+                range: AnswerOption
+                multivalued: true
+                inlined: true
 
     Q1_3_SafetyManual:
         is_a: QuestionSpecification
         attributes:
             id:
-                equals_string: Q1.3
+                range: string
+                ifabsent: string(Q1.3)
             text:
-                equals_string: "Safety manual"
+                range: string
+                ifabsent: string(Safety manual)
             weight:
-                equals_number: 0.25
+                range: float
+                ifabsent: float(0.25)
             answer_options:
-                equals:
-                    - Doc_PubliclyAvailable
-                    - Doc_IndependentRecyclers
-                    - Doc_AuthorizedRecyclers
-                    - Doc_ManufacturersOnly
-                    - Doc_NotAvailable
+                range: AnswerOption
+                multivalued: true
+                inlined: true
 
     Q1_4_DisassemblyManual:
         is_a: QuestionSpecification
         attributes:
             id:
-                equals_string: Q1.4
+                range: string
+                ifabsent: string(Q1.4)
             text:
-                equals_string: "Disassembly manual"
+                range: string
+                ifabsent: string(Disassembly manual)
             weight:
-                equals_number: 0.25
+                range: float
+                ifabsent: float(0.25)
             answer_options:
-                equals:
-                    - Doc_PubliclyAvailable
-                    - Doc_IndependentRecyclers
-                    - Doc_AuthorizedRecyclers
-                    - Doc_ManufacturersOnly
-                    - Doc_NotAvailable
+                range: AnswerOption
+                multivalued: true
+                inlined: true
 
     # Documentation availability answer options
     Doc_PubliclyAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                equals_string: doc_public
+                range: string
+                ifabsent: string(doc_public)
             text:
-                equals_string: "Publicly available"
+                range: string
+                ifabsent: string(Publicly available)
             score:
-                equals_number: 5
+                range: float
+                ifabsent: float(5)
 
     Doc_IndependentRecyclers:
         is_a: AnswerOption
         attributes:
             id:
-                equals_string: doc_independent
+                range: string
+                ifabsent: string(doc_independent)
             text:
-                equals_string: "Available to independent recyclers"
+                range: string
+                ifabsent: string(Available to independent recyclers)
             score:
-                equals_number: 4
+                range: float
+                ifabsent: float(4)
 
     Doc_AuthorizedRecyclers:
         is_a: AnswerOption
         attributes:
             id:
-                equals_string: doc_authorized
+                range: string
+                ifabsent: string(doc_authorized)
             text:
-                equals_string: "Available to manufacturer-authorized recyclers providers"
+                range: string
+                ifabsent: string(Available to manufacturer-authorized recyclers providers)
             score:
-                equals_number: 3
+                range: float
+                ifabsent: float(3)
 
     Doc_ManufacturersOnly:
         is_a: AnswerOption
         attributes:
             id:
-                equals_string: doc_manufacturers
+                range: string
+                ifabsent: string(doc_manufacturers)
             text:
-                equals_string: "Available to manufactures only"
+                range: string
+                ifabsent: string(Available to manufactures only)
             score:
-                equals_number: 1
+                range: float
+                ifabsent: float(1)
 
     Doc_NotAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                equals_string: doc_not_available
+                range: string
+                ifabsent: string(doc_not_available)
             text:
-                equals_string: "Document is not available"
+                range: string
+                ifabsent: string(Document is not available)
             score:
-                equals_number: 0
+                range: float
+                ifabsent: float(0)
 
     # ============================================
     # PARAMETER 2: MATERIAL COMPOSITION (placeholder)
@@ -161,9 +176,11 @@ classes:
         description: Material composition parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                equals_string: P2_material_composition
+                range: string
+                ifabsent: string(P2_material_composition)
             name:
-                equals_string: Material composition
+                range: string
+                ifabsent: string(Material composition)
             weight:
                 range: float
             # TODO: Add questions once specified
@@ -177,9 +194,11 @@ classes:
         description: Depollution parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                equals_string: P3_depollution
+                range: string
+                ifabsent: string(P3_depollution)
             name:
-                equals_string: Depollution
+                range: string
+                ifabsent: string(Depollution)
             weight:
                 range: float
             # TODO: Add questions once specified
@@ -193,9 +212,11 @@ classes:
         description: Dismantling parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                equals_string: P4_dismantling
+                range: string
+                ifabsent: string(P4_dismantling)
             name:
-                equals_string: Dismantling
+                range: string
+                ifabsent: string(Dismantling)
             weight:
                 range: float
             # TODO: Add questions once specified
@@ -209,9 +230,11 @@ classes:
         description: Recyclability rate parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                equals_string: P5_recyclability_rate
+                range: string
+                ifabsent: string(P5_recyclability_rate)
             name:
-                equals_string: Recyclability rate
+                range: string
+                ifabsent: string(Recyclability rate)
             weight:
                 range: float
             # TODO: Add questions once specified
@@ -225,13 +248,16 @@ classes:
         description: Take-back scheme bonus parameter - TO BE IMPLEMENTED
         attributes:
             id:
-                equals_string: P6_takeback_scheme
+                range: string
+                ifabsent: string(P6_takeback_scheme)
             name:
-                equals_string: Take back scheme_Bonus
+                range: string
+                ifabsent: string(Take back scheme_Bonus)
             weight:
                 range: float
             is_bonus:
-                equals_string: true
+                range: boolean
+                ifabsent: boolean(true)
             # TODO: Add questions once specified
 
     # ============================================
@@ -243,54 +269,60 @@ classes:
         description: Recyclability indicator for PV panels
         attributes:
             id:
-                equals_string: REcycle_PV
+                range: string
+                ifabsent: string(REcycle_PV)
             indicator_type:
-                equals_string: REcycle
+                range: IndicatorType
+                ifabsent: IndicatorType(REcycle)
             product_category:
-                equals_string: PV
+                range: ProductCategoryType
+                ifabsent: ProductCategoryType(PV)
             name:
-                equals_string: Recyclability Index for PV Panels
+                range: string
+                ifabsent: string(Recyclability Index for PV Panels)
             parameters:
-                equals:
-                    - REcycle_PV_Documentation
-                    - REcycle_PV_MaterialComposition
-                    - REcycle_PV_Depollution
-                    - REcycle_PV_Dismantling
-                    - REcycle_PV_RecyclabilityRate
-                    - REcycle_PV_TakebackScheme
+                range: ParameterSpecification
+                multivalued: true
+                inlined: true
 
     REcycle_PV_Documentation:
         is_a: Documentation_Parameter
         attributes:
             weight:
-                equals_number: 0.1
+                range: float
+                ifabsent: float(0.1)
 
     REcycle_PV_MaterialComposition:
         is_a: MaterialComposition_Parameter
         attributes:
             weight:
-                equals_number: 0.3
+                range: float
+                ifabsent: float(0.3)
 
     REcycle_PV_Depollution:
         is_a: Depollution_Parameter
         attributes:
             weight:
-                equals_number: 0.1
+                range: float
+                ifabsent: float(0.1)
 
     REcycle_PV_Dismantling:
         is_a: Dismantling_Parameter
         attributes:
             weight:
-                equals_number: 0.1
+                range: float
+                ifabsent: float(0.1)
 
     REcycle_PV_RecyclabilityRate:
         is_a: RecyclabilityRate_Parameter
         attributes:
             weight:
-                equals_number: 0.4
+                range: float
+                ifabsent: float(0.4)
 
     REcycle_PV_TakebackScheme:
         is_a: TakebackScheme_Parameter
         attributes:
             weight:
-                equals_number: 0.1
+                range: float
+                ifabsent: float(0.1)
