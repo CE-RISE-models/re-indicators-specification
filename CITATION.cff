@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: Project template for data models developed within the CE-RISE Horizon Europe project
+title: CE-RISE RE-Inidcators, Specification Data Model
 message: >-
   v0.0.1 - Initial sketch of project template.
 type: software
@@ -17,7 +17,7 @@ identifiers:
 repository-code: 'https://codeberg.org/CE-RISE_models/template-data-model'
 url: 'https://ce-rise-models.codeberg.page/template-data-model/'
 abstract: >-
-  Project template for data models developed within the CE-RISE Horizon Europe project.
+  This repository provides the data model specifying the RE-indicators in the CE-RISE project.
 keywords:
   - CE-RISE
   - Data Model

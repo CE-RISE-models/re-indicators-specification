@@ -1,7 +1,6 @@
-# CE-RISE Data Model Template
+# CE-RISE RE-Indicators Specification Data Model
 
-This repository provides the **official template** for creating CE-RISE data models.  
-It defines the standard structure, tooling, and workflow used across all model projects.
+This repository provides the data model specifying the RE-indicators in the CE-RISE project.
 
 ---
 
@@ -20,86 +19,16 @@ It defines the standard structure, tooling, and workflow used across all model p
 
 ---
 
-## Purpose
-
-Each data model in the CE-RISE ecosystem follows the same structure and build process.  
-This ensures consistent validation, translation, and release formats across models.
-
-Use this repository as a **template** when starting a new model:
-
-1. On Codeberg, click **“Use this template”**.  
-2. Name your new repository (for example `core-product-identification`).  
-3. Clone it locally:
-   ```bash
-   git clone https://codeberg.org/CE-RISE_models/core-product-identification
-   cd core-product-identification
-   ```
-
----
-
-## Define your model
-
-Edit `model/model.yaml` to define your data classes and attributes.
-
-Example:
-
-```yaml
-id: https://ce-rise-models.codeberg.page/core-product-identification/
-name: core_product_identification
-imports:
-  - linkml:types
-classes:
-  Product:
-    attributes:
-      product_id:
-        range: string
-        identifier: true
-      name:
-        range: string
-        description: Human-readable product name
-```
-
----
-
-## Generate schemas
-
-To produce the validation artifacts:
-
-```bash
-make all
-```
-
-This generates:
-- `generated/schema.json` — JSON Schema for API validation  
-- `generated/shacl.ttl` — SHACL for RDF validation  
-- `generated/model.owl` — OWL ontology export  
-
-You must commit generated files before pushing.
-
----
-
-## Continuous integration
-
-The repository includes a Forgejo Actions workflow at  
-`.forgejo/workflows/build.yml`.  
-
-It automatically:
-- installs LinkML,  
-- runs `make all`,  
-- verifies that generated artifacts are up to date.
 
 ---
 
 ## Publishing
 
-Each repository automatically publishes its Pages site at:
-
-```
-https://ce-rise-models.codeberg.page/<repo-name>/
-```
-
 Release artifacts for each version (`schema.json`, `shacl.ttl`, `model.owl`)  
-are served directly from this URL.
+are served directly from this URL:
+```
+https://ce-rise-models.codeberg.page/re-indicators-specification/
+```
 
 ---
 
@@ -113,16 +42,6 @@ git push origin v1.0.0
 ```
 
 Each tag corresponds to a published release of the model.
-
----
-
-## Derived projects
-
-All other CE-RISE model repositories must:
-- keep the same directory layout,
-- reference the template’s build workflow,
-- host release files under `https://ce-rise-models.codeberg.page/<repo-name>/`.
-
 
 ---
 <a href="https://europa.eu" target="_blank" rel="noopener noreferrer">
@@ -141,7 +60,4 @@ Attribution: CE-RISE project (Grant Agreement No. 101092281) and the individual 
   <img src="https://nilu.no/wp-content/uploads/2023/12/nilu-logo-seagreen-rgb-300px.png" alt="NILU logo" width="40"/>
 </a>
 
-Developed by NILU (Riccardo Boero — ribo@nilu.no) within the CE-RISE project.  
-
-
-
+Developed by EMPA and NILU (Riccardo Boero — ribo@nilu.no) within the CE-RISE project.
