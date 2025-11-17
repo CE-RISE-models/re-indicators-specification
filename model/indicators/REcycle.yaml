@@ -154,17 +154,217 @@ classes:
                 ifabsent: float(0)
 
     # ============================================
-    # PARAMETER 2: MATERIAL COMPOSITION (placeholder)
+    # PARAMETER 2: MATERIAL COMPOSITION
     # ============================================
 
     MaterialComposition_Parameter:
         is_a: ParameterSpecification
-        description: Material composition parameter - TO BE IMPLEMENTED
+        description: Material composition parameter
         attributes:
             id:
                 ifabsent: string(P2_material_composition)
             name:
                 ifabsent: string(Material composition)
+            questions:
+                range: MaterialCompositionQuestion
+                multivalued: true
+                inlined: true
+
+    MaterialCompositionQuestion:
+        is_a: QuestionSpecification
+        union_of:
+            - Q2_1_BOMCompleteness
+            - Q2_2_CRMInfo
+            - Q2_3_HazardousInfo
+
+    Q2_1_BOMCompleteness:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q2.1)
+            text:
+                ifabsent: string(How complete is the Bill of material (BoM))
+            weight:
+                ifabsent: float(0.33)
+            answer_options:
+                range: BOMCompletenessAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q2_2_CRMInfo:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q2.2)
+            text:
+                ifabsent: string(Information present on the presence and location of critical raw material (CRM))
+            weight:
+                ifabsent: float(0.33)
+            answer_options:
+                range: CRMAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q2_3_HazardousInfo:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q2.3)
+            text:
+                ifabsent: string(Information present on the concentration and location of hazardous material in the PV)
+            weight:
+                ifabsent: float(0.33)
+            answer_options:
+                range: HazardousAnswerOption
+                multivalued: true
+                inlined: true
+
+    # BOM Completeness answer options
+    BOMCompletenessAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - BOM_MoreThan90
+            - BOM_MoreThan80
+            - BOM_MoreThan70
+            - BOM_MoreThan60
+            - BOM_LessThan60
+            - BOM_NotAvailable
+
+    BOM_MoreThan90:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(bom_90plus)
+            text:
+                ifabsent: string(More than 90% of product mass)
+            score:
+                ifabsent: float(5)
+
+    BOM_MoreThan80:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(bom_80plus)
+            text:
+                ifabsent: string(More than 80% of product mass)
+            score:
+                ifabsent: float(4)
+
+    BOM_MoreThan70:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(bom_70plus)
+            text:
+                ifabsent: string(More than 70% of product mass)
+            score:
+                ifabsent: float(3)
+
+    BOM_MoreThan60:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(bom_60plus)
+            text:
+                ifabsent: string(More than 60% of product mass)
+            score:
+                ifabsent: float(2)
+
+    BOM_LessThan60:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(bom_less60)
+            text:
+                ifabsent: string(less than 60% of product mass)
+            score:
+                ifabsent: float(1)
+
+    BOM_NotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(bom_not_available)
+            text:
+                ifabsent: string(Data not available)
+            score:
+                ifabsent: float(0)
+
+    # CRM Information answer options
+    CRMAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - CRM_CompletelyDisclosed
+            - CRM_PartiallyDisclosed
+            - CRM_NotDisclosed
+
+    CRM_CompletelyDisclosed:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(crm_complete)
+            text:
+                ifabsent: string(Completely disclosed to professional recycler)
+            score:
+                ifabsent: float(5)
+
+    CRM_PartiallyDisclosed:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(crm_partial)
+            text:
+                ifabsent: string(Partially disclosed to professional recycler)
+            score:
+                ifabsent: float(3)
+
+    CRM_NotDisclosed:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(crm_not_disclosed)
+            text:
+                ifabsent: string(Not disclosed to professional recycler)
+            score:
+                ifabsent: float(0)
+
+    # Hazardous Material answer options
+    HazardousAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Hazardous_CompletelyDisclosed
+            - Hazardous_PartiallyDisclosed
+            - Hazardous_NotDisclosed
+
+    Hazardous_CompletelyDisclosed:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(hazardous_complete)
+            text:
+                ifabsent: string(Completely disclosed to professional recycler)
+            score:
+                ifabsent: float(5)
+
+    Hazardous_PartiallyDisclosed:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(hazardous_partial)
+            text:
+                ifabsent: string(Partially disclosed to professional recycler)
+            score:
+                ifabsent: float(3)
+
+    Hazardous_NotDisclosed:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(hazardous_not_disclosed)
+            text:
+                ifabsent: string(Not disclosed to professional recycler)
+            score:
+                ifabsent: float(1)
 
     # ============================================
     # PARAMETER 3: DEPOLLUTION (placeholder)
