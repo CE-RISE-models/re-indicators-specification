@@ -785,17 +785,239 @@ classes:
                 ifabsent: float(0)
 
     # ============================================
-    # PARAMETER 4: DISMANTLING (placeholder)
+    # PARAMETER 4: DISMANTLING
     # ============================================
 
     Dismantling_Parameter:
         is_a: ParameterSpecification
-        description: Dismantling parameter - TO BE IMPLEMENTED
+        description: Ease of dismantling parameter
         attributes:
             id:
                 ifabsent: string(P4_dismantling)
             name:
                 ifabsent: string(Dismantling)
+            questions:
+                range: DismantlingQuestion
+                multivalued: true
+                inlined: true
+
+    DismantlingQuestion:
+        is_a: QuestionSpecification
+        union_of:
+            - Q4_1_EaseDismantling
+            - Q4_2_JointTypes
+            - Q4_3_ToolsRequired
+
+    Q4_1_EaseDismantling:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.1.1)
+            text:
+                ifabsent: string(Ease of dismantling priority parts)
+            weight:
+                ifabsent: float(0.333333333)
+            answer_options:
+                range: EaseDismantlingAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q4_2_JointTypes:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.1.2)
+            text:
+                ifabsent: string(Type of joints in between to dismantle priority part)
+            weight:
+                ifabsent: float(0.333333333)
+            answer_options:
+                range: JointTypeAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q4_3_ToolsRequired:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.1.3)
+            text:
+                ifabsent: string(Type of tool required to dismantle priority part)
+            weight:
+                ifabsent: float(0.333333333)
+            answer_options:
+                range: DismantlingToolsAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Ease of Dismantling answer options
+    EaseDismantlingAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Dismantling_5StepsOrLess
+            - Dismantling_5To10Steps
+            - Dismantling_10To15Steps
+            - Dismantling_15To30Steps
+            - Dismantling_Over30Steps
+            - Dismantling_CannotDismantle
+            - Dismantling_DataNotAvailable
+
+    Dismantling_5StepsOrLess:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_5_or_less)
+            text:
+                ifabsent: string(5 ≥ x > 2 steps)
+            score:
+                ifabsent: float(5)
+
+    Dismantling_5To10Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_5_to_10)
+            text:
+                ifabsent: string(10 ≥ x > 5 steps)
+            score:
+                ifabsent: float(4)
+
+    Dismantling_10To15Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_10_to_15)
+            text:
+                ifabsent: string(15 ≥ x > 10 steps)
+            score:
+                ifabsent: float(3)
+
+    Dismantling_15To30Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_15_to_30)
+            text:
+                ifabsent: string(30 ≥ x > 15 steps)
+            score:
+                ifabsent: float(2)
+
+    Dismantling_Over30Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_over_30)
+            text:
+                ifabsent: string(x > 30)
+            score:
+                ifabsent: float(1)
+
+    Dismantling_CannotDismantle:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_cannot)
+            text:
+                ifabsent: string(Cannot be dismantled)
+            score:
+                ifabsent: float(0)
+
+    Dismantling_DataNotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_data_not_available)
+            text:
+                ifabsent: string(Data is not available)
+            score:
+                ifabsent: float(0)
+
+    # Joint Type answer options
+    JointTypeAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Joint_Removable
+            - Joint_NonRemovable
+
+    Joint_Removable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(joint_removable)
+            text:
+                ifabsent: string(removable)
+            score:
+                ifabsent: float(5)
+
+    Joint_NonRemovable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(joint_non_removable)
+            text:
+                ifabsent: string(non-removable)
+            score:
+                ifabsent: float(0)
+
+    # Dismantling Tools answer options
+    DismantlingToolsAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - DismantlingTools_NoToolsOrBasic
+            - DismantlingTools_ProductGroupSpecific
+            - DismantlingTools_CommerciallyAvailable
+            - DismantlingTools_Proprietary
+            - DismantlingTools_CannotDismantle
+
+    DismantlingTools_NoToolsOrBasic:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_tools_no_tools_basic)
+            text:
+                ifabsent: string(without tools/basic tools)
+            score:
+                ifabsent: float(5)
+
+    DismantlingTools_ProductGroupSpecific:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_tools_product_group_specific)
+            text:
+                ifabsent: string(with product group specific tools)
+            score:
+                ifabsent: float(4)
+
+    DismantlingTools_CommerciallyAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_tools_commercially_available)
+            text:
+                ifabsent: string(with commercially available tools)
+            score:
+                ifabsent: float(3)
+
+    DismantlingTools_Proprietary:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_tools_proprietary)
+            text:
+                ifabsent: string(with proprietary tools)
+            score:
+                ifabsent: float(2)
+
+    DismantlingTools_CannotDismantle:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(dismantling_tools_cannot)
+            text:
+                ifabsent: string(Cannot be dismantled)
+            score:
+                ifabsent: float(0)
 
     # ============================================
     # PARAMETER 5: RECYCLABILITY RATE (placeholder)
