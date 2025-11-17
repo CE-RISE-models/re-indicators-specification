@@ -1131,12 +1131,12 @@ classes:
                 ifabsent: float(0)
 
     # ============================================
-    # PARAMETER 6: TAKEBACK SCHEME (placeholder)
+    # PARAMETER 6: TAKEBACK SCHEME (Bonus)
     # ============================================
 
     TakebackScheme_Parameter:
         is_a: ParameterSpecification
-        description: Take-back scheme bonus parameter - TO BE IMPLEMENTED
+        description: Take-back scheme bonus parameter
         attributes:
             id:
                 ifabsent: string(P6_takeback_scheme)
@@ -1144,6 +1144,120 @@ classes:
                 ifabsent: string(Take back scheme_Bonus)
             is_bonus:
                 ifabsent: boolean(true)
+            questions:
+                range: TakebackSchemeQuestion
+                multivalued: true
+                inlined: true
+
+    TakebackSchemeQuestion:
+        is_a: QuestionSpecification
+        union_of:
+            - Q6_1_TakebackAvailable
+            - Q6_2_CollectionSystem
+
+    Q6_1_TakebackAvailable:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q6.1.1)
+            text:
+                ifabsent: string(Is there any take back scheme available on the product)
+            weight:
+                ifabsent: float(0.50)
+            answer_options:
+                range: TakebackAvailableAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q6_2_CollectionSystem:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q6.1.2)
+            text:
+                ifabsent: string(Collection system for returning the product (if any))
+            weight:
+                ifabsent: float(0.50)
+            answer_options:
+                range: CollectionSystemAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Take-back Available answer options
+    TakebackAvailableAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Takeback_SystemApplicable
+            - Takeback_NotApplicable
+            - Takeback_DataNotAvailable
+
+    Takeback_SystemApplicable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(takeback_system_applicable)
+            text:
+                ifabsent: string(Take back system applicable)
+            score:
+                ifabsent: float(5)
+
+    Takeback_NotApplicable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(takeback_not_applicable)
+            text:
+                ifabsent: string(Not applicable)
+            score:
+                ifabsent: float(0)
+
+    Takeback_DataNotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(takeback_data_not_available)
+            text:
+                ifabsent: string(Data is not available)
+            score:
+                ifabsent: float(0)
+
+    # Collection System answer options
+    CollectionSystemAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Collection_FreePickup
+            - Collection_CustomerPays
+            - Collection_NotApplicable
+
+    Collection_FreePickup:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(collection_free_pickup)
+            text:
+                ifabsent: string(Free of Cost (pickup service provided))
+            score:
+                ifabsent: float(5)
+
+    Collection_CustomerPays:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(collection_customer_pays)
+            text:
+                ifabsent: string(Customer has to pay for the take back service)
+            score:
+                ifabsent: float(1)
+
+    Collection_NotApplicable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(collection_not_applicable)
+            text:
+                ifabsent: string(Not applicable)
+            score:
+                ifabsent: float(0)
 
     # ============================================
     # INDICATOR-PRODUCT CONFIGURATIONS
