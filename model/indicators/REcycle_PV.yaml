@@ -1,7 +1,7 @@
-id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle
-name: re_indicators_recycle
-title: REcycle Indicator Specifications
-description: Recyclability indicator specifications with reusable parameters and questions
+id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle_PV
+name: re_indicators_recycle_pv
+title: REcycle Indicator Specifications for PV Panels
+description: Recyclability indicator specifications specifically for photovoltaic panels - other products will have different parameters and questions
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -1260,21 +1260,21 @@ classes:
                 ifabsent: float(0.0)
 
     # ============================================
-    # INDICATOR-PRODUCT CONFIGURATIONS
+    # INDICATOR-PRODUCT CONFIGURATIONS FOR PV
     # ============================================
 
     REcycle_Configuration:
         is_a: IndicatorProductConfiguration
-        description: Base configuration for REcycle indicator
+        description: Base configuration for REcycle indicator - PV specific implementation
         abstract: true
         attributes:
             indicator_type:
                 ifabsent: IndicatorType(REcycle)
 
-    # Example configurations showing how products use parameters with different weights
+    # PV-specific configuration with parameters designed for photovoltaic panels
     REcycle_PV_Config:
         is_a: REcycle_Configuration
-        description: Configuration for REcycle applied to PV panels
+        description: Configuration for REcycle specifically designed for PV panels - complete implementation
         attributes:
             id:
                 ifabsent: string(REcycle_PV)
@@ -1299,9 +1299,10 @@ classes:
                     - parameter_ref: P6_takeback_scheme
                       weight: 0.1
 
+    # NOTE: Battery will have completely different parameters and questions - to be implemented
     REcycle_Battery_Config:
         is_a: REcycle_Configuration
-        description: Configuration for REcycle applied to Batteries
+        description: PLACEHOLDER - Battery REcycle will have different parameters and questions from PV
         attributes:
             id:
                 ifabsent: string(REcycle_Battery)
@@ -1325,9 +1326,10 @@ classes:
                       weight: 0.05
                     # Note: P4_dismantling not included for batteries
 
+    # NOTE: Laptop will have completely different parameters and questions - to be implemented
     REcycle_Laptop_Config:
         is_a: REcycle_Configuration
-        description: Configuration for REcycle applied to Laptops
+        description: PLACEHOLDER - Laptop REcycle will have different parameters and questions from PV
         attributes:
             id:
                 ifabsent: string(REcycle_Laptop)

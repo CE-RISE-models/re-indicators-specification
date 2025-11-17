@@ -36,55 +36,49 @@ Defines abstract classes that form the foundation:
 - **Assessments**: Structure for recording actual product evaluations
 
 ### 2. Indicator Specifications Layer (`model/indicators/`)
-Defines the concrete parameters and questions for each indicator:
+Defines the concrete parameters and questions for each indicator **per product type**:
 
 ```yaml
-# Example: REcycle indicator structure
-REcycle:
-  Parameters (same for all products):
-    - Documentation availability
-    - Material composition  
-    - Depollution
-    - Dismantling
-    - Recyclability rate
-    - Take-back scheme (bonus)
+# Example: REcycle indicator for PV panels
+REcycle_PV:
+  Parameters (specific to PV panels):
+    - Documentation availability (4 questions)
+    - Material composition (3 questions)
+    - Depollution (5 questions)
+    - Dismantling (3 questions)
+    - Recyclability rate (2 questions)
+    - Take-back scheme - bonus (2 questions)
   
-  Questions per parameter (same for all products using that parameter):
+  Total: 19 questions with answer options (score 0-5)
+  
+  Questions per parameter example:
     Documentation:
       - Q1.1: Unique Product identifier (weight: 0.05)
       - Q1.2: Bill of materials (weight: 0.45)
       - Q1.3: Safety manual (weight: 0.25)
       - Q1.4: Disassembly manual (weight: 0.25)
+
+# Note: Other products (Battery, Laptop, Printer, HVAC) will have 
+# different parameters, questions, and scoring for their REcycle indicator
 ```
 
 ### 3. Product Configurations Layer
 Specifies how indicators apply to specific products:
 
 ```yaml
-REcycle for PV (v1.0):
-  - Documentation (weight: 0.1) → uses Q1.1, Q1.2, Q1.3, Q1.4
-  - Material composition (weight: 0.3) → uses its defined questions
-  - Depollution (weight: 0.1) → uses its defined questions
-  - Dismantling (weight: 0.1) → uses its defined questions
-  - Recyclability rate (weight: 0.4) → uses its defined questions
-  - Take-back scheme (weight: 0.1) → uses its defined questions
-
-REcycle for Battery (v1.0):
-  - Documentation (weight: 0.15) → uses Q1.1, Q1.2, Q1.3, Q1.4
-  - Material composition (weight: 0.35) → uses its defined questions
-  - Depollution (weight: 0.2) → uses its defined questions
-  - Recyclability rate (weight: 0.25) → uses its defined questions
-  - Take-back scheme (weight: 0.05) → uses its defined questions
-  # Note: Dismantling not included for batteries
+REcycle for all products:
+  - Uses the same 6 parameters with 19 questions total
+  - Same scoring structure (0-5) for all answer options
+  - Product type is tracked but does not affect scoring or questions
+  - All products assessed identically using the same indicator structure
 ```
 
 ### Key Design Principles
 
-1. **Fixed Structure**: Indicators and parameters are always the same
-2. **Shared Questions**: All products using a parameter get the same questions
-3. **Variable Weights**: Each product can assign different weights to parameters
-4. **Optional Parameters**: Products can exclude parameters (e.g., Battery excludes Dismantling)
-5. **Version Lock**: Git tags (e.g., v1.0.0) lock the complete specification
+1. **Product-Specific Indicators**: Each product type has its own set of parameters and questions for each indicator
+2. **Independent Specifications**: REcycle for PV is completely different from REcycle for Battery, Laptop, etc.
+3. **Variable Structure**: Each product can have different parameters, questions, answer options, and scoring
+4. **Version Lock**: Git tags (e.g., v1.0.0) lock the complete specification for all products
 
 ### How Versioning Works
 
@@ -105,7 +99,7 @@ The CE-RISE project defines 5 core Resource Efficiency indicators:
 
 | Indicator | Status | Products | Parameters Defined | Questions Defined |
 |-----------|--------|----------|-------------------|-------------------|
-| **REcycle** | Partial | PV (complete), Battery (not started) | 6/6 (placeholders) | Documentation only |
+| **REcycle** | PV Complete, Others Not Started | PV (complete), Battery, Laptop, Printer, HVAC | PV: 6/6 | PV: 19/19 (all with answer options) |
 | **REuse** | Not started | Laptop, Printer | 0 | 0 |
 | **REpair** | Not started | Laptop, Printer, HVAC | 0 | 0 |
 | **REmanufacture** | Not started | Laptop, Printer | 0 | 0 |
@@ -114,34 +108,39 @@ The CE-RISE project defines 5 core Resource Efficiency indicators:
 ### Current Implementation Status
 
 #### Completed
-- Core meta-model with abstract classes
-- REcycle indicator structure with 6 parameters defined
-- Documentation parameter fully implemented with 4 questions and answer options
-- Product-specific application for PV with weights
-
-#### In Progress
-- Questions and answers for remaining 5 REcycle parameters (Material Composition, Depollution, Dismantling, Recyclability Rate, Take-back Scheme)
-- Battery product specification for REcycle
-- Additional products for REcycle (Laptop, Printer, HVAC)
+- Core meta-model with abstract classes for indicators, parameters, questions, and assessments
+- REcycle indicator for PV panels fully implemented with 6 parameters:
+  - Documentation availability (4 questions)
+  - Material composition (3 questions)
+  - Depollution (5 questions)
+  - Dismantling (3 questions)
+  - Recyclability rate (2 questions)
+  - Take-back scheme - Bonus (2 questions)
+- All 19 questions for PV REcycle defined with complete answer options and scoring (0-5 scale)
+- JSON Schema and SHACL generation working
+- Scoring structure preserved with proper data types
 
 #### TODO
+- REcycle indicator for Battery (completely different from PV)
+- REcycle indicator for Laptop (completely different from PV)
+- REcycle indicator for Printer (completely different from PV)
+- REcycle indicator for HVAC (completely different from PV)
 - REuse indicator specification
 - REpair indicator specification  
 - REmanufacture indicator specification
 - REfurbish indicator specification
-- Validation tests for all indicators
 - Sample assessment data
-- JSON Schema generation
-- SHACL/OWL exports
+- Validation tests for all indicators
+- OWL export optimization
 
 ### Next Steps
-1. Define questions and answers for the 5 remaining REcycle parameters
-2. Complete Battery specification for REcycle
-3. Add remaining products for REcycle (Laptop, Printer, HVAC)
-4. Define REuse parameters and questions
-5. Define REpair parameters and questions
-6. Define REmanufacture and REfurbish specifications
-7. Create sample assessments for validation
+1. Define REcycle indicator specifications for Battery, Laptop, Printer, and HVAC (each with their own parameters and questions)
+2. Define REuse indicator parameters and questions for Laptop and Printer
+3. Define REpair indicator parameters and questions for Laptop, Printer, and HVAC
+4. Define REmanufacture indicator for Laptop and Printer
+5. Define REfurbish indicator for Laptop and Printer
+6. Create sample assessments for validation
+7. Implement validation test suite
 
 ---
 

@@ -12,8 +12,12 @@ prefixes:
 imports:
     - linkml:types
     # Import all indicator specifications
-    - ./indicators/REcycle
+    - ./indicators/REcycle_PV
     # Future specifications can be added here:
+    # - ./indicators/REcycle_Battery
+    # - ./indicators/REcycle_Laptop
+    # - ./indicators/REcycle_Printer
+    # - ./indicators/REcycle_HVAC
     # - ./indicators/REuse
     # - ./indicators/REpair
     # - ./indicators/REmanufacture
