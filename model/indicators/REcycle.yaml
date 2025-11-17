@@ -1020,17 +1020,115 @@ classes:
                 ifabsent: float(0)
 
     # ============================================
-    # PARAMETER 5: RECYCLABILITY RATE (placeholder)
+    # PARAMETER 5: RECYCLABILITY RATE
     # ============================================
 
     RecyclabilityRate_Parameter:
         is_a: ParameterSpecification
-        description: Recyclability rate parameter - TO BE IMPLEMENTED
+        description: Recyclability rate parameter
         attributes:
             id:
                 ifabsent: string(P5_recyclability_rate)
             name:
                 ifabsent: string(Recyclability rate)
+            questions:
+                range: RecyclabilityRateQuestion
+                multivalued: true
+                inlined: true
+
+    RecyclabilityRateQuestion:
+        is_a: QuestionSpecification
+        union_of:
+            - Q5_1_ProductRecyclability
+            - Q5_2_PriorityPartRecyclability
+
+    Q5_1_ProductRecyclability:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q5.1)
+            text:
+                ifabsent: string(Recyclability rate of product)
+            weight:
+                ifabsent: float(0.6)
+            answer_options:
+                range: RecyclabilityRateAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q5_2_PriorityPartRecyclability:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q5.2.1)
+            text:
+                ifabsent: string(Recyclability rate of priority part)
+            weight:
+                ifabsent: float(0.4)
+            answer_options:
+                range: RecyclabilityRateAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Recyclability Rate answer options (shared by both questions)
+    RecyclabilityRateAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - RecRate_MoreThan60
+            - RecRate_Between50And60
+            - RecRate_Below50
+            - RecRate_CannotRecycle
+            - RecRate_DataNotAvailable
+
+    RecRate_MoreThan60:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(rec_rate_more_than_60)
+            text:
+                ifabsent: string(More than 60%)
+            score:
+                ifabsent: float(5)
+
+    RecRate_Between50And60:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(rec_rate_50_to_60)
+            text:
+                ifabsent: string(Between 60-50%)
+            score:
+                ifabsent: float(3)
+
+    RecRate_Below50:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(rec_rate_below_50)
+            text:
+                ifabsent: string(Below 50%)
+            score:
+                ifabsent: float(1)
+
+    RecRate_CannotRecycle:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(rec_rate_cannot_recycle)
+            text:
+                ifabsent: string(Cannot be recycled)
+            score:
+                ifabsent: float(0)
+
+    RecRate_DataNotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(rec_rate_data_not_available)
+            text:
+                ifabsent: string(Data is not available)
+            score:
+                ifabsent: float(0)
 
     # ============================================
     # PARAMETER 6: TAKEBACK SCHEME (placeholder)
