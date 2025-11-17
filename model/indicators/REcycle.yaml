@@ -367,17 +367,422 @@ classes:
                 ifabsent: float(1)
 
     # ============================================
-    # PARAMETER 3: DEPOLLUTION (placeholder)
+    # PARAMETER 3: DEPOLLUTION
     # ============================================
 
     Depollution_Parameter:
         is_a: ParameterSpecification
-        description: Depollution parameter - TO BE IMPLEMENTED
+        description: Ease of depollution parameter
         attributes:
             id:
                 ifabsent: string(P3_depollution)
             name:
                 ifabsent: string(Depollution)
+            questions:
+                range: DepollutionQuestion
+                multivalued: true
+                inlined: true
+
+    DepollutionQuestion:
+        is_a: QuestionSpecification
+        union_of:
+            - Q3_1_ComponentList
+            - Q3_2_IdentifyPollutant
+            - Q3_3_EaseRemovability
+            - Q3_4_ToolsRequired
+            - Q3_5_FastenerType
+
+    Q3_1_ComponentList:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q3.1)
+            text:
+                ifabsent: string(List of components/material requires to be removed during depollution process)
+            weight:
+                ifabsent: float(0.20)
+            answer_options:
+                range: ComponentListAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q3_2_IdentifyPollutant:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q3.2)
+            text:
+                ifabsent: string(Ability to identify the pollutant component/material (e.g. marking / labelling))
+            weight:
+                ifabsent: float(0.20)
+            answer_options:
+                range: IdentifyPollutantAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q3_3_EaseRemovability:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q3.3)
+            text:
+                ifabsent: string(Ease of removability of pollutant component/material (Disassembly depth))
+            weight:
+                ifabsent: float(0.20)
+            answer_options:
+                range: EaseRemovabilityAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q3_4_ToolsRequired:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q3.4)
+            text:
+                ifabsent: string(Type of tools required to remove the pollutant component)
+            weight:
+                ifabsent: float(0.20)
+            answer_options:
+                range: ToolsRequiredAnswerOption
+                multivalued: true
+                inlined: true
+
+    Q3_5_FastenerType:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q3.5)
+            text:
+                ifabsent: string(Type of fastener connecting the pollutant component)
+            weight:
+                ifabsent: float(0.20)
+            answer_options:
+                range: FastenerTypeAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Component List answer options
+    ComponentListAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - CompList_DepollutionNotRequired
+            - CompList_PubliclyAvailable
+            - CompList_IndependentRecyclers
+            - CompList_AuthorizedRecyclers
+            - CompList_ManufacturersOnly
+            - CompList_NotAvailable
+
+    CompList_DepollutionNotRequired:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(complist_not_required)
+            text:
+                ifabsent: string(Depollution not required)
+            score:
+                ifabsent: float(5)
+
+    CompList_PubliclyAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(complist_public)
+            text:
+                ifabsent: string(Publicly available)
+            score:
+                ifabsent: float(5)
+
+    CompList_IndependentRecyclers:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(complist_independent)
+            text:
+                ifabsent: string(Available to independent recyclers)
+            score:
+                ifabsent: float(4)
+
+    CompList_AuthorizedRecyclers:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(complist_authorized)
+            text:
+                ifabsent: string(Available to manufacturer-authorized recyclers providers)
+            score:
+                ifabsent: float(3)
+
+    CompList_ManufacturersOnly:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(complist_manufacturers)
+            text:
+                ifabsent: string(Available to manufactures only)
+            score:
+                ifabsent: float(1)
+
+    CompList_NotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(complist_not_available)
+            text:
+                ifabsent: string(Data is not available)
+            score:
+                ifabsent: float(0)
+
+    # Identify Pollutant answer options
+    IdentifyPollutantAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Identify_DepollutionNotRequired
+            - Identify_WellMarked
+            - Identify_NotMarkedButIdentifiable
+            - Identify_NotMarkedNotIdentifiable
+
+    Identify_DepollutionNotRequired:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(identify_not_required)
+            text:
+                ifabsent: string(Depollution not required)
+            score:
+                ifabsent: float(5)
+
+    Identify_WellMarked:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(identify_well_marked)
+            text:
+                ifabsent: string(Well marked and identifiable)
+            score:
+                ifabsent: float(5)
+
+    Identify_NotMarkedButIdentifiable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(identify_not_marked_identifiable)
+            text:
+                ifabsent: string(not-marked but identifiable)
+            score:
+                ifabsent: float(3)
+
+    Identify_NotMarkedNotIdentifiable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(identify_not_marked_not_identifiable)
+            text:
+                ifabsent: string(not marked and not identifiable)
+            score:
+                ifabsent: float(1)
+
+    # Ease of Removability answer options
+    EaseRemovabilityAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Removability_DepollutionNotRequired
+            - Removability_5StepsOrLess
+            - Removability_5To10Steps
+            - Removability_10To15Steps
+            - Removability_15To30Steps
+            - Removability_Over30Steps
+            - Removability_CannotDisassemble
+            - Removability_DataNotAvailable
+
+    Removability_DepollutionNotRequired:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_not_required)
+            text:
+                ifabsent: string(Depollution not required)
+            score:
+                ifabsent: float(5)
+
+    Removability_5StepsOrLess:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_5_or_less)
+            text:
+                ifabsent: string(5 ≥ x > 2 steps)
+            score:
+                ifabsent: float(5)
+
+    Removability_5To10Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_5_to_10)
+            text:
+                ifabsent: string(10 ≥ x > 5 steps)
+            score:
+                ifabsent: float(4)
+
+    Removability_10To15Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_10_to_15)
+            text:
+                ifabsent: string(15 ≥ x > 10 steps)
+            score:
+                ifabsent: float(3)
+
+    Removability_15To30Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_15_to_30)
+            text:
+                ifabsent: string(30 ≥ x > 15 steps)
+            score:
+                ifabsent: float(2)
+
+    Removability_Over30Steps:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_over_30)
+            text:
+                ifabsent: string(x > 30)
+            score:
+                ifabsent: float(1)
+
+    Removability_CannotDisassemble:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_cannot_disassemble)
+            text:
+                ifabsent: string(Cannot be disassembled)
+            score:
+                ifabsent: float(0)
+
+    Removability_DataNotAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(removability_data_not_available)
+            text:
+                ifabsent: string(Data is not available)
+            score:
+                ifabsent: float(0)
+
+    # Tools Required answer options
+    ToolsRequiredAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Tools_DepollutionNotRequired
+            - Tools_NoToolsOrBasic
+            - Tools_ProductGroupSpecific
+            - Tools_CommerciallyAvailable
+            - Tools_Proprietary
+            - Tools_CannotDismantle
+
+    Tools_DepollutionNotRequired:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(tools_not_required)
+            text:
+                ifabsent: string(Depollution not required)
+            score:
+                ifabsent: float(5)
+
+    Tools_NoToolsOrBasic:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(tools_no_tools_basic)
+            text:
+                ifabsent: string(without tools/ basic tools)
+            score:
+                ifabsent: float(5)
+
+    Tools_ProductGroupSpecific:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(tools_product_group_specific)
+            text:
+                ifabsent: string(with product group specific tools)
+            score:
+                ifabsent: float(4)
+
+    Tools_CommerciallyAvailable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(tools_commercially_available)
+            text:
+                ifabsent: string(with commercially available tools)
+            score:
+                ifabsent: float(3)
+
+    Tools_Proprietary:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(tools_proprietary)
+            text:
+                ifabsent: string(with proprietary tools)
+            score:
+                ifabsent: float(2)
+
+    Tools_CannotDismantle:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(tools_cannot_dismantle)
+            text:
+                ifabsent: string(Cannot be dismantle)
+            score:
+                ifabsent: float(0)
+
+    # Fastener Type answer options
+    FastenerTypeAnswerOption:
+        is_a: AnswerOption
+        union_of:
+            - Fastener_DepollutionNotRequired
+            - Fastener_Removable
+            - Fastener_NonRemovable
+
+    Fastener_DepollutionNotRequired:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(fastener_not_required)
+            text:
+                ifabsent: string(Depollution not required)
+            score:
+                ifabsent: float(5)
+
+    Fastener_Removable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(fastener_removable)
+            text:
+                ifabsent: string(removable)
+            score:
+                ifabsent: float(5)
+
+    Fastener_NonRemovable:
+        is_a: AnswerOption
+        attributes:
+            id:
+                ifabsent: string(fastener_non_removable)
+            text:
+                ifabsent: string(non-removable)
+            score:
+                ifabsent: float(0)
 
     # ============================================
     # PARAMETER 4: DISMANTLING (placeholder)
