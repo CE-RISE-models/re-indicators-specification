@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 title: CE-RISE RE-Indicators, Specification Data Model
 message: >-
-  v0.0.1 - Initial sketch of data model and project structure.
+  v0.0.2 - Implementation of REcyclability indicator.
 type: software
 doi: 10.5281/zenodo.17610026
 authors:
