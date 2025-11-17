@@ -111,7 +111,7 @@ classes:
             text:
                 ifabsent: string(Publicly available)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Doc_IndependentRecyclers:
         is_a: AnswerOption
@@ -121,7 +121,7 @@ classes:
             text:
                 ifabsent: string(Available to independent recyclers)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     Doc_AuthorizedRecyclers:
         is_a: AnswerOption
@@ -131,7 +131,7 @@ classes:
             text:
                 ifabsent: string(Available to manufacturer-authorized recyclers providers)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     Doc_ManufacturersOnly:
         is_a: AnswerOption
@@ -141,7 +141,7 @@ classes:
             text:
                 ifabsent: string(Available to manufactures only)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     Doc_NotAvailable:
         is_a: AnswerOption
@@ -151,7 +151,7 @@ classes:
             text:
                 ifabsent: string(Document is not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # ============================================
     # PARAMETER 2: MATERIAL COMPOSITION
@@ -238,7 +238,7 @@ classes:
             text:
                 ifabsent: string(More than 90% of product mass)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     BOM_MoreThan80:
         is_a: AnswerOption
@@ -248,7 +248,7 @@ classes:
             text:
                 ifabsent: string(More than 80% of product mass)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     BOM_MoreThan70:
         is_a: AnswerOption
@@ -258,7 +258,7 @@ classes:
             text:
                 ifabsent: string(More than 70% of product mass)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     BOM_MoreThan60:
         is_a: AnswerOption
@@ -268,7 +268,7 @@ classes:
             text:
                 ifabsent: string(More than 60% of product mass)
             score:
-                ifabsent: float(2)
+                ifabsent: float(2.0)
 
     BOM_LessThan60:
         is_a: AnswerOption
@@ -278,7 +278,7 @@ classes:
             text:
                 ifabsent: string(less than 60% of product mass)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     BOM_NotAvailable:
         is_a: AnswerOption
@@ -288,7 +288,7 @@ classes:
             text:
                 ifabsent: string(Data not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # CRM Information answer options
     CRMAnswerOption:
@@ -306,7 +306,7 @@ classes:
             text:
                 ifabsent: string(Completely disclosed to professional recycler)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     CRM_PartiallyDisclosed:
         is_a: AnswerOption
@@ -316,7 +316,7 @@ classes:
             text:
                 ifabsent: string(Partially disclosed to professional recycler)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     CRM_NotDisclosed:
         is_a: AnswerOption
@@ -326,7 +326,7 @@ classes:
             text:
                 ifabsent: string(Not disclosed to professional recycler)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Hazardous Material answer options
     HazardousAnswerOption:
@@ -344,7 +344,7 @@ classes:
             text:
                 ifabsent: string(Completely disclosed to professional recycler)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Hazardous_PartiallyDisclosed:
         is_a: AnswerOption
@@ -354,7 +354,7 @@ classes:
             text:
                 ifabsent: string(Partially disclosed to professional recycler)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     Hazardous_NotDisclosed:
         is_a: AnswerOption
@@ -364,7 +364,7 @@ classes:
             text:
                 ifabsent: string(Not disclosed to professional recycler)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     # ============================================
     # PARAMETER 3: DEPOLLUTION
@@ -481,7 +481,7 @@ classes:
             text:
                 ifabsent: string(Depollution not required)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     CompList_PubliclyAvailable:
         is_a: AnswerOption
@@ -491,7 +491,7 @@ classes:
             text:
                 ifabsent: string(Publicly available)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     CompList_IndependentRecyclers:
         is_a: AnswerOption
@@ -501,7 +501,7 @@ classes:
             text:
                 ifabsent: string(Available to independent recyclers)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     CompList_AuthorizedRecyclers:
         is_a: AnswerOption
@@ -511,7 +511,7 @@ classes:
             text:
                 ifabsent: string(Available to manufacturer-authorized recyclers providers)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     CompList_ManufacturersOnly:
         is_a: AnswerOption
@@ -521,7 +521,7 @@ classes:
             text:
                 ifabsent: string(Available to manufactures only)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     CompList_NotAvailable:
         is_a: AnswerOption
@@ -531,7 +531,7 @@ classes:
             text:
                 ifabsent: string(Data is not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Identify Pollutant answer options
     IdentifyPollutantAnswerOption:
@@ -550,7 +550,7 @@ classes:
             text:
                 ifabsent: string(Depollution not required)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Identify_WellMarked:
         is_a: AnswerOption
@@ -560,7 +560,7 @@ classes:
             text:
                 ifabsent: string(Well marked and identifiable)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Identify_NotMarkedButIdentifiable:
         is_a: AnswerOption
@@ -570,7 +570,7 @@ classes:
             text:
                 ifabsent: string(not-marked but identifiable)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     Identify_NotMarkedNotIdentifiable:
         is_a: AnswerOption
@@ -580,7 +580,7 @@ classes:
             text:
                 ifabsent: string(not marked and not identifiable)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     # Ease of Removability answer options
     EaseRemovabilityAnswerOption:
@@ -603,7 +603,7 @@ classes:
             text:
                 ifabsent: string(Depollution not required)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Removability_5StepsOrLess:
         is_a: AnswerOption
@@ -613,7 +613,7 @@ classes:
             text:
                 ifabsent: string(5 ≥ x > 2 steps)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Removability_5To10Steps:
         is_a: AnswerOption
@@ -623,7 +623,7 @@ classes:
             text:
                 ifabsent: string(10 ≥ x > 5 steps)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     Removability_10To15Steps:
         is_a: AnswerOption
@@ -633,7 +633,7 @@ classes:
             text:
                 ifabsent: string(15 ≥ x > 10 steps)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     Removability_15To30Steps:
         is_a: AnswerOption
@@ -643,7 +643,7 @@ classes:
             text:
                 ifabsent: string(30 ≥ x > 15 steps)
             score:
-                ifabsent: float(2)
+                ifabsent: float(2.0)
 
     Removability_Over30Steps:
         is_a: AnswerOption
@@ -653,7 +653,7 @@ classes:
             text:
                 ifabsent: string(x > 30)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     Removability_CannotDisassemble:
         is_a: AnswerOption
@@ -663,7 +663,7 @@ classes:
             text:
                 ifabsent: string(Cannot be disassembled)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     Removability_DataNotAvailable:
         is_a: AnswerOption
@@ -673,7 +673,7 @@ classes:
             text:
                 ifabsent: string(Data is not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Tools Required answer options
     ToolsRequiredAnswerOption:
@@ -694,7 +694,7 @@ classes:
             text:
                 ifabsent: string(Depollution not required)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Tools_NoToolsOrBasic:
         is_a: AnswerOption
@@ -704,7 +704,7 @@ classes:
             text:
                 ifabsent: string(without tools/ basic tools)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Tools_ProductGroupSpecific:
         is_a: AnswerOption
@@ -714,7 +714,7 @@ classes:
             text:
                 ifabsent: string(with product group specific tools)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     Tools_CommerciallyAvailable:
         is_a: AnswerOption
@@ -724,7 +724,7 @@ classes:
             text:
                 ifabsent: string(with commercially available tools)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     Tools_Proprietary:
         is_a: AnswerOption
@@ -734,7 +734,7 @@ classes:
             text:
                 ifabsent: string(with proprietary tools)
             score:
-                ifabsent: float(2)
+                ifabsent: float(2.0)
 
     Tools_CannotDismantle:
         is_a: AnswerOption
@@ -744,7 +744,7 @@ classes:
             text:
                 ifabsent: string(Cannot be dismantle)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Fastener Type answer options
     FastenerTypeAnswerOption:
@@ -762,7 +762,7 @@ classes:
             text:
                 ifabsent: string(Depollution not required)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Fastener_Removable:
         is_a: AnswerOption
@@ -772,7 +772,7 @@ classes:
             text:
                 ifabsent: string(removable)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Fastener_NonRemovable:
         is_a: AnswerOption
@@ -782,7 +782,7 @@ classes:
             text:
                 ifabsent: string(non-removable)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # ============================================
     # PARAMETER 4: DISMANTLING
@@ -870,7 +870,7 @@ classes:
             text:
                 ifabsent: string(5 ≥ x > 2 steps)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Dismantling_5To10Steps:
         is_a: AnswerOption
@@ -880,7 +880,7 @@ classes:
             text:
                 ifabsent: string(10 ≥ x > 5 steps)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     Dismantling_10To15Steps:
         is_a: AnswerOption
@@ -890,7 +890,7 @@ classes:
             text:
                 ifabsent: string(15 ≥ x > 10 steps)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     Dismantling_15To30Steps:
         is_a: AnswerOption
@@ -900,7 +900,7 @@ classes:
             text:
                 ifabsent: string(30 ≥ x > 15 steps)
             score:
-                ifabsent: float(2)
+                ifabsent: float(2.0)
 
     Dismantling_Over30Steps:
         is_a: AnswerOption
@@ -910,7 +910,7 @@ classes:
             text:
                 ifabsent: string(x > 30)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     Dismantling_CannotDismantle:
         is_a: AnswerOption
@@ -920,7 +920,7 @@ classes:
             text:
                 ifabsent: string(Cannot be dismantled)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     Dismantling_DataNotAvailable:
         is_a: AnswerOption
@@ -930,7 +930,7 @@ classes:
             text:
                 ifabsent: string(Data is not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Joint Type answer options
     JointTypeAnswerOption:
@@ -947,7 +947,7 @@ classes:
             text:
                 ifabsent: string(removable)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Joint_NonRemovable:
         is_a: AnswerOption
@@ -957,7 +957,7 @@ classes:
             text:
                 ifabsent: string(non-removable)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Dismantling Tools answer options
     DismantlingToolsAnswerOption:
@@ -977,7 +977,7 @@ classes:
             text:
                 ifabsent: string(without tools/basic tools)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     DismantlingTools_ProductGroupSpecific:
         is_a: AnswerOption
@@ -987,7 +987,7 @@ classes:
             text:
                 ifabsent: string(with product group specific tools)
             score:
-                ifabsent: float(4)
+                ifabsent: float(4.0)
 
     DismantlingTools_CommerciallyAvailable:
         is_a: AnswerOption
@@ -997,7 +997,7 @@ classes:
             text:
                 ifabsent: string(with commercially available tools)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     DismantlingTools_Proprietary:
         is_a: AnswerOption
@@ -1007,7 +1007,7 @@ classes:
             text:
                 ifabsent: string(with proprietary tools)
             score:
-                ifabsent: float(2)
+                ifabsent: float(2.0)
 
     DismantlingTools_CannotDismantle:
         is_a: AnswerOption
@@ -1017,7 +1017,7 @@ classes:
             text:
                 ifabsent: string(Cannot be dismantled)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # ============================================
     # PARAMETER 5: RECYCLABILITY RATE
@@ -1088,7 +1088,7 @@ classes:
             text:
                 ifabsent: string(More than 60%)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     RecRate_Between50And60:
         is_a: AnswerOption
@@ -1098,7 +1098,7 @@ classes:
             text:
                 ifabsent: string(Between 60-50%)
             score:
-                ifabsent: float(3)
+                ifabsent: float(3.0)
 
     RecRate_Below50:
         is_a: AnswerOption
@@ -1108,7 +1108,7 @@ classes:
             text:
                 ifabsent: string(Below 50%)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     RecRate_CannotRecycle:
         is_a: AnswerOption
@@ -1118,7 +1118,7 @@ classes:
             text:
                 ifabsent: string(Cannot be recycled)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     RecRate_DataNotAvailable:
         is_a: AnswerOption
@@ -1128,7 +1128,7 @@ classes:
             text:
                 ifabsent: string(Data is not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # ============================================
     # PARAMETER 6: TAKEBACK SCHEME (Bonus)
@@ -1199,7 +1199,7 @@ classes:
             text:
                 ifabsent: string(Take back system applicable)
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Takeback_NotApplicable:
         is_a: AnswerOption
@@ -1209,7 +1209,7 @@ classes:
             text:
                 ifabsent: string(Not applicable)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     Takeback_DataNotAvailable:
         is_a: AnswerOption
@@ -1219,7 +1219,7 @@ classes:
             text:
                 ifabsent: string(Data is not available)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # Collection System answer options
     CollectionSystemAnswerOption:
@@ -1237,7 +1237,7 @@ classes:
             text:
                 ifabsent: string(Free of Cost (pickup service provided))
             score:
-                ifabsent: float(5)
+                ifabsent: float(5.0)
 
     Collection_CustomerPays:
         is_a: AnswerOption
@@ -1247,7 +1247,7 @@ classes:
             text:
                 ifabsent: string(Customer has to pay for the take back service)
             score:
-                ifabsent: float(1)
+                ifabsent: float(1.0)
 
     Collection_NotApplicable:
         is_a: AnswerOption
@@ -1257,7 +1257,7 @@ classes:
             text:
                 ifabsent: string(Not applicable)
             score:
-                ifabsent: float(0)
+                ifabsent: float(0.0)
 
     # ============================================
     # INDICATOR-PRODUCT CONFIGURATIONS
