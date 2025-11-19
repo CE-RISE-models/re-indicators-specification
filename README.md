@@ -154,16 +154,18 @@ https://ce-rise-models.codeberg.page/re-indicators-specification/
 
 ---
 
-## Versioning
+## Accessing Previous Releases
 
-Follow [Semantic Versioning](https://semver.org/):
+If you want to view the files published for version `v1.2.0`, open:
 
-```bash
-git tag -a v1.0.0 -m "First release"
-git push origin v1.0.0
-```
+https://codeberg.org/CE-RISE-models/re-indicators-specification/src/tag/pages-v1.2.0/generated/
 
-Each tag corresponds to a published release of the model.
+Files available in that directory typically include:
+
+- schema.json
+- shacl.ttl
+- model.ttl
+- index.html
 
 ---
 <a href="https://europa.eu" target="_blank" rel="noopener noreferrer">
