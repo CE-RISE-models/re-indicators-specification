@@ -88,20 +88,7 @@ Each class has a corresponding value property (e.g., `name_value`, `company_id_v
 
 Every data point in the model includes a `sql_identifier` annotation that serves as a unique, machine-friendly database identifier. These identifiers follow a structured namespace pattern to ensure uniqueness across the entire data model:
 
-**Pattern**: `pro_[category]_[specific_name]`
-
-**Features:**
-- **Product Profile Prefix**: All identifiers start with `pro_` to clearly identify them as belonging to the Product Profile data model
-- **Hierarchical Namespacing**: Uses category prefixes (`gen_info_`, `mfr_info_`, `imp_info_`, `spec_info_`) to provide context and prevent naming conflicts
-- **Database-Friendly**: Uses underscores and avoids special characters for SQL compatibility
-- **Unique Across Model**: No duplicate identifiers, even when similar concepts appear in different parts of the hierarchy
-- **Reasonable Length**: Abbreviated but meaningful names that balance clarity with practical database usage
-
-**Examples:**
-- `pro_gen_info_gtin14` - GTIN-14 identifier in General Product Information
-- `pro_mfr_info_facility` - Manufacturing facility in Manufacturer Information  
-- `pro_imp_info_eori` - EORI number in Import/Export Information
-- `pro_spec_info_materials` - Material composition in Product Specifications
+**Pattern**: `reind_[indicator]_[category]_[specific_name]`
 
 This identifier system enables seamless integration with databases and ensures clear data model composition when combining with other CE-RISE data models.
 
