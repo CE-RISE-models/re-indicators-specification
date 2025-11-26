@@ -80,14 +80,31 @@ REcycle for all products:
 3. **Variable Structure**: Each product can have different parameters, questions, answer options, and scoring
 4. **Version Lock**: Git tags (e.g., v1.0.0) lock the complete specification for all products
 
-### How Versioning Works
+### Data Properties
 
-When you tag the repository (e.g., `git tag v1.0.0`), you lock:
-- The exact questions for each parameter
-- The weights for each product-parameter combination
-- The complete indicator specifications
+Each class has a corresponding value property (e.g., `name_value`, `company_id_value`) that holds the actual data. All value properties are string type except where specified otherwise.
 
-This ensures that assessments can reference a specific version and get reproducible results.
+#### SQL Identifiers
+
+Every data point in the model includes a `sql_identifier` annotation that serves as a unique, machine-friendly database identifier. These identifiers follow a structured namespace pattern to ensure uniqueness across the entire data model:
+
+**Pattern**: `pro_[category]_[specific_name]`
+
+**Features:**
+- **Product Profile Prefix**: All identifiers start with `pro_` to clearly identify them as belonging to the Product Profile data model
+- **Hierarchical Namespacing**: Uses category prefixes (`gen_info_`, `mfr_info_`, `imp_info_`, `spec_info_`) to provide context and prevent naming conflicts
+- **Database-Friendly**: Uses underscores and avoids special characters for SQL compatibility
+- **Unique Across Model**: No duplicate identifiers, even when similar concepts appear in different parts of the hierarchy
+- **Reasonable Length**: Abbreviated but meaningful names that balance clarity with practical database usage
+
+**Examples:**
+- `pro_gen_info_gtin14` - GTIN-14 identifier in General Product Information
+- `pro_mfr_info_facility` - Manufacturing facility in Manufacturer Information  
+- `pro_imp_info_eori` - EORI number in Import/Export Information
+- `pro_spec_info_materials` - Material composition in Product Specifications
+
+This identifier system enables seamless integration with databases and ensures clear data model composition when combining with other CE-RISE data models.
+
 
 ---
 
