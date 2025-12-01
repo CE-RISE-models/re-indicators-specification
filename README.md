@@ -5,22 +5,6 @@
 
 This repository provides the data model specifying the RE-indicators in the CE-RISE project.
 
----
-
-## Repository structure
-
-```
-/
-├─ model/          # LinkML source files (.yaml): required
-│  ├─ model.yaml      # Core meta-model with abstract classes
-│  └─ indicators/     # Concrete indicator specifications
-│     └─ REcycle.yaml # Recyclability specifications for all products
-├─ mappings/       # SSSOM and JSON-LD mappings: optional
-├─ generated/      # locally generated JSON Schema, SHACL, OWL: optional - CI/CD deploys on pages
-├─ samples/        # example data instances: optional
-├─ tests/          # validation tests: optional
-└─ README.md       # required
-```
 
 ---
 
