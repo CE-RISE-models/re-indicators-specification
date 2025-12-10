@@ -1,6 +1,6 @@
 # CE-RISE RE-Indicators Specification Data Model
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17610026.svg)](https://doi.org/10.5281/zenodo.17610026) [![Schemas](https://img.shields.io/badge/Generated%20Schema%20Files-JSON%2C%20SHACL%2C%20OWL-32CD32)](https://ce-rise-models.codeberg.page/re-indicators-specification/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17610026.svg)](https://doi.org/10.5281/zenodo.17610026) [![Schemas](https://img.shields.io/badge/Schema%20Files-LinkML%2C%20JSON%2C%20SHACL%2C%20OWL-32CD32)](https://ce-rise-models.codeberg.page/re-indicators-specification/)
 
 
 This repository provides the data model specifying the RE-indicators in the CE-RISE project.
