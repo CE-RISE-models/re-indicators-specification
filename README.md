@@ -150,6 +150,7 @@ https://codeberg.org/CE-RISE-models/re-indicators-specification/src/tag/pages-v1
 
 Files available in that directory typically include:
 
+- schema.yaml
 - schema.json
 - shacl.ttl
 - model.ttl
