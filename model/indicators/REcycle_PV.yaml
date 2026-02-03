@@ -1,7 +1,7 @@
 id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle_PV
 name: re_indicators_recycle_pv
-title: REcycle Indicator Specifications for PV Panels
-description: Recyclability indicator specifications specifically for photovoltaic panels - other products will have different parameters and questions
+title: REcycle Indicator Configuration for PV Panels
+description: Product-specific configuration for REcycle indicator applied to photovoltaic panels
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -10,1039 +10,407 @@ prefixes:
 imports:
     - linkml:types
     - ../model # Import core classes
+    - ./REcycle_core # Import core parameter definitions
 
 classes:
     # ============================================
-    # REUSABLE PARAMETERS AND QUESTIONS
+    # PV-SPECIFIC PARAMETERS (P4, P5)
+    # These have product-specific questions for PV priority parts
     # ============================================
 
-    Documentation_Parameter:
+    # P4: DISMANTLING - PV specific with 4 priority parts
+    PV_Dismantling_Parameter:
         is_a: ParameterSpecification
-        description: Documentation availability parameter
-        attributes:
-            id:
-                ifabsent: string(P1_documentation)
-            name:
-                ifabsent: string(Documentation availability)
-            questions:
-                range: DocumentationQuestion
-                multivalued: true
-                inlined: true
-
-    DocumentationQuestion:
-        is_a: QuestionSpecification
-        union_of:
-            - Q1_1_UniqueIdentifier
-            - Q1_2_BOM
-            - Q1_3_SafetyManual
-            - Q1_4_DisassemblyManual
-
-    Q1_1_UniqueIdentifier:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q1.1)
-            text:
-                ifabsent: string(Unique Product identifier (product type, brand, commercial name, model, serie number))
-            weight:
-                ifabsent: float(0.05)
-            answer_options:
-                range: DocumentationAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q1_2_BOM:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q1.2)
-            text:
-                ifabsent: string(Bill of material (BOM))
-            weight:
-                ifabsent: float(0.45)
-            answer_options:
-                range: DocumentationAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q1_3_SafetyManual:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q1.3)
-            text:
-                ifabsent: string(Safety manual)
-            weight:
-                ifabsent: float(0.25)
-            answer_options:
-                range: DocumentationAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q1_4_DisassemblyManual:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q1.4)
-            text:
-                ifabsent: string(Disassembly manual)
-            weight:
-                ifabsent: float(0.25)
-            answer_options:
-                range: DocumentationAnswerOption
-                multivalued: true
-                inlined: true
-
-    # Documentation availability answer options
-    DocumentationAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Doc_PubliclyAvailable
-            - Doc_IndependentRecyclers
-            - Doc_AuthorizedRecyclers
-            - Doc_ManufacturersOnly
-            - Doc_NotAvailable
-
-    Doc_PubliclyAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(doc_public)
-            text:
-                ifabsent: string(Publicly available)
-            score:
-                ifabsent: float(5.0)
-
-    Doc_IndependentRecyclers:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(doc_independent)
-            text:
-                ifabsent: string(Available to independent recyclers)
-            score:
-                ifabsent: float(4.0)
-
-    Doc_AuthorizedRecyclers:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(doc_authorized)
-            text:
-                ifabsent: string(Available to manufacturer-authorized recyclers providers)
-            score:
-                ifabsent: float(3.0)
-
-    Doc_ManufacturersOnly:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(doc_manufacturers)
-            text:
-                ifabsent: string(Available to manufactures only)
-            score:
-                ifabsent: float(1.0)
-
-    Doc_NotAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(doc_not_available)
-            text:
-                ifabsent: string(Document is not available)
-            score:
-                ifabsent: float(0.0)
-
-    # ============================================
-    # PARAMETER 2: MATERIAL COMPOSITION
-    # ============================================
-
-    MaterialComposition_Parameter:
-        is_a: ParameterSpecification
-        description: Material composition parameter
-        attributes:
-            id:
-                ifabsent: string(P2_material_composition)
-            name:
-                ifabsent: string(Material composition)
-            questions:
-                range: MaterialCompositionQuestion
-                multivalued: true
-                inlined: true
-
-    MaterialCompositionQuestion:
-        is_a: QuestionSpecification
-        union_of:
-            - Q2_1_BOMCompleteness
-            - Q2_2_CRMInfo
-            - Q2_3_HazardousInfo
-
-    Q2_1_BOMCompleteness:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q2.1)
-            text:
-                ifabsent: string(How complete is the Bill of material (BoM))
-            weight:
-                ifabsent: float(0.33)
-            answer_options:
-                range: BOMCompletenessAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q2_2_CRMInfo:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q2.2)
-            text:
-                ifabsent: string(Information present on the presence and location of critical raw material (CRM))
-            weight:
-                ifabsent: float(0.33)
-            answer_options:
-                range: CRMAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q2_3_HazardousInfo:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q2.3)
-            text:
-                ifabsent: string(Information present on the concentration and location of hazardous material in the PV)
-            weight:
-                ifabsent: float(0.33)
-            answer_options:
-                range: HazardousAnswerOption
-                multivalued: true
-                inlined: true
-
-    # BOM Completeness answer options
-    BOMCompletenessAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - BOM_MoreThan90
-            - BOM_MoreThan80
-            - BOM_MoreThan70
-            - BOM_MoreThan60
-            - BOM_LessThan60
-            - BOM_NotAvailable
-
-    BOM_MoreThan90:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(bom_90plus)
-            text:
-                ifabsent: string(More than 90% of product mass)
-            score:
-                ifabsent: float(5.0)
-
-    BOM_MoreThan80:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(bom_80plus)
-            text:
-                ifabsent: string(More than 80% of product mass)
-            score:
-                ifabsent: float(4.0)
-
-    BOM_MoreThan70:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(bom_70plus)
-            text:
-                ifabsent: string(More than 70% of product mass)
-            score:
-                ifabsent: float(3.0)
-
-    BOM_MoreThan60:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(bom_60plus)
-            text:
-                ifabsent: string(More than 60% of product mass)
-            score:
-                ifabsent: float(2.0)
-
-    BOM_LessThan60:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(bom_less60)
-            text:
-                ifabsent: string(less than 60% of product mass)
-            score:
-                ifabsent: float(1.0)
-
-    BOM_NotAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(bom_not_available)
-            text:
-                ifabsent: string(Data not available)
-            score:
-                ifabsent: float(0.0)
-
-    # CRM Information answer options
-    CRMAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - CRM_CompletelyDisclosed
-            - CRM_PartiallyDisclosed
-            - CRM_NotDisclosed
-
-    CRM_CompletelyDisclosed:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(crm_complete)
-            text:
-                ifabsent: string(Completely disclosed to professional recycler)
-            score:
-                ifabsent: float(5.0)
-
-    CRM_PartiallyDisclosed:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(crm_partial)
-            text:
-                ifabsent: string(Partially disclosed to professional recycler)
-            score:
-                ifabsent: float(3.0)
-
-    CRM_NotDisclosed:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(crm_not_disclosed)
-            text:
-                ifabsent: string(Not disclosed to professional recycler)
-            score:
-                ifabsent: float(0.0)
-
-    # Hazardous Material answer options
-    HazardousAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Hazardous_CompletelyDisclosed
-            - Hazardous_PartiallyDisclosed
-            - Hazardous_NotDisclosed
-
-    Hazardous_CompletelyDisclosed:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(hazardous_complete)
-            text:
-                ifabsent: string(Completely disclosed to professional recycler)
-            score:
-                ifabsent: float(5.0)
-
-    Hazardous_PartiallyDisclosed:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(hazardous_partial)
-            text:
-                ifabsent: string(Partially disclosed to professional recycler)
-            score:
-                ifabsent: float(3.0)
-
-    Hazardous_NotDisclosed:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(hazardous_not_disclosed)
-            text:
-                ifabsent: string(Not disclosed to professional recycler)
-            score:
-                ifabsent: float(1.0)
-
-    # ============================================
-    # PARAMETER 3: DEPOLLUTION
-    # ============================================
-
-    Depollution_Parameter:
-        is_a: ParameterSpecification
-        description: Ease of depollution parameter
-        attributes:
-            id:
-                ifabsent: string(P3_depollution)
-            name:
-                ifabsent: string(Depollution)
-            questions:
-                range: DepollutionQuestion
-                multivalued: true
-                inlined: true
-
-    DepollutionQuestion:
-        is_a: QuestionSpecification
-        union_of:
-            - Q3_1_ComponentList
-            - Q3_2_IdentifyPollutant
-            - Q3_3_EaseRemovability
-            - Q3_4_ToolsRequired
-            - Q3_5_FastenerType
-
-    Q3_1_ComponentList:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q3.1)
-            text:
-                ifabsent: string(List of components/material requires to be removed during depollution process)
-            weight:
-                ifabsent: float(0.20)
-            answer_options:
-                range: ComponentListAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q3_2_IdentifyPollutant:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q3.2)
-            text:
-                ifabsent: string(Ability to identify the pollutant component/material (e.g. marking / labelling))
-            weight:
-                ifabsent: float(0.20)
-            answer_options:
-                range: IdentifyPollutantAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q3_3_EaseRemovability:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q3.3)
-            text:
-                ifabsent: string(Ease of removability of pollutant component/material (Disassembly depth))
-            weight:
-                ifabsent: float(0.20)
-            answer_options:
-                range: EaseRemovabilityAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q3_4_ToolsRequired:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q3.4)
-            text:
-                ifabsent: string(Type of tools required to remove the pollutant component)
-            weight:
-                ifabsent: float(0.20)
-            answer_options:
-                range: ToolsRequiredAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q3_5_FastenerType:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q3.5)
-            text:
-                ifabsent: string(Type of fastener connecting the pollutant component)
-            weight:
-                ifabsent: float(0.20)
-            answer_options:
-                range: FastenerTypeAnswerOption
-                multivalued: true
-                inlined: true
-
-    # Component List answer options
-    ComponentListAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - CompList_DepollutionNotRequired
-            - CompList_PubliclyAvailable
-            - CompList_IndependentRecyclers
-            - CompList_AuthorizedRecyclers
-            - CompList_ManufacturersOnly
-            - CompList_NotAvailable
-
-    CompList_DepollutionNotRequired:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(complist_not_required)
-            text:
-                ifabsent: string(Depollution not required)
-            score:
-                ifabsent: float(5.0)
-
-    CompList_PubliclyAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(complist_public)
-            text:
-                ifabsent: string(Publicly available)
-            score:
-                ifabsent: float(5.0)
-
-    CompList_IndependentRecyclers:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(complist_independent)
-            text:
-                ifabsent: string(Available to independent recyclers)
-            score:
-                ifabsent: float(4.0)
-
-    CompList_AuthorizedRecyclers:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(complist_authorized)
-            text:
-                ifabsent: string(Available to manufacturer-authorized recyclers providers)
-            score:
-                ifabsent: float(3.0)
-
-    CompList_ManufacturersOnly:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(complist_manufacturers)
-            text:
-                ifabsent: string(Available to manufactures only)
-            score:
-                ifabsent: float(1.0)
-
-    CompList_NotAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(complist_not_available)
-            text:
-                ifabsent: string(Data is not available)
-            score:
-                ifabsent: float(0.0)
-
-    # Identify Pollutant answer options
-    IdentifyPollutantAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Identify_DepollutionNotRequired
-            - Identify_WellMarked
-            - Identify_NotMarkedButIdentifiable
-            - Identify_NotMarkedNotIdentifiable
-
-    Identify_DepollutionNotRequired:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(identify_not_required)
-            text:
-                ifabsent: string(Depollution not required)
-            score:
-                ifabsent: float(5.0)
-
-    Identify_WellMarked:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(identify_well_marked)
-            text:
-                ifabsent: string(Well marked and identifiable)
-            score:
-                ifabsent: float(5.0)
-
-    Identify_NotMarkedButIdentifiable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(identify_not_marked_identifiable)
-            text:
-                ifabsent: string(not-marked but identifiable)
-            score:
-                ifabsent: float(3.0)
-
-    Identify_NotMarkedNotIdentifiable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(identify_not_marked_not_identifiable)
-            text:
-                ifabsent: string(not marked and not identifiable)
-            score:
-                ifabsent: float(1.0)
-
-    # Ease of Removability answer options
-    EaseRemovabilityAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Removability_DepollutionNotRequired
-            - Removability_5StepsOrLess
-            - Removability_5To10Steps
-            - Removability_10To15Steps
-            - Removability_15To30Steps
-            - Removability_Over30Steps
-            - Removability_CannotDisassemble
-            - Removability_DataNotAvailable
-
-    Removability_DepollutionNotRequired:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_not_required)
-            text:
-                ifabsent: string(Depollution not required)
-            score:
-                ifabsent: float(5.0)
-
-    Removability_5StepsOrLess:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_5_or_less)
-            text:
-                ifabsent: string(5 ≥ x > 2 steps)
-            score:
-                ifabsent: float(5.0)
-
-    Removability_5To10Steps:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_5_to_10)
-            text:
-                ifabsent: string(10 ≥ x > 5 steps)
-            score:
-                ifabsent: float(4.0)
-
-    Removability_10To15Steps:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_10_to_15)
-            text:
-                ifabsent: string(15 ≥ x > 10 steps)
-            score:
-                ifabsent: float(3.0)
-
-    Removability_15To30Steps:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_15_to_30)
-            text:
-                ifabsent: string(30 ≥ x > 15 steps)
-            score:
-                ifabsent: float(2.0)
-
-    Removability_Over30Steps:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_over_30)
-            text:
-                ifabsent: string(x > 30)
-            score:
-                ifabsent: float(1.0)
-
-    Removability_CannotDisassemble:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_cannot_disassemble)
-            text:
-                ifabsent: string(Cannot be disassembled)
-            score:
-                ifabsent: float(0.0)
-
-    Removability_DataNotAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(removability_data_not_available)
-            text:
-                ifabsent: string(Data is not available)
-            score:
-                ifabsent: float(0.0)
-
-    # Tools Required answer options
-    ToolsRequiredAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Tools_DepollutionNotRequired
-            - Tools_NoToolsOrBasic
-            - Tools_ProductGroupSpecific
-            - Tools_CommerciallyAvailable
-            - Tools_Proprietary
-            - Tools_CannotDismantle
-
-    Tools_DepollutionNotRequired:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(tools_not_required)
-            text:
-                ifabsent: string(Depollution not required)
-            score:
-                ifabsent: float(5.0)
-
-    Tools_NoToolsOrBasic:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(tools_no_tools_basic)
-            text:
-                ifabsent: string(without tools/ basic tools)
-            score:
-                ifabsent: float(5.0)
-
-    Tools_ProductGroupSpecific:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(tools_product_group_specific)
-            text:
-                ifabsent: string(with product group specific tools)
-            score:
-                ifabsent: float(4.0)
-
-    Tools_CommerciallyAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(tools_commercially_available)
-            text:
-                ifabsent: string(with commercially available tools)
-            score:
-                ifabsent: float(3.0)
-
-    Tools_Proprietary:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(tools_proprietary)
-            text:
-                ifabsent: string(with proprietary tools)
-            score:
-                ifabsent: float(2.0)
-
-    Tools_CannotDismantle:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(tools_cannot_dismantle)
-            text:
-                ifabsent: string(Cannot be dismantle)
-            score:
-                ifabsent: float(0.0)
-
-    # Fastener Type answer options
-    FastenerTypeAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Fastener_DepollutionNotRequired
-            - Fastener_Removable
-            - Fastener_NonRemovable
-
-    Fastener_DepollutionNotRequired:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(fastener_not_required)
-            text:
-                ifabsent: string(Depollution not required)
-            score:
-                ifabsent: float(5.0)
-
-    Fastener_Removable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(fastener_removable)
-            text:
-                ifabsent: string(removable)
-            score:
-                ifabsent: float(5.0)
-
-    Fastener_NonRemovable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(fastener_non_removable)
-            text:
-                ifabsent: string(non-removable)
-            score:
-                ifabsent: float(0.0)
-
-    # ============================================
-    # PARAMETER 4: DISMANTLING
-    # ============================================
-
-    Dismantling_Parameter:
-        is_a: ParameterSpecification
-        description: Ease of dismantling parameter
+        description: Ease of dismantling parameter for PV panels - specific to PV priority parts
         attributes:
             id:
                 ifabsent: string(P4_dismantling)
             name:
                 ifabsent: string(Dismantling)
             questions:
-                range: DismantlingQuestion
+                range: PV_DismantlingQuestion
                 multivalued: true
                 inlined: true
 
-    DismantlingQuestion:
+    PV_DismantlingQuestion:
         is_a: QuestionSpecification
         union_of:
-            - Q4_1_EaseDismantling
-            - Q4_2_JointTypes
-            - Q4_3_ToolsRequired
+            - PV_Q4_1_1_AlFrame_Ease
+            - PV_Q4_1_2_AlFrame_Joints
+            - PV_Q4_1_3_AlFrame_Tools
+            - PV_Q4_2_1_SiWafer_Ease
+            - PV_Q4_2_2_SiWafer_Joints
+            - PV_Q4_2_3_SiWafer_Tools
+            - PV_Q4_3_1_JunctionBox_Ease
+            - PV_Q4_3_2_JunctionBox_Joints
+            - PV_Q4_3_3_JunctionBox_Tools
+            - PV_Q4_4_1_Cable_Ease
+            - PV_Q4_4_2_Cable_Joints
+            - PV_Q4_4_3_Cable_Tools
 
-    Q4_1_EaseDismantling:
+    # Aluminum Frame questions
+    PV_Q4_1_1_AlFrame_Ease:
         is_a: QuestionSpecification
         attributes:
             id:
                 ifabsent: string(Q4.1.1)
             text:
-                ifabsent: string(Ease of dismantling priority parts)
+                ifabsent: string(Ease of dismantling Aluminium frame)
             weight:
-                ifabsent: float(0.333333333)
+                ifabsent: float(0.1)
             answer_options:
-                range: EaseDismantlingAnswerOption
+                range: PV_DismantlingEaseAnswerOption
                 multivalued: true
                 inlined: true
 
-    Q4_2_JointTypes:
+    PV_Q4_1_2_AlFrame_Joints:
         is_a: QuestionSpecification
         attributes:
             id:
                 ifabsent: string(Q4.1.2)
             text:
-                ifabsent: string(Type of joints in between to dismantle priority part)
+                ifabsent: string(Type of joints in between to dismantle Aluminum frame)
             weight:
-                ifabsent: float(0.333333333)
+                ifabsent: float(0.15)
             answer_options:
-                range: JointTypeAnswerOption
+                range: PV_JointTypeAnswerOption
                 multivalued: true
                 inlined: true
 
-    Q4_3_ToolsRequired:
+    PV_Q4_1_3_AlFrame_Tools:
         is_a: QuestionSpecification
         attributes:
             id:
                 ifabsent: string(Q4.1.3)
             text:
-                ifabsent: string(Type of tool required to dismantle priority part)
+                ifabsent: string(Type of tool required to dismantle aluminium frame)
             weight:
-                ifabsent: float(0.333333333)
+                ifabsent: float(0.1)
             answer_options:
-                range: DismantlingToolsAnswerOption
+                range: PV_DismantlingToolsAnswerOption
                 multivalued: true
                 inlined: true
 
-    # Ease of Dismantling answer options
-    EaseDismantlingAnswerOption:
+    # Silicon Wafer questions
+    PV_Q4_2_1_SiWafer_Ease:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.2.1)
+            text:
+                ifabsent: string(Ease of dismantling Silicon wafer)
+            weight:
+                ifabsent: float(0.1)
+            answer_options:
+                range: PV_DismantlingEaseAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q4_2_2_SiWafer_Joints:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.2.2)
+            text:
+                ifabsent: string(Type of joints in between Silicon wafer)
+            weight:
+                ifabsent: float(0.15)
+            answer_options:
+                range: PV_JointTypeAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q4_2_3_SiWafer_Tools:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.2.3)
+            text:
+                ifabsent: string(Type of tool required to dismantle Silicon wafer)
+            weight:
+                ifabsent: float(0.1)
+            answer_options:
+                range: PV_DismantlingToolsAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Junction Box questions
+    PV_Q4_3_1_JunctionBox_Ease:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.3.1)
+            text:
+                ifabsent: string(Ease of dismantling Junction box)
+            weight:
+                ifabsent: float(0.05)
+            answer_options:
+                range: PV_DismantlingEaseAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q4_3_2_JunctionBox_Joints:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.3.2)
+            text:
+                ifabsent: string(Type of joint in between to dismantle Junction box)
+            weight:
+                ifabsent: float(0.05)
+            answer_options:
+                range: PV_JointTypeAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q4_3_3_JunctionBox_Tools:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.3.3)
+            text:
+                ifabsent: string(Type of tool required to dismantle Junction box)
+            weight:
+                ifabsent: float(0.05)
+            answer_options:
+                range: PV_DismantlingToolsAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Cable questions
+    PV_Q4_4_1_Cable_Ease:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.4.1)
+            text:
+                ifabsent: string(Ease of dismantling Cable)
+            weight:
+                ifabsent: float(0.05)
+            answer_options:
+                range: PV_DismantlingEaseAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q4_4_2_Cable_Joints:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.4.2)
+            text:
+                ifabsent: string(Type of joint in between to dismantle cable)
+            weight:
+                ifabsent: float(0.05)
+            answer_options:
+                range: PV_JointTypeAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q4_4_3_Cable_Tools:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q4.4.3)
+            text:
+                ifabsent: string(Type of tool required to dismantle cable)
+            weight:
+                ifabsent: float(0.05)
+            answer_options:
+                range: PV_DismantlingToolsAnswerOption
+                multivalued: true
+                inlined: true
+
+    # Answer options for PV Dismantling
+    PV_DismantlingEaseAnswerOption:
         is_a: AnswerOption
         union_of:
-            - Dismantling_5StepsOrLess
-            - Dismantling_5To10Steps
-            - Dismantling_10To15Steps
-            - Dismantling_15To30Steps
-            - Dismantling_Over30Steps
-            - Dismantling_CannotDismantle
-            - Dismantling_DataNotAvailable
+            - PV_Dismantling_5StepsOrLess
+            - PV_Dismantling_5To10Steps
+            - PV_Dismantling_10To15Steps
+            - PV_Dismantling_15To30Steps
+            - PV_Dismantling_Over30Steps
+            - PV_Dismantling_CannotDismantle
+            - PV_Dismantling_DataNotAvailable
 
-    Dismantling_5StepsOrLess:
+    PV_Dismantling_5StepsOrLess:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_5_or_less)
+                ifabsent: string(pv_dismantling_5_or_less)
             text:
                 ifabsent: string(5 ≥ x > 2 steps)
             score:
                 ifabsent: float(5.0)
 
-    Dismantling_5To10Steps:
+    PV_Dismantling_5To10Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_5_to_10)
+                ifabsent: string(pv_dismantling_5_to_10)
             text:
                 ifabsent: string(10 ≥ x > 5 steps)
             score:
                 ifabsent: float(4.0)
 
-    Dismantling_10To15Steps:
+    PV_Dismantling_10To15Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_10_to_15)
+                ifabsent: string(pv_dismantling_10_to_15)
             text:
                 ifabsent: string(15 ≥ x > 10 steps)
             score:
                 ifabsent: float(3.0)
 
-    Dismantling_15To30Steps:
+    PV_Dismantling_15To30Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_15_to_30)
+                ifabsent: string(pv_dismantling_15_to_30)
             text:
                 ifabsent: string(30 ≥ x > 15 steps)
             score:
                 ifabsent: float(2.0)
 
-    Dismantling_Over30Steps:
+    PV_Dismantling_Over30Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_over_30)
+                ifabsent: string(pv_dismantling_over_30)
             text:
                 ifabsent: string(x > 30)
             score:
                 ifabsent: float(1.0)
 
-    Dismantling_CannotDismantle:
+    PV_Dismantling_CannotDismantle:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_cannot)
+                ifabsent: string(pv_dismantling_cannot)
             text:
                 ifabsent: string(Cannot be dismantled)
             score:
                 ifabsent: float(0.0)
 
-    Dismantling_DataNotAvailable:
+    PV_Dismantling_DataNotAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_data_not_available)
+                ifabsent: string(pv_dismantling_data_not_available)
             text:
                 ifabsent: string(Data is not available)
             score:
                 ifabsent: float(0.0)
 
-    # Joint Type answer options
-    JointTypeAnswerOption:
+    PV_JointTypeAnswerOption:
         is_a: AnswerOption
         union_of:
-            - Joint_Removable
-            - Joint_NonRemovable
+            - PV_Joint_Removable
+            - PV_Joint_NonRemovable
 
-    Joint_Removable:
+    PV_Joint_Removable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(joint_removable)
+                ifabsent: string(pv_joint_removable)
             text:
                 ifabsent: string(removable)
             score:
                 ifabsent: float(5.0)
 
-    Joint_NonRemovable:
+    PV_Joint_NonRemovable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(joint_non_removable)
+                ifabsent: string(pv_joint_non_removable)
             text:
                 ifabsent: string(non-removable)
             score:
                 ifabsent: float(0.0)
 
-    # Dismantling Tools answer options
-    DismantlingToolsAnswerOption:
+    PV_DismantlingToolsAnswerOption:
         is_a: AnswerOption
         union_of:
-            - DismantlingTools_NoToolsOrBasic
-            - DismantlingTools_ProductGroupSpecific
-            - DismantlingTools_CommerciallyAvailable
-            - DismantlingTools_Proprietary
-            - DismantlingTools_CannotDismantle
+            - PV_DismantlingTools_NoToolsOrBasic
+            - PV_DismantlingTools_ProductGroupSpecific
+            - PV_DismantlingTools_CommerciallyAvailable
+            - PV_DismantlingTools_Proprietary
+            - PV_DismantlingTools_CannotDismantle
 
-    DismantlingTools_NoToolsOrBasic:
+    PV_DismantlingTools_NoToolsOrBasic:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_tools_no_tools_basic)
+                ifabsent: string(pv_dismantling_tools_no_tools_basic)
             text:
                 ifabsent: string(without tools/basic tools)
             score:
                 ifabsent: float(5.0)
 
-    DismantlingTools_ProductGroupSpecific:
+    PV_DismantlingTools_ProductGroupSpecific:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_tools_product_group_specific)
+                ifabsent: string(pv_dismantling_tools_product_group_specific)
             text:
                 ifabsent: string(with product group specific tools)
             score:
                 ifabsent: float(4.0)
 
-    DismantlingTools_CommerciallyAvailable:
+    PV_DismantlingTools_CommerciallyAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_tools_commercially_available)
+                ifabsent: string(pv_dismantling_tools_commercially_available)
             text:
                 ifabsent: string(with commercially available tools)
             score:
                 ifabsent: float(3.0)
 
-    DismantlingTools_Proprietary:
+    PV_DismantlingTools_Proprietary:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_tools_proprietary)
+                ifabsent: string(pv_dismantling_tools_proprietary)
             text:
                 ifabsent: string(with proprietary tools)
             score:
                 ifabsent: float(2.0)
 
-    DismantlingTools_CannotDismantle:
+    PV_DismantlingTools_CannotDismantle:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(dismantling_tools_cannot)
+                ifabsent: string(pv_dismantling_tools_cannot)
             text:
                 ifabsent: string(Cannot be dismantled)
             score:
                 ifabsent: float(0.0)
 
-    # ============================================
-    # PARAMETER 5: RECYCLABILITY RATE
-    # ============================================
-
-    RecyclabilityRate_Parameter:
+    # P5: RECYCLABILITY RATE - PV specific with 5 questions
+    PV_RecyclabilityRate_Parameter:
         is_a: ParameterSpecification
-        description: Recyclability rate parameter
+        description: Recyclability rate parameter for PV panels - specific to PV product and priority parts
         attributes:
             id:
                 ifabsent: string(P5_recyclability_rate)
             name:
                 ifabsent: string(Recyclability rate)
             questions:
-                range: RecyclabilityRateQuestion
+                range: PV_RecyclabilityRateQuestion
                 multivalued: true
                 inlined: true
 
-    RecyclabilityRateQuestion:
+    PV_RecyclabilityRateQuestion:
         is_a: QuestionSpecification
         union_of:
-            - Q5_1_ProductRecyclability
-            - Q5_2_PriorityPartRecyclability
+            - PV_Q5_1_ProductRecyclability
+            - PV_Q5_2_1_AlFrameRecyclability
+            - PV_Q5_2_2_SiWaferRecyclability
+            - PV_Q5_2_3_CablesRecyclability
+            - PV_Q5_2_4_JunctionBoxRecyclability
 
-    Q5_1_ProductRecyclability:
+    PV_Q5_1_ProductRecyclability:
         is_a: QuestionSpecification
         attributes:
             id:
@@ -1050,231 +418,143 @@ classes:
             text:
                 ifabsent: string(Recyclability rate of product)
             weight:
-                ifabsent: float(0.6)
+                ifabsent: float(0.3)
             answer_options:
-                range: RecyclabilityRateAnswerOption
+                range: PV_RecyclabilityRateAnswerOption
                 multivalued: true
                 inlined: true
 
-    Q5_2_PriorityPartRecyclability:
+    PV_Q5_2_1_AlFrameRecyclability:
         is_a: QuestionSpecification
         attributes:
             id:
                 ifabsent: string(Q5.2.1)
             text:
-                ifabsent: string(Recyclability rate of priority part)
+                ifabsent: string(Recyclability rate of Al frame)
             weight:
-                ifabsent: float(0.4)
+                ifabsent: float(0.2)
             answer_options:
-                range: RecyclabilityRateAnswerOption
+                range: PV_RecyclabilityRateAnswerOption
                 multivalued: true
                 inlined: true
 
-    # Recyclability Rate answer options (shared by both questions)
-    RecyclabilityRateAnswerOption:
+    PV_Q5_2_2_SiWaferRecyclability:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q5.2.2)
+            text:
+                ifabsent: string(Recyclability rate of silicon wafer)
+            weight:
+                ifabsent: float(0.2)
+            answer_options:
+                range: PV_RecyclabilityRateAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q5_2_3_CablesRecyclability:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q5.2.3)
+            text:
+                ifabsent: string(Recyclability rate of cables (Cu))
+            weight:
+                ifabsent: float(0.15)
+            answer_options:
+                range: PV_RecyclabilityRateAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_Q5_2_4_JunctionBoxRecyclability:
+        is_a: QuestionSpecification
+        attributes:
+            id:
+                ifabsent: string(Q5.2.4)
+            text:
+                ifabsent: string(Recyclability rate of junction box (Cu))
+            weight:
+                ifabsent: float(0.15)
+            answer_options:
+                range: PV_RecyclabilityRateAnswerOption
+                multivalued: true
+                inlined: true
+
+    PV_RecyclabilityRateAnswerOption:
         is_a: AnswerOption
         union_of:
-            - RecRate_MoreThan60
-            - RecRate_Between50And60
-            - RecRate_Below50
-            - RecRate_CannotRecycle
-            - RecRate_DataNotAvailable
+            - PV_RecRate_MoreThan60
+            - PV_RecRate_Between50And60
+            - PV_RecRate_Below50
+            - PV_RecRate_CannotRecycle
+            - PV_RecRate_DataNotAvailable
 
-    RecRate_MoreThan60:
+    PV_RecRate_MoreThan60:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(rec_rate_more_than_60)
+                ifabsent: string(pv_rec_rate_more_than_60)
             text:
                 ifabsent: string(More than 60%)
             score:
                 ifabsent: float(5.0)
 
-    RecRate_Between50And60:
+    PV_RecRate_Between50And60:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(rec_rate_50_to_60)
+                ifabsent: string(pv_rec_rate_50_to_60)
             text:
                 ifabsent: string(Between 60-50%)
             score:
                 ifabsent: float(3.0)
 
-    RecRate_Below50:
+    PV_RecRate_Below50:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(rec_rate_below_50)
+                ifabsent: string(pv_rec_rate_below_50)
             text:
                 ifabsent: string(Below 50%)
             score:
                 ifabsent: float(1.0)
 
-    RecRate_CannotRecycle:
+    PV_RecRate_CannotRecycle:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(rec_rate_cannot_recycle)
+                ifabsent: string(pv_rec_rate_cannot_recycle)
             text:
                 ifabsent: string(Cannot be recycled)
             score:
                 ifabsent: float(0.0)
 
-    RecRate_DataNotAvailable:
+    PV_RecRate_DataNotAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(rec_rate_data_not_available)
+                ifabsent: string(pv_rec_rate_data_not_available)
             text:
                 ifabsent: string(Data is not available)
             score:
                 ifabsent: float(0.0)
 
     # ============================================
-    # PARAMETER 6: TAKEBACK SCHEME (Bonus)
-    # ============================================
-
-    TakebackScheme_Parameter:
-        is_a: ParameterSpecification
-        description: Take-back scheme bonus parameter
-        attributes:
-            id:
-                ifabsent: string(P6_takeback_scheme)
-            name:
-                ifabsent: string(Take back scheme_Bonus)
-            is_bonus:
-                ifabsent: boolean(true)
-            questions:
-                range: TakebackSchemeQuestion
-                multivalued: true
-                inlined: true
-
-    TakebackSchemeQuestion:
-        is_a: QuestionSpecification
-        union_of:
-            - Q6_1_TakebackAvailable
-            - Q6_2_CollectionSystem
-
-    Q6_1_TakebackAvailable:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q6.1.1)
-            text:
-                ifabsent: string(Is there any take back scheme available on the product)
-            weight:
-                ifabsent: float(0.50)
-            answer_options:
-                range: TakebackAvailableAnswerOption
-                multivalued: true
-                inlined: true
-
-    Q6_2_CollectionSystem:
-        is_a: QuestionSpecification
-        attributes:
-            id:
-                ifabsent: string(Q6.1.2)
-            text:
-                ifabsent: string(Collection system for returning the product (if any))
-            weight:
-                ifabsent: float(0.50)
-            answer_options:
-                range: CollectionSystemAnswerOption
-                multivalued: true
-                inlined: true
-
-    # Take-back Available answer options
-    TakebackAvailableAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Takeback_SystemApplicable
-            - Takeback_NotApplicable
-            - Takeback_DataNotAvailable
-
-    Takeback_SystemApplicable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(takeback_system_applicable)
-            text:
-                ifabsent: string(Take back system applicable)
-            score:
-                ifabsent: float(5.0)
-
-    Takeback_NotApplicable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(takeback_not_applicable)
-            text:
-                ifabsent: string(Not applicable)
-            score:
-                ifabsent: float(0.0)
-
-    Takeback_DataNotAvailable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(takeback_data_not_available)
-            text:
-                ifabsent: string(Data is not available)
-            score:
-                ifabsent: float(0.0)
-
-    # Collection System answer options
-    CollectionSystemAnswerOption:
-        is_a: AnswerOption
-        union_of:
-            - Collection_FreePickup
-            - Collection_CustomerPays
-            - Collection_NotApplicable
-
-    Collection_FreePickup:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(collection_free_pickup)
-            text:
-                ifabsent: string(Free of Cost (pickup service provided))
-            score:
-                ifabsent: float(5.0)
-
-    Collection_CustomerPays:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(collection_customer_pays)
-            text:
-                ifabsent: string(Customer has to pay for the take back service)
-            score:
-                ifabsent: float(1.0)
-
-    Collection_NotApplicable:
-        is_a: AnswerOption
-        attributes:
-            id:
-                ifabsent: string(collection_not_applicable)
-            text:
-                ifabsent: string(Not applicable)
-            score:
-                ifabsent: float(0.0)
-
-    # ============================================
-    # INDICATOR-PRODUCT CONFIGURATIONS FOR PV
+    # PV-SPECIFIC CONFIGURATION
     # ============================================
 
     REcycle_Configuration:
         is_a: IndicatorProductConfiguration
-        description: Base configuration for REcycle indicator - PV specific implementation
+        description: Base configuration for REcycle indicator
         abstract: true
         attributes:
             indicator_type:
                 ifabsent: IndicatorType(REcycle)
 
-    # PV-specific configuration with parameters designed for photovoltaic panels
+    # PV-specific configuration referencing shared parameters
     REcycle_PV_Config:
         is_a: REcycle_Configuration
-        description: Configuration for REcycle specifically designed for PV panels - complete implementation
+        description: Configuration for REcycle indicator specifically for PV panels
         attributes:
             id:
                 ifabsent: string(REcycle_PV)
@@ -1289,65 +569,10 @@ classes:
                     - parameter_ref: P1_documentation
                       weight: 0.1
                     - parameter_ref: P2_material_composition
-                      weight: 0.3
+                      weight: 0.1
                     - parameter_ref: P3_depollution
-                      weight: 0.1
+                      weight: 0.2
                     - parameter_ref: P4_dismantling
-                      weight: 0.1
+                      weight: 0.2
                     - parameter_ref: P5_recyclability_rate
                       weight: 0.4
-                    - parameter_ref: P6_takeback_scheme
-                      weight: 0.1
-
-    # NOTE: Battery will have completely different parameters and questions - to be implemented
-    REcycle_Battery_Config:
-        is_a: REcycle_Configuration
-        description: PLACEHOLDER - Battery REcycle will have different parameters and questions from PV
-        attributes:
-            id:
-                ifabsent: string(REcycle_Battery)
-            product_category:
-                ifabsent: ProductCategoryType(Battery)
-            name:
-                ifabsent: string(Recyclability Index for Batteries)
-            parameter_applications:
-                inlined_as_list: true
-                inlined: true
-                ifabsent:
-                    - parameter_ref: P1_documentation
-                      weight: 0.15
-                    - parameter_ref: P2_material_composition
-                      weight: 0.35
-                    - parameter_ref: P3_depollution
-                      weight: 0.2
-                    - parameter_ref: P5_recyclability_rate
-                      weight: 0.25
-                    - parameter_ref: P6_takeback_scheme
-                      weight: 0.05
-                    # Note: P4_dismantling not included for batteries
-
-    # NOTE: Laptop will have completely different parameters and questions - to be implemented
-    REcycle_Laptop_Config:
-        is_a: REcycle_Configuration
-        description: PLACEHOLDER - Laptop REcycle will have different parameters and questions from PV
-        attributes:
-            id:
-                ifabsent: string(REcycle_Laptop)
-            product_category:
-                ifabsent: ProductCategoryType(Laptop)
-            name:
-                ifabsent: string(Recyclability Index for Laptops)
-            parameter_applications:
-                inlined_as_list: true
-                inlined: true
-                ifabsent:
-                    - parameter_ref: P1_documentation
-                      weight: 0.1
-                    - parameter_ref: P2_material_composition
-                      weight: 0.25
-                    - parameter_ref: P3_depollution
-                      weight: 0.15
-                    - parameter_ref: P4_dismantling
-                      weight: 0.2
-                    - parameter_ref: P5_recyclability_rate
-                      weight: 0.3

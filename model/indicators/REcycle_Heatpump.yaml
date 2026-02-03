@@ -1,7 +1,7 @@
-id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle_Printer
-name: re_indicators_recycle_printer
-title: REcycle Indicator Configuration for Printers
-description: Product-specific configuration for REcycle indicator applied to printers
+id: https://ce-rise-models.codeberg.page/re-indicators-specification/indicators/REcycle_Heatpump
+name: re_indicators_recycle_heatpump
+title: REcycle Indicator Configuration for Heatpumps
+description: Product-specific configuration for REcycle indicator applied to heatpumps
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -14,32 +14,32 @@ imports:
 
 classes:
     # ============================================
-    # PRINTER-SPECIFIC PARAMETERS (P4, P5)
-    # These have generic questions for printer dismantling and recyclability
+    # HEATPUMP-SPECIFIC PARAMETERS (P4, P5)
+    # P1, P2, P3 use core shared definitions
     # ============================================
 
-    # P4: DISMANTLING - Printer specific with generic priority parts
-    Printer_Dismantling_Parameter:
+    # P4: DISMANTLING - Heatpump specific with generic priority parts
+    Heatpump_Dismantling_Parameter:
         is_a: ParameterSpecification
-        description: Ease of dismantling parameter for Printers - generic priority parts assessment
+        description: Ease of dismantling parameter for Heatpumps - generic priority parts assessment
         attributes:
             id:
                 ifabsent: string(P4_dismantling)
             name:
                 ifabsent: string(Dismantling)
             questions:
-                range: Printer_DismantlingQuestion
+                range: Heatpump_DismantlingQuestion
                 multivalued: true
                 inlined: true
 
-    Printer_DismantlingQuestion:
+    Heatpump_DismantlingQuestion:
         is_a: QuestionSpecification
         union_of:
-            - Printer_Q4_1_1_EaseDismantling
-            - Printer_Q4_1_2_JointTypes
-            - Printer_Q4_1_3_ToolsRequired
+            - Heatpump_Q4_1_1_EaseDismantling
+            - Heatpump_Q4_1_2_JointTypes
+            - Heatpump_Q4_1_3_ToolsRequired
 
-    Printer_Q4_1_1_EaseDismantling:
+    Heatpump_Q4_1_1_EaseDismantling:
         is_a: QuestionSpecification
         attributes:
             id:
@@ -49,11 +49,11 @@ classes:
             weight:
                 ifabsent: float(0.333333333)
             answer_options:
-                range: Printer_DismantlingEaseAnswerOption
+                range: Heatpump_DismantlingEaseAnswerOption
                 multivalued: true
                 inlined: true
 
-    Printer_Q4_1_2_JointTypes:
+    Heatpump_Q4_1_2_JointTypes:
         is_a: QuestionSpecification
         attributes:
             id:
@@ -63,11 +63,11 @@ classes:
             weight:
                 ifabsent: float(0.333333333)
             answer_options:
-                range: Printer_JointTypeAnswerOption
+                range: Heatpump_JointTypeAnswerOption
                 multivalued: true
                 inlined: true
 
-    Printer_Q4_1_3_ToolsRequired:
+    Heatpump_Q4_1_3_ToolsRequired:
         is_a: QuestionSpecification
         attributes:
             id:
@@ -77,198 +77,200 @@ classes:
             weight:
                 ifabsent: float(0.333333333)
             answer_options:
-                range: Printer_DismantlingToolsAnswerOption
+                range: Heatpump_DismantlingToolsAnswerOption
                 multivalued: true
                 inlined: true
 
-    # Answer options for Printer Dismantling
-    Printer_DismantlingEaseAnswerOption:
+    # Answer options for Heatpump Dismantling - Ease
+    Heatpump_DismantlingEaseAnswerOption:
         is_a: AnswerOption
         union_of:
-            - Printer_Dismantling_5StepsOrLess
-            - Printer_Dismantling_5To10Steps
-            - Printer_Dismantling_10To15Steps
-            - Printer_Dismantling_15To30Steps
-            - Printer_Dismantling_Over30Steps
-            - Printer_Dismantling_CannotDismantle
-            - Printer_Dismantling_DataNotAvailable
+            - Heatpump_Dismantling_5StepsOrLess
+            - Heatpump_Dismantling_5To10Steps
+            - Heatpump_Dismantling_10To15Steps
+            - Heatpump_Dismantling_15To30Steps
+            - Heatpump_Dismantling_Over30Steps
+            - Heatpump_Dismantling_CannotDismantle
+            - Heatpump_Dismantling_DataNotAvailable
 
-    Printer_Dismantling_5StepsOrLess:
+    Heatpump_Dismantling_5StepsOrLess:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_5_or_less)
+                ifabsent: string(heatpump_dismantling_5_or_less)
             text:
                 ifabsent: string(5 ≥ x > 2 steps)
             score:
                 ifabsent: float(5.0)
 
-    Printer_Dismantling_5To10Steps:
+    Heatpump_Dismantling_5To10Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_5_to_10)
+                ifabsent: string(heatpump_dismantling_5_to_10)
             text:
                 ifabsent: string(10 ≥ x > 5 steps)
             score:
                 ifabsent: float(4.0)
 
-    Printer_Dismantling_10To15Steps:
+    Heatpump_Dismantling_10To15Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_10_to_15)
+                ifabsent: string(heatpump_dismantling_10_to_15)
             text:
                 ifabsent: string(15 ≥ x > 10 steps)
             score:
                 ifabsent: float(3.0)
 
-    Printer_Dismantling_15To30Steps:
+    Heatpump_Dismantling_15To30Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_15_to_30)
+                ifabsent: string(heatpump_dismantling_15_to_30)
             text:
                 ifabsent: string(30 ≥ x > 15 steps)
             score:
                 ifabsent: float(2.0)
 
-    Printer_Dismantling_Over30Steps:
+    Heatpump_Dismantling_Over30Steps:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_over_30)
+                ifabsent: string(heatpump_dismantling_over_30)
             text:
                 ifabsent: string(x > 30)
             score:
                 ifabsent: float(1.0)
 
-    Printer_Dismantling_CannotDismantle:
+    Heatpump_Dismantling_CannotDismantle:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_cannot)
+                ifabsent: string(heatpump_dismantling_cannot)
             text:
                 ifabsent: string(Cannot be dismantled)
             score:
                 ifabsent: float(0.0)
 
-    Printer_Dismantling_DataNotAvailable:
+    Heatpump_Dismantling_DataNotAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_data_not_available)
+                ifabsent: string(heatpump_dismantling_data_not_available)
             text:
                 ifabsent: string(Data is not available)
             score:
                 ifabsent: float(0.0)
 
-    Printer_JointTypeAnswerOption:
+    # Answer options for Heatpump Dismantling - Joints
+    Heatpump_JointTypeAnswerOption:
         is_a: AnswerOption
         union_of:
-            - Printer_Joint_Removable
-            - Printer_Joint_NonRemovable
+            - Heatpump_Joint_Removable
+            - Heatpump_Joint_NonRemovable
 
-    Printer_Joint_Removable:
+    Heatpump_Joint_Removable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_joint_removable)
+                ifabsent: string(heatpump_joint_removable)
             text:
                 ifabsent: string(removable)
             score:
                 ifabsent: float(5.0)
 
-    Printer_Joint_NonRemovable:
+    Heatpump_Joint_NonRemovable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_joint_non_removable)
+                ifabsent: string(heatpump_joint_non_removable)
             text:
                 ifabsent: string(non-removable)
             score:
                 ifabsent: float(0.0)
 
-    Printer_DismantlingToolsAnswerOption:
+    # Answer options for Heatpump Dismantling - Tools
+    Heatpump_DismantlingToolsAnswerOption:
         is_a: AnswerOption
         union_of:
-            - Printer_DismantlingTools_NoToolsOrBasic
-            - Printer_DismantlingTools_ProductGroupSpecific
-            - Printer_DismantlingTools_CommerciallyAvailable
-            - Printer_DismantlingTools_Proprietary
-            - Printer_DismantlingTools_CannotDismantle
+            - Heatpump_DismantlingTools_NoToolsOrBasic
+            - Heatpump_DismantlingTools_ProductGroupSpecific
+            - Heatpump_DismantlingTools_CommerciallyAvailable
+            - Heatpump_DismantlingTools_Proprietary
+            - Heatpump_DismantlingTools_CannotDismantle
 
-    Printer_DismantlingTools_NoToolsOrBasic:
+    Heatpump_DismantlingTools_NoToolsOrBasic:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_tools_no_tools_basic)
+                ifabsent: string(heatpump_dismantling_tools_no_tools_basic)
             text:
                 ifabsent: string(without tools/basic tools)
             score:
                 ifabsent: float(5.0)
 
-    Printer_DismantlingTools_ProductGroupSpecific:
+    Heatpump_DismantlingTools_ProductGroupSpecific:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_tools_product_group_specific)
+                ifabsent: string(heatpump_dismantling_tools_product_group_specific)
             text:
                 ifabsent: string(with product group specific tools)
             score:
                 ifabsent: float(4.0)
 
-    Printer_DismantlingTools_CommerciallyAvailable:
+    Heatpump_DismantlingTools_CommerciallyAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_tools_commercially_available)
+                ifabsent: string(heatpump_dismantling_tools_commercially_available)
             text:
                 ifabsent: string(with commercially available tools)
             score:
                 ifabsent: float(3.0)
 
-    Printer_DismantlingTools_Proprietary:
+    Heatpump_DismantlingTools_Proprietary:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_tools_proprietary)
+                ifabsent: string(heatpump_dismantling_tools_proprietary)
             text:
                 ifabsent: string(with proprietary tools)
             score:
                 ifabsent: float(2.0)
 
-    Printer_DismantlingTools_CannotDismantle:
+    Heatpump_DismantlingTools_CannotDismantle:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_dismantling_tools_cannot)
+                ifabsent: string(heatpump_dismantling_tools_cannot)
             text:
                 ifabsent: string(Cannot be dismantled)
             score:
                 ifabsent: float(0.0)
 
-    # P5: RECYCLABILITY RATE - Printer specific with 2 generic questions
-    Printer_RecyclabilityRate_Parameter:
+    # P5: RECYCLABILITY RATE - Heatpump specific with 2 generic questions
+    Heatpump_RecyclabilityRate_Parameter:
         is_a: ParameterSpecification
-        description: Recyclability rate parameter for Printers - generic product and priority part assessment
+        description: Recyclability rate parameter for Heatpumps - generic product and priority part assessment
         attributes:
             id:
                 ifabsent: string(P5_recyclability_rate)
             name:
                 ifabsent: string(Recyclability rate)
             questions:
-                range: Printer_RecyclabilityRateQuestion
+                range: Heatpump_RecyclabilityRateQuestion
                 multivalued: true
                 inlined: true
 
-    Printer_RecyclabilityRateQuestion:
+    Heatpump_RecyclabilityRateQuestion:
         is_a: QuestionSpecification
         union_of:
-            - Printer_Q5_1_ProductRecyclability
-            - Printer_Q5_2_1_PriorityPartRecyclability
+            - Heatpump_Q5_1_ProductRecyclability
+            - Heatpump_Q5_2_1_PriorityPartRecyclability
 
-    Printer_Q5_1_ProductRecyclability:
+    Heatpump_Q5_1_ProductRecyclability:
         is_a: QuestionSpecification
         attributes:
             id:
@@ -278,11 +280,11 @@ classes:
             weight:
                 ifabsent: float(0.6)
             answer_options:
-                range: Printer_RecyclabilityRateAnswerOption
+                range: Heatpump_RecyclabilityRateAnswerOption
                 multivalued: true
                 inlined: true
 
-    Printer_Q5_2_1_PriorityPartRecyclability:
+    Heatpump_Q5_2_1_PriorityPartRecyclability:
         is_a: QuestionSpecification
         attributes:
             id:
@@ -292,83 +294,83 @@ classes:
             weight:
                 ifabsent: float(0.4)
             answer_options:
-                range: Printer_RecyclabilityRateAnswerOption
+                range: Heatpump_RecyclabilityRateAnswerOption
                 multivalued: true
                 inlined: true
 
-    Printer_RecyclabilityRateAnswerOption:
+    Heatpump_RecyclabilityRateAnswerOption:
         is_a: AnswerOption
         union_of:
-            - Printer_RecRate_MoreThan60
-            - Printer_RecRate_Between50And60
-            - Printer_RecRate_Below50
-            - Printer_RecRate_CannotRecycle
-            - Printer_RecRate_DataNotAvailable
+            - Heatpump_RecRate_MoreThan60
+            - Heatpump_RecRate_Between50And60
+            - Heatpump_RecRate_Below50
+            - Heatpump_RecRate_CannotRecycle
+            - Heatpump_RecRate_DataNotAvailable
 
-    Printer_RecRate_MoreThan60:
+    Heatpump_RecRate_MoreThan60:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_rec_rate_more_than_60)
+                ifabsent: string(heatpump_rec_rate_more_than_60)
             text:
                 ifabsent: string(More than 60%)
             score:
                 ifabsent: float(5.0)
 
-    Printer_RecRate_Between50And60:
+    Heatpump_RecRate_Between50And60:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_rec_rate_50_to_60)
+                ifabsent: string(heatpump_rec_rate_50_to_60)
             text:
                 ifabsent: string(Between 60-50%)
             score:
                 ifabsent: float(3.0)
 
-    Printer_RecRate_Below50:
+    Heatpump_RecRate_Below50:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_rec_rate_below_50)
+                ifabsent: string(heatpump_rec_rate_below_50)
             text:
                 ifabsent: string(Below 50%)
             score:
                 ifabsent: float(1.0)
 
-    Printer_RecRate_CannotRecycle:
+    Heatpump_RecRate_CannotRecycle:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_rec_rate_cannot_recycle)
+                ifabsent: string(heatpump_rec_rate_cannot_recycle)
             text:
                 ifabsent: string(Cannot be recycled)
             score:
                 ifabsent: float(0.0)
 
-    Printer_RecRate_DataNotAvailable:
+    Heatpump_RecRate_DataNotAvailable:
         is_a: AnswerOption
         attributes:
             id:
-                ifabsent: string(printer_rec_rate_data_not_available)
+                ifabsent: string(heatpump_rec_rate_data_not_available)
             text:
                 ifabsent: string(Data is not available)
             score:
                 ifabsent: float(0.0)
 
     # ============================================
-    # PRINTER-SPECIFIC CONFIGURATION
+    # HEATPUMP-SPECIFIC CONFIGURATION
     # ============================================
 
-    REcycle_Printer_Config:
+    REcycle_Heatpump_Config:
         is_a: REcycle_Configuration
-        description: Configuration for REcycle indicator specifically for printers
+        description: Configuration for REcycle indicator specifically for heatpumps
         attributes:
             id:
-                ifabsent: string(REcycle_Printer)
+                ifabsent: string(REcycle_Heatpump)
             product_category:
-                ifabsent: ProductCategoryType(Printer)
+                ifabsent: ProductCategoryType(Heatpump)
             name:
-                ifabsent: string(Recyclability Index for Printers)
+                ifabsent: string(Recyclability Index for Heatpumps)
             parameter_applications:
                 inlined_as_list: true
                 inlined: true

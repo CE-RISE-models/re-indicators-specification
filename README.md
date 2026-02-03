@@ -19,50 +19,60 @@ Defines abstract classes that form the foundation:
 - **Questions**: Individual assessment questions with weights
 - **Assessments**: Structure for recording actual product evaluations
 
-### 2. Indicator Specifications Layer (`model/indicators/`)
-Defines the concrete parameters and questions for each indicator **per product type**:
+### 2. Core Parameter Libraries (`model/indicators/*_core.yaml`)
+Centralized definitions of reusable parameters, questions, and answer options:
 
 ```yaml
-# Example: REcycle indicator for PV panels
-REcycle_PV:
-  Parameters (specific to PV panels):
-    - Documentation availability (4 questions)
-    - Material composition (3 questions)
-    - Depollution (5 questions)
-    - Dismantling (3 questions)
-    - Recyclability rate (2 questions)
-    - Take-back scheme - bonus (2 questions)
-  
-  Total: 19 questions with answer options (score 0-5)
-  
-  Questions per parameter example:
-    Documentation:
-      - Q1.1: Unique Product identifier (weight: 0.05)
-      - Q1.2: Bill of materials (weight: 0.45)
-      - Q1.3: Safety manual (weight: 0.25)
-      - Q1.4: Disassembly manual (weight: 0.25)
+# Example: REcycle_core.yaml
+Documentation_Parameter:
+  id: P1_documentation
+  name: Documentation availability
+  questions:
+    - Q1.1: Unique Product identifier (weight: 0.05)
+    - Q1.2: Bill of materials (weight: 0.45)
+    - Q1.3: Safety manual (weight: 0.25)
+    - Q1.4: Disassembly manual (weight: 0.25)
+  answer_options:
+    - Publicly available (score: 5.0)
+    - Available to independent recyclers (score: 4.0)
+    - Available to authorized recyclers (score: 3.0)
+    - Available to manufacturers only (score: 1.0)
+    - Not available (score: 0.0)
 
-# Note: Other products (Battery, Laptop, Printer, HVAC) will have 
-# different parameters, questions, and scoring for their REcycle indicator
+# All 6 REcycle parameters defined once and reused across products
 ```
 
-### 3. Product Configurations Layer
-Specifies how indicators apply to specific products:
+### 3. Product Configuration Layer (`model/indicators/*_ProductName.yaml`)
+Product-specific configurations that reference shared parameters with custom weights:
 
 ```yaml
-REcycle for all products:
-  - Uses the same 6 parameters with 19 questions total
-  - Same scoring structure (0-5) for all answer options
-  - Product type is tracked but does not affect scoring or questions
-  - All products assessed identically using the same indicator structure
+# Example: REcycle_PV.yaml
+REcycle_PV_Config:
+  product_category: PV
+  parameter_applications:
+    - parameter_ref: P1_documentation
+      weight: 0.1
+    - parameter_ref: P2_material_composition
+      weight: 0.3
+    - parameter_ref: P3_depollution
+      weight: 0.1
+    - parameter_ref: P4_dismantling
+      weight: 0.1
+    - parameter_ref: P5_recyclability_rate
+      weight: 0.4
+    - parameter_ref: P6_takeback_scheme
+      weight: 0.1
+
+# REcycle_Printer.yaml uses the same parameters with different weights
 ```
 
 ### Key Design Principles
 
-1. **Product-Specific Indicators**: Each product type has its own set of parameters and questions for each indicator
-2. **Independent Specifications**: REcycle for PV is completely different from REcycle for Battery, Laptop, etc.
-3. **Variable Structure**: Each product can have different parameters, questions, answer options, and scoring
-4. **Version Lock**: Git tags (e.g., v1.0.0) lock the complete specification for all products
+1. **Core Parameter Libraries**: Common parameters, questions, and answer options are defined once and reused across products
+2. **Product-Specific Weights**: Each product references shared parameters but can customize their relative importance (weights)
+3. **Namespace Isolation**: Centralized parameter definitions eliminate naming conflicts between products
+4. **DRY Architecture**: Questions and scoring are maintained in a single location, reducing duplication and maintenance
+5. **Version Lock**: Git tags (e.g., v1.0.0) lock both shared parameter definitions and product configurations
 
 ### Data Properties
 
@@ -83,52 +93,65 @@ This identifier system enables seamless integration with databases and ensures c
 
 ### RE Indicators Status
 
-The CE-RISE project defines 5 core Resource Efficiency indicators:
+The CE-RISE project defines 5 core Resource Efficiency indicators with specific product applicability:
 
-| Indicator | Status | Products | Parameters Defined | Questions Defined |
-|-----------|--------|----------|-------------------|-------------------|
-| **REcycle** | PV Complete, Others Not Started | PV (complete), Battery, Laptop, Printer, HVAC | PV: 6/6 | PV: 19/19 (all with answer options) |
-| **REuse** | Not started | Laptop, Printer | 0 | 0 |
-| **REpair** | Not started | Laptop, Printer, HVAC | 0 | 0 |
-| **REmanufacture** | Not started | Laptop, Printer | 0 | 0 |
-| **REfurbish** | Not started | Laptop, Printer | 0 | 0 |
+| Indicator | Status | Relevant Product Groups | Progress |
+|-----------|--------|------------------------|----------|
+| **REcycle** | ✅ Complete | PV, Battery, Heatpump, Laptop, Printer | All 5 products complete with product-specific parameters |
+| **REuse** | Not started | Laptop, Printer | 0/2 products |
+| **REpair** | Not started | Laptop, Printer | 0/2 products |
+| **REmanufacture** | Not started | Laptop, Printer | 0/2 products |
+| **REfurbish** | Not started | Laptop, Printer | 0/2 products |
+
+**Total Scope**: 13 indicator-product combinations (5 complete, 8 remaining)
 
 ### Current Implementation Status
 
-#### Completed
+#### ✅ Completed - REcycle Indicator (5/5 products)
 - Core meta-model with abstract classes for indicators, parameters, questions, and assessments
-- REcycle indicator for PV panels fully implemented with 6 parameters:
-  - Documentation availability (4 questions)
-  - Material composition (3 questions)
-  - Depollution (5 questions)
-  - Dismantling (3 questions)
-  - Recyclability rate (2 questions)
-  - Take-back scheme - Bonus (2 questions)
-- All 19 questions for PV REcycle defined with complete answer options and scoring (0-5 scale)
-- JSON Schema and SHACL generation working
-- Scoring structure preserved with proper data types
+- **REcycle core parameter library** (REcycle_core.yaml) with shared parameters:
+  - P1: Documentation availability (4 questions) - shared by all products
+  - P2: Material composition (3 questions) - shared by all products
+  - P3: Depollution (5 questions) - shared by PV, Printer, Heatpump
+  - P6: Takeback scheme - Bonus (2 questions) - optional
+- **REcycle_PV** - Complete with PV-specific P4 (12 dismantling questions for 4 parts) and P5 (5 recyclability questions)
+  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
+- **REcycle_Printer** - Complete with generic P4 (3 questions) and P5 (2 questions)
+  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
+- **REcycle_Battery** - Complete with battery-specific P3 (fixed score 5), P4 (6 questions: pack→modules→cells), P5 (5 component questions)
+  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
+- **REcycle_Laptop** - Complete with unique structure: P1 (equal weights), P2 (4 questions), P3 (takeback), P4 (depollution with fastener strength), P5 (3 questions), P6 (5 battery components)
+  - Weights: Doc 0.1, Material 0.3, Takeback 0.1, Depollution 0.1, Dismantling 0.1, Recyclability 0.4
+- **REcycle_Heatpump** - Complete with generic P4 (3 questions) and P5 (2 questions)
+  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
+- All schema generation working: JSON Schema, SHACL, and OWL
+- **Architecture**: Core parameters shared where possible, product-specific parameters when needed
 
-#### TODO
-- REcycle indicator for Battery (completely different from PV)
-- REcycle indicator for Laptop (completely different from PV)
-- REcycle indicator for Printer (completely different from PV)
-- REcycle indicator for HVAC (completely different from PV)
-- REuse indicator specification
-- REpair indicator specification  
-- REmanufacture indicator specification
-- REfurbish indicator specification
-- Sample assessment data
-- Validation tests for all indicators
-- OWL export optimization
+#### 📋 TODO - REcycle Indicator
+- ✅ All products complete!
+
+#### 📋 TODO - Other Indicators
+- [ ] REuse indicator for Laptop
+- [ ] REuse indicator for Printer
+- [ ] REpair indicator for Laptop
+- [ ] REpair indicator for Printer
+- [ ] REmanufacture indicator for Laptop
+- [ ] REmanufacture indicator for Printer
+- [ ] REfurbish indicator for Laptop
+- [ ] REfurbish indicator for Printer
+
+#### 📋 TODO - Testing & Documentation
+- [ ] Sample assessment data for each indicator-product combination
+- [ ] Validation tests for all indicators
+- [ ] OWL export optimization
 
 ### Next Steps
-1. Define REcycle indicator specifications for Battery, Laptop, Printer, and HVAC (each with their own parameters and questions)
-2. Define REuse indicator parameters and questions for Laptop and Printer
-3. Define REpair indicator parameters and questions for Laptop, Printer, and HVAC
-4. Define REmanufacture indicator for Laptop and Printer
-5. Define REfurbish indicator for Laptop and Printer
-6. Create sample assessments for validation
-7. Implement validation test suite
+1. Define REuse indicator parameters and questions for Laptop and Printer
+2. Define REpair indicator parameters and questions for Laptop and Printer
+3. Define REmanufacture indicator for Laptop and Printer
+4. Define REfurbish indicator for Laptop and Printer
+5. Create sample assessments for validation
+6. Implement validation test suite
 
 ---
 

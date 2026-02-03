@@ -5,25 +5,24 @@ All notable changes to the CE-RISE RE-Indicators Specification Data Model will b
 ## [0.0.2] - Unreleased
 
 ### Added
-- Complete REcycle indicator implementation for PV panels with 6 parameters and 19 questions
-  - Documentation availability (4 questions)
-  - Material composition (3 questions)
-  - Depollution (5 questions)
-  - Dismantling (3 questions)
-  - Recyclability rate (2 questions)
-  - Take-back scheme - Bonus (2 questions)
-- All answer options with scoring (0-5 scale) for PV REcycle indicator
-- Product configuration structure for REcycle_PV
+- REcycle_core.yaml - Core parameter library with shared parameters (P1, P2, P3, P6)
+- REcycle indicator complete for all 5 products:
+  - REcycle_PV - PV-specific with 12 dismantling questions (4 priority parts) and 5 recyclability questions
+  - REcycle_Printer - Generic with 3 dismantling and 2 recyclability questions
+  - REcycle_Battery - Battery-specific with 6 dismantling questions (pack→modules→cells) and 5 component recyclability questions
+  - REcycle_Laptop - Complex structure with 6 parameters including takeback, recyclability classification (green/orange/red lists)
+  - REcycle_Heatpump - Generic with 3 dismantling and 2 recyclability questions
+- Added Heatpump product category (replacing HVAC for better specificity)
 
 ### Changed
-- Clarified that REcycle indicators are product-specific, not universal
-- Renamed REcycle.yaml to REcycle_PV.yaml to explicitly indicate PV-specific implementation
-- Fixed score data types from string to float for proper numeric computation
-- Updated model structure to support product-specific indicator implementations
+- Refactored REcycle architecture: core parameters shared where identical, product-specific parameters when different
+- Products can override core parameters (e.g., Battery's fixed depollution score, Laptop's equal documentation weights)
+- Parameters P4 (Dismantling) and P5 (Recyclability) are product-specific with different questions per product
+- Renamed HVAC to Heatpump throughout the model
 
 ### Fixed
-- Corrected score values to use float(X.0) format for proper type generation in JSON Schema and SHACL
-- Fixed typos in answer option texts (identifier, safety, proprietary)
+- Resolved namespace collision blocking SHACL/OWL generation
+- All schema generation (JSON Schema, SHACL, OWL) now working for all 5 products
 
 ## [0.0.1] - 14 Nov 2025
 
