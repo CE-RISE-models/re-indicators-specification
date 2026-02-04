@@ -3,7 +3,7 @@ name: re_indicators
 title: CE-RISE RE-Indicators Data Model
 description: Core data model for RE indicators specification and assessment
 license: https://creativecommons.org/licenses/by-nc/4.0/
-version: 0.0.1
+version: 0.0.2
 
 prefixes:
     linkml: https://w3id.org/linkml/
@@ -18,8 +18,10 @@ imports:
     - ./indicators/REcycle_Battery
     - ./indicators/REcycle_Laptop
     - ./indicators/REcycle_Heatpump
+    - ./indicators/REuse_core
+    - ./indicators/REuse_Laptop
+    - ./indicators/REuse_Printer
     # Future specifications can be added here:
-    # - ./indicators/REuse
     # - ./indicators/REpair
     # - ./indicators/REmanufacture
     # - ./indicators/REfurbish

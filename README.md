@@ -98,12 +98,12 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 | Indicator | Status | Relevant Product Groups | Progress |
 |-----------|--------|------------------------|----------|
 | **REcycle** | ✅ Complete | PV, Battery, Heatpump, Laptop, Printer | All 5 products complete with product-specific parameters |
-| **REuse** | Not started | Laptop, Printer | 0/2 products |
+| **REuse** | ✅ Complete | Laptop, Printer | All 2 products complete with shared core parameters |
 | **REpair** | Not started | Laptop, Printer | 0/2 products |
 | **REmanufacture** | Not started | Laptop, Printer | 0/2 products |
 | **REfurbish** | Not started | Laptop, Printer | 0/2 products |
 
-**Total Scope**: 13 indicator-product combinations (5 complete, 8 remaining)
+**Total Scope**: 13 indicator-product combinations (7 complete, 6 remaining)
 
 ### Current Implementation Status
 
@@ -127,12 +127,20 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 - All schema generation working: JSON Schema, SHACL, and OWL
 - **Architecture**: Core parameters shared where possible, product-specific parameters when needed
 
-#### 📋 TODO - REcycle Indicator
-- ✅ All products complete!
+#### ✅ Completed - REuse Indicator (2/2 products)
+- **REuse core parameter library** (REuse_core.yaml) with shared parameters for both Laptop and Printer:
+  - P1: Product's Diagnosis - Evaluation (3 questions: identification, core functionality, wear/tear)
+  - P2: Warranty Related Information (1 question)
+  - P3: Resetting the Product (2 questions: physical reset, software reset)
+  - P4: Data Confidentiality (1 question: data deletion)
+  - P5: New Ownership (1 question: ownership transfer)
+- **REuse_Laptop** - Complete with all 5 core parameters
+  - Weights: Diagnosis 0.125, Warranty 0.042, Reset 0.292, Data 0.208, Ownership 0.083
+- **REuse_Printer** - Complete with all 5 core parameters (identical weights to Laptop)
+  - Weights: Diagnosis 0.125, Warranty 0.042, Reset 0.292, Data 0.208, Ownership 0.083
+- **Architecture**: Fully shared core parameters - specification identical for both products
 
 #### 📋 TODO - Other Indicators
-- [ ] REuse indicator for Laptop
-- [ ] REuse indicator for Printer
 - [ ] REpair indicator for Laptop
 - [ ] REpair indicator for Printer
 - [ ] REmanufacture indicator for Laptop
@@ -146,7 +154,7 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 - [ ] OWL export optimization
 
 ### Next Steps
-1. Define REuse indicator parameters and questions for Laptop and Printer
+1. ✅ Define REuse indicator parameters and questions for Laptop and Printer - COMPLETE
 2. Define REpair indicator parameters and questions for Laptop and Printer
 3. Define REmanufacture indicator for Laptop and Printer
 4. Define REfurbish indicator for Laptop and Printer
