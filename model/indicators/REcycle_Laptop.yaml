@@ -1413,14 +1413,14 @@ classes:
                 inlined: true
                 ifabsent:
                     - parameter_ref: P1_documentation
-                      weight: 0.1
+                      weight: 0.018181818181818182
                     - parameter_ref: P2_material_composition
-                      weight: 0.3
+                      weight: 0.05454545454545454
                     - parameter_ref: P3_takeback_scheme
-                      weight: 0.1
+                      weight: 0.018181818181818182
                     - parameter_ref: P4_depollution
-                      weight: 0.1
+                      weight: 0.018181818181818182
                     - parameter_ref: P5_dismantling
-                      weight: 0.1
+                      weight: 0.018181818181818182
                     - parameter_ref: P6_recyclability_rate
-                      weight: 0.4
+                      weight: 0.07272727272727272

@@ -73,6 +73,7 @@ REcycle_PV_Config:
 3. **Namespace Isolation**: Centralized parameter definitions eliminate naming conflicts between products
 4. **DRY Architecture**: Questions and scoring are maintained in a single location, reducing duplication and maintenance
 5. **Version Lock**: Git tags (e.g., v1.0.0) lock both shared parameter definitions and product configurations
+6. **Normalized Scoring**: All indicator final scores range from 0 to 1, where 1 represents the highest/best score (most recyclable, reusable, etc.) and 0 represents the lowest/worst score
 
 ### Data Properties
 

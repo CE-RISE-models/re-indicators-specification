@@ -374,12 +374,12 @@ classes:
                 inlined: true
                 ifabsent:
                     - parameter_ref: P1_documentation
-                      weight: 0.1
+                      weight: 0.02
                     - parameter_ref: P2_material_composition
-                      weight: 0.1
+                      weight: 0.02
                     - parameter_ref: P3_depollution
-                      weight: 0.2
+                      weight: 0.04
                     - parameter_ref: P4_dismantling
-                      weight: 0.2
+                      weight: 0.04
                     - parameter_ref: P5_recyclability_rate
-                      weight: 0.4
+                      weight: 0.08
