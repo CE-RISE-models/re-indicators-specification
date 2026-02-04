@@ -21,8 +21,9 @@ imports:
     - ./indicators/REuse_core
     - ./indicators/REuse_Laptop
     - ./indicators/REuse_Printer
+    - ./indicators/REpair_core
+    - ./indicators/REpair_Laptop
     # Future specifications can be added here:
-    # - ./indicators/REpair
     # - ./indicators/REmanufacture
     # - ./indicators/REfurbish
 

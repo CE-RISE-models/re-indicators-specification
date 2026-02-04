@@ -100,50 +100,22 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 |-----------|--------|------------------------|----------|
 | **REcycle** | ✅ Complete | PV, Battery, Heatpump, Laptop, Printer | All 5 products complete with product-specific parameters |
 | **REuse** | ✅ Complete | Laptop, Printer | All 2 products complete with shared core parameters |
-| **REpair** | Not started | Laptop, Printer | 0/2 products |
+| **REpair** | ✅ Complete | Laptop | 1/1 product complete |
 | **REmanufacture** | Not started | Laptop, Printer | 0/2 products |
 | **REfurbish** | Not started | Laptop, Printer | 0/2 products |
 
-**Total Scope**: 13 indicator-product combinations (7 complete, 6 remaining)
+**Total Scope**: 12 indicator-product combinations (8 complete, 4 remaining)
 
 ### Current Implementation Status
 
 #### ✅ Completed - REcycle Indicator (5/5 products)
-- Core meta-model with abstract classes for indicators, parameters, questions, and assessments
-- **REcycle core parameter library** (REcycle_core.yaml) with shared parameters:
-  - P1: Documentation availability (4 questions) - shared by all products
-  - P2: Material composition (3 questions) - shared by all products
-  - P3: Depollution (5 questions) - shared by PV, Printer, Heatpump
-  - P6: Takeback scheme - Bonus (2 questions) - optional
-- **REcycle_PV** - Complete with PV-specific P4 (12 dismantling questions for 4 parts) and P5 (5 recyclability questions)
-  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
-- **REcycle_Printer** - Complete with generic P4 (3 questions) and P5 (2 questions)
-  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
-- **REcycle_Battery** - Complete with battery-specific P3 (fixed score 5), P4 (6 questions: pack→modules→cells), P5 (5 component questions)
-  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
-- **REcycle_Laptop** - Complete with unique structure: P1 (equal weights), P2 (4 questions), P3 (takeback), P4 (depollution with fastener strength), P5 (3 questions), P6 (5 battery components)
-  - Weights: Doc 0.1, Material 0.3, Takeback 0.1, Depollution 0.1, Dismantling 0.1, Recyclability 0.4
-- **REcycle_Heatpump** - Complete with generic P4 (3 questions) and P5 (2 questions)
-  - Weights: Doc 0.1, Material 0.1, Depollution 0.2, Dismantling 0.2, Recyclability 0.4
-- All schema generation working: JSON Schema, SHACL, and OWL
-- **Architecture**: Core parameters shared where possible, product-specific parameters when needed
 
 #### ✅ Completed - REuse Indicator (2/2 products)
-- **REuse core parameter library** (REuse_core.yaml) with shared parameters for both Laptop and Printer:
-  - P1: Product's Diagnosis - Evaluation (3 questions: identification, core functionality, wear/tear)
-  - P2: Warranty Related Information (1 question)
-  - P3: Resetting the Product (2 questions: physical reset, software reset)
-  - P4: Data Confidentiality (1 question: data deletion)
-  - P5: New Ownership (1 question: ownership transfer)
-- **REuse_Laptop** - Complete with all 5 core parameters
-  - Weights: Diagnosis 0.125, Warranty 0.042, Reset 0.292, Data 0.208, Ownership 0.083
-- **REuse_Printer** - Complete with all 5 core parameters (identical weights to Laptop)
-  - Weights: Diagnosis 0.125, Warranty 0.042, Reset 0.292, Data 0.208, Ownership 0.083
-- **Architecture**: Fully shared core parameters - specification identical for both products
+
+#### ✅ Completed - REpair Indicator (1/1 products)
 
 #### 📋 TODO - Other Indicators
-- [ ] REpair indicator for Laptop
-- [ ] REpair indicator for Printer
+
 - [ ] REmanufacture indicator for Laptop
 - [ ] REmanufacture indicator for Printer
 - [ ] REfurbish indicator for Laptop
@@ -156,7 +128,7 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 
 ### Next Steps
 1. ✅ Define REuse indicator parameters and questions for Laptop and Printer - COMPLETE
-2. Define REpair indicator parameters and questions for Laptop and Printer
+2. ✅ Define REpair indicator parameters and questions for Laptop - COMPLETE
 3. Define REmanufacture indicator for Laptop and Printer
 4. Define REfurbish indicator for Laptop and Printer
 5. Create sample assessments for validation
