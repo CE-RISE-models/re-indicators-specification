@@ -101,10 +101,10 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 | **REcycle** | ✅ Complete | PV, Battery, Heatpump, Laptop, Printer | All 5 products complete with product-specific parameters |
 | **REuse** | ✅ Complete | Laptop, Printer | All 2 products complete with shared core parameters |
 | **REpair** | ✅ Complete | Laptop | 1/1 product complete |
-| **REmanufacture** | Not started | Laptop, Printer | 0/2 products |
+| **REmanufacture** | ✅ Complete | Laptop, Printer | All 2 products complete with shared core parameters |
 | **REfurbish** | Not started | Laptop, Printer | 0/2 products |
 
-**Total Scope**: 12 indicator-product combinations (8 complete, 4 remaining)
+**Total Scope**: 12 indicator-product combinations (10 complete, 2 remaining)
 
 ### Current Implementation Status
 
@@ -114,25 +114,18 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 
 #### ✅ Completed - REpair Indicator (1/1 products)
 
-#### 📋 TODO - Other Indicators
+#### ✅ Completed - REmanufacture Indicator (2/2 products)
 
-- [ ] REmanufacture indicator for Laptop
-- [ ] REmanufacture indicator for Printer
+#### 📋 TODO - Other Indicators
 - [ ] REfurbish indicator for Laptop
 - [ ] REfurbish indicator for Printer
 
 #### 📋 TODO - Testing & Documentation
-- [ ] Sample assessment data for each indicator-product combination
-- [ ] Validation tests for all indicators
 - [ ] OWL export optimization
 
 ### Next Steps
-1. ✅ Define REuse indicator parameters and questions for Laptop and Printer - COMPLETE
-2. ✅ Define REpair indicator parameters and questions for Laptop - COMPLETE
-3. Define REmanufacture indicator for Laptop and Printer
-4. Define REfurbish indicator for Laptop and Printer
-5. Create sample assessments for validation
-6. Implement validation test suite
+1. Define REmanufacture indicator for Laptop and Printer
+2. Define REfurbish indicator for Laptop and Printer
 
 ---
 

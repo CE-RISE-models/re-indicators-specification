@@ -23,8 +23,10 @@ imports:
     - ./indicators/REuse_Printer
     - ./indicators/REpair_core
     - ./indicators/REpair_Laptop
+    - ./indicators/REmanufacture_core
+    - ./indicators/REmanufacture_Laptop
+    - ./indicators/REmanufacture_Printer
     # Future specifications can be added here:
-    # - ./indicators/REmanufacture
     # - ./indicators/REfurbish
 
 default_range: string
