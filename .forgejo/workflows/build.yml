@@ -6,7 +6,7 @@ on:
 
 jobs:
     build-and-deploy:
-        runs-on: codeberg-medium
+        runs-on: codeberg-small
         steps:
             - name: Debug - Check environment
               run: |
@@ -22,8 +22,8 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  python3 -m pip install --upgrade pip
-                  python3 -m pip install linkml pyyaml
+                  python3 -m pip install --break-system-packages --upgrade pip
+                  python3 -m pip install --break-system-packages linkml pyyaml
 
             - name: Generate JSON Schema
               timeout-minutes: 5
