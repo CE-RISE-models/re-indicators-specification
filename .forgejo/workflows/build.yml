@@ -6,7 +6,7 @@ on:
 
 jobs:
     build-and-deploy:
-        runs-on: codeberg-tiny
+        runs-on: codeberg
         steps:
             - name: Debug - Check environment
               run: |
