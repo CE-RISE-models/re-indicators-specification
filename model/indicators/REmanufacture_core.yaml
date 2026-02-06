@@ -2610,19 +2610,19 @@ classes:
             weight:
                 ifabsent: float(0.030303030)
             answer_options:
-                range: SparePartsCompatibilityAnswerOption
+                range: RemanufactureSparePartsCompatibilityAnswerOption
                 multivalued: true
                 inlined: true
 
-    SparePartsCompatibilityAnswerOption:
+    RemanufactureSparePartsCompatibilityAnswerOption:
         is_a: AnswerOption
         union_of:
-            - SpareCompat_Fully
-            - SpareCompat_Half
-            - SpareCompat_No
-            - SpareCompat_NoAnswer
+            - SpareCompat_RemanufactureFully
+            - SpareCompat_RemanufactureHalf
+            - SpareCompat_RemanufactureNo
+            - SpareCompat_RemanufactureNoAnswer
 
-    SpareCompat_Fully:
+    SpareCompat_RemanufactureFully:
         is_a: AnswerOption
         attributes:
             id:
@@ -2632,7 +2632,7 @@ classes:
             score:
                 ifabsent: float(2.0)
 
-    SpareCompat_Half:
+    SpareCompat_RemanufactureHalf:
         is_a: AnswerOption
         attributes:
             id:
@@ -2642,7 +2642,7 @@ classes:
             score:
                 ifabsent: float(1.0)
 
-    SpareCompat_No:
+    SpareCompat_RemanufactureNo:
         is_a: AnswerOption
         attributes:
             id:
@@ -2652,7 +2652,7 @@ classes:
             score:
                 ifabsent: float(0.0)
 
-    SpareCompat_NoAnswer:
+    SpareCompat_RemanufactureNoAnswer:
         is_a: AnswerOption
         attributes:
             id:
@@ -2673,7 +2673,7 @@ classes:
             weight:
                 ifabsent: float(0.030303030)
             answer_options:
-                range: SparePartsDeliveryAnswerOption
+                range: RemanufactureSparePartsDeliveryAnswerOption
                 multivalued: true
                 inlined: true
 
@@ -2688,21 +2688,21 @@ classes:
             weight:
                 ifabsent: float(0.030303030)
             answer_options:
-                range: SparePartsDeliveryAnswerOption
+                range: RemanufactureSparePartsDeliveryAnswerOption
                 multivalued: true
                 inlined: true
 
-    SparePartsDeliveryAnswerOption:
+    RemanufactureSparePartsDeliveryAnswerOption:
         is_a: AnswerOption
         union_of:
-            - SpareDeliv_3DaysOrLess
-            - SpareDeliv_3To5Days
-            - SpareDeliv_5To10Days
-            - SpareDeliv_MoreThan10Days
-            - SpareDeliv_NotAvailable
-            - SpareDeliv_DataUnavailable
+            - SpareDeliv_Remanufacture3DaysOrLess
+            - SpareDeliv_Remanufacture3To5Days
+            - SpareDeliv_Remanufacture5To10Days
+            - SpareDeliv_RemanufactureMoreThan10Days
+            - SpareDeliv_RemanufactureNotAvailable
+            - SpareDeliv_RemanufactureDataUnavailable
 
-    SpareDeliv_3DaysOrLess:
+    SpareDeliv_Remanufacture3DaysOrLess:
         is_a: AnswerOption
         attributes:
             id:
@@ -2712,7 +2712,7 @@ classes:
             score:
                 ifabsent: float(4.0)
 
-    SpareDeliv_3To5Days:
+    SpareDeliv_Remanufacture3To5Days:
         is_a: AnswerOption
         attributes:
             id:
@@ -2722,7 +2722,7 @@ classes:
             score:
                 ifabsent: float(3.0)
 
-    SpareDeliv_5To10Days:
+    SpareDeliv_Remanufacture5To10Days:
         is_a: AnswerOption
         attributes:
             id:
@@ -2732,7 +2732,7 @@ classes:
             score:
                 ifabsent: float(2.0)
 
-    SpareDeliv_MoreThan10Days:
+    SpareDeliv_RemanufactureMoreThan10Days:
         is_a: AnswerOption
         attributes:
             id:
@@ -2742,7 +2742,7 @@ classes:
             score:
                 ifabsent: float(1.0)
 
-    SpareDeliv_NotAvailable:
+    SpareDeliv_RemanufactureNotAvailable:
         is_a: AnswerOption
         attributes:
             id:
@@ -2752,7 +2752,7 @@ classes:
             score:
                 ifabsent: float(0.0)
 
-    SpareDeliv_DataUnavailable:
+    SpareDeliv_RemanufactureDataUnavailable:
         is_a: AnswerOption
         attributes:
             id:
@@ -2773,7 +2773,7 @@ classes:
             weight:
                 ifabsent: float(0.030303030)
             answer_options:
-                range: SparePartsAvailabilityAnswerOption
+                range: RemanufactureSparePartsAvailabilityAnswerOption
                 multivalued: true
                 inlined: true
 
@@ -2788,21 +2788,21 @@ classes:
             weight:
                 ifabsent: float(0.030303030)
             answer_options:
-                range: SparePartsAvailabilityAnswerOption
+                range: RemanufactureSparePartsAvailabilityAnswerOption
                 multivalued: true
                 inlined: true
 
-    SparePartsAvailabilityAnswerOption:
+    RemanufactureSparePartsAvailabilityAnswerOption:
         is_a: AnswerOption
         union_of:
-            - SpareAvail_7YearsOrMore
-            - SpareAvail_6Years
-            - SpareAvail_5Years
-            - SpareAvail_4YearsOrLess
-            - SpareAvail_NotAvailable
-            - SpareAvail_DataUnavailable
+            - SpareAvail_Remanufacture7YearsOrMore
+            - SpareAvail_Remanufacture6Years
+            - SpareAvail_Remanufacture5Years
+            - SpareAvail_Remanufacture4YearsOrLess
+            - SpareAvail_RemanufactureNotAvailable
+            - SpareAvail_RemanufactureDataUnavailable
 
-    SpareAvail_7YearsOrMore:
+    SpareAvail_Remanufacture7YearsOrMore:
         is_a: AnswerOption
         attributes:
             id:
@@ -2812,7 +2812,7 @@ classes:
             score:
                 ifabsent: float(4.0)
 
-    SpareAvail_6Years:
+    SpareAvail_Remanufacture6Years:
         is_a: AnswerOption
         attributes:
             id:
@@ -2822,7 +2822,7 @@ classes:
             score:
                 ifabsent: float(3.0)
 
-    SpareAvail_5Years:
+    SpareAvail_Remanufacture5Years:
         is_a: AnswerOption
         attributes:
             id:
@@ -2832,7 +2832,7 @@ classes:
             score:
                 ifabsent: float(2.0)
 
-    SpareAvail_4YearsOrLess:
+    SpareAvail_Remanufacture4YearsOrLess:
         is_a: AnswerOption
         attributes:
             id:
@@ -2842,7 +2842,7 @@ classes:
             score:
                 ifabsent: float(1.0)
 
-    SpareAvail_NotAvailable:
+    SpareAvail_RemanufactureNotAvailable:
         is_a: AnswerOption
         attributes:
             id:
@@ -2852,7 +2852,7 @@ classes:
             score:
                 ifabsent: float(0.0)
 
-    SpareAvail_DataUnavailable:
+    SpareAvail_RemanufactureDataUnavailable:
         is_a: AnswerOption
         attributes:
             id:
