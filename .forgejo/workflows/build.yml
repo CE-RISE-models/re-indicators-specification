@@ -30,11 +30,29 @@ jobs:
                   python -m pip install --upgrade pip
                   python -m pip install linkml pyyaml
 
-            - name: Generate schema files
+            - name: Generate JSON Schema
+              timeout-minutes: 5
               run: |
-                  echo "Generating schema files..."
-                  make all
-                  echo "Generated files:"
+                  echo "Generating JSON Schema..."
+                  make generated/schema.json
+                  echo "Generated JSON Schema"
+                  ls -la generated/
+
+            - name: Generate SHACL
+              timeout-minutes: 5
+              run: |
+                  echo "Generating SHACL..."
+                  make generated/shacl.ttl
+                  echo "Generated SHACL"
+                  ls -la generated/
+
+            - name: Generate OWL
+              timeout-minutes: 5
+              run: |
+                  echo "Generating OWL..."
+                  make generated/model.ttl
+                  echo "Generated OWL"
+                  echo "All generated files:"
                   ls -la generated/
 
             - name: Include LinkML YAML schema
