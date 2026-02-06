@@ -2,9 +2,10 @@
 
 All notable changes to the CE-RISE RE-Indicators Specification Data Model will be documented in this file.
 
-## [0.0.2] - Unreleased
+## [0.0.2] - 2026-02-06
 
 ### Added
+- REfurbish indicator complete for Laptop with 99 questions across 4 parameter groups (P1-P4: product-design, support, refurbish-specific, cleaning/polishing)
 - REmanufacture indicator complete for Laptop and Printer with fully shared core parameters (P1-P4: inspection/testing, disassembly/assembly, cleaning, reprocessing)
 - REpair indicator complete for Laptop with 10 parameters
 - REuse indicator complete for Laptop and Printer with fully shared core parameters (P1-P5: diagnosis, warranty, reset, data confidentiality, ownership)

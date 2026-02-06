@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 title: CE-RISE RE-Indicators, Specification Data Model
 message: >-
-  v0.0.2 - Implementation of REcyclability indicator.
+  v0.0.2 - Implementation of all indicators.
 type: software
 doi: 10.5281/zenodo.17610026
 authors:
@@ -10,6 +10,19 @@ authors:
     email: ribo@nilu.no
     orcid: 'https://orcid.org/0000-0002-7468-9096'
     affiliation: NILU
+contributors:
+  - given-names: Joana F.
+    family-names: Morgado
+    orcid: 'https://orcid.org/0000-0002-2930-2534'
+    affiliation: EMPA
+  - given-names: Setenay
+    family-names: Saglam
+    orcid: 'https://orcid.org/0009-0001-8731-199X'
+    affiliation: EMPA
+  - given-names: Smriti Anand
+    family-names: Jha
+    orcid: 'https://orcid.org/0009-0004-2579-8204'
+    affiliation: EMPA
 identifiers:
   - type: doi
     value: 10.5281/zenodo.17610026
