@@ -49,6 +49,13 @@ jobs:
                   echo "All generated files:"
                   ls -la generated/
 
+            - name: Copy completeness constraints
+              run: |
+                  echo "Copying completeness constraints..."
+                  make generated/completeness-constraints.ttl
+                  echo "Copied completeness constraints"
+                  ls -la generated/
+
             - name: Include LinkML YAML schema
               run: |
                   echo "Copying LinkML YAML schema to generated/"
@@ -223,6 +230,12 @@ jobs:
                               <a href="model.ttl">OWL Ontology (Turtle)</a>
                               <div class="file-description">
                                   OWL ontology representation of the data model in Turtle format
+                              </div>
+                          </li>
+                          <li>
+                              <a href="completeness-constraints.ttl">Completeness Constraints (SHACL)</a>
+                              <div class="file-description">
+                                  SPARQL-based SHACL constraints ensuring all parameters and questions are answered
                               </div>
                           </li>
                       </ul>

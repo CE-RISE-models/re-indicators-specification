@@ -10,6 +10,175 @@ This repository provides the data model specifying the RE-indicators in the CE-R
 
 ## Data Model Structure
 
+### Core Hierarchy
+
+The RE-Indicators data model is organized into two main class groups: **Specification Classes** (defining the indicator structure) and **Assessment Classes** (capturing actual product evaluations).
+
+```
+SPECIFICATION CLASSES (define indicator structure)
+│
+├── IndicatorProductConfiguration (root - links indicator to product)
+│   ├── id (REQUIRED - e.g., "REcycle_PV")
+│   ├── indicator_type (REQUIRED - REcycle, REuse, REpair, etc.)
+│   ├── product_category (REQUIRED - PV, Laptop, Printer, etc.)
+│   ├── name
+│   ├── description
+│   └── ParameterApplication (multivalued)
+│       ├── parameter_ref (REQUIRED - reference to ParameterSpecification)
+│       ├── weight (REQUIRED - 0.0 to 1.0)
+│       └── applicable_questions (list of question IDs)
+│
+├── ParameterSpecification (abstract - defined in *_core.yaml)
+│   ├── id (REQUIRED - unique identifier)
+│   ├── name (REQUIRED - e.g., "Documentation availability")
+│   ├── description
+│   ├── weight (REQUIRED - 0.0 to 1.0)
+│   ├── is_bonus (boolean - default false)
+│   └── QuestionSpecification (multivalued, inlined)
+│       ├── id (REQUIRED - e.g., "Q1.1")
+│       ├── text (REQUIRED - question text)
+│       ├── weight (REQUIRED - 0.0 to 1.0)
+│       └── AnswerOption (multivalued, inlined, REQUIRED)
+│           ├── id
+│           ├── text (REQUIRED - answer text)
+│           └── score (REQUIRED - 0.0 to 5.0)
+│
+ASSESSMENT CLASSES (capture actual evaluations)
+│
+└── Assessment (root - actual product evaluation)
+    ├── id (REQUIRED - unique identifier)
+    ├── timestamp (REQUIRED - datetime of assessment)
+    ├── model_version (REQUIRED - version used)
+    ├── indicator_specification_id (REQUIRED - e.g., "REcycle_PV")
+    ├── total_score (computed overall score)
+    ├── ProductInfo (REQUIRED, inlined)
+    │   ├── manufacturer
+    │   ├── model
+    │   ├── serial_number
+    │   └── product_category (REQUIRED)
+    └── ParameterAssessment (multivalued, inlined)
+        ├── parameter_id (REQUIRED - reference to ParameterSpecification)
+        ├── computed_score (REQUIRED - calculated parameter score)
+        └── QuestionAnswer (multivalued, inlined)
+            ├── question_id (REQUIRED - reference to QuestionSpecification)
+            ├── selected_answer_id (ID of chosen AnswerOption)
+            ├── answer_score (REQUIRED - score obtained)
+            └── notes (optional evidence/justification)
+
+ENUMS
+├── IndicatorType: REuse, REpair, REmanufacture, REfurbish, REcycle
+└── ProductCategoryType: PV, Battery, Laptop, Printer, HVAC, Heatpump
+```
+
+### Workflow Sequence
+
+The RE-Indicators model supports two distinct workflows: **Specification Development** (creating and maintaining indicator definitions) and **Product Assessment** (evaluating actual products using those definitions).
+
+#### **Workflow A: Specification Development** (for model developers/maintainers)
+
+**Step 1: Define Core Parameters** (`model/indicators/*_core.yaml`)
+Define reusable parameters with their questions and answer options in core library files:
+- Create `ParameterSpecification` objects with unique IDs (e.g., `P1_documentation`)
+- Define `QuestionSpecification` entries with weights within each parameter
+- Specify `AnswerOption` choices with scores (0.0-5.0 scale)
+- Set parameter weights and bonus flags
+- **Result**: Centralized, reusable parameter definitions shared across products
+
+**Step 2: Configure Product-Specific Weights** (`model/indicators/*_ProductName.yaml`)
+Create product configurations that reference core parameters with custom weights:
+- Create `IndicatorProductConfiguration` with indicator type and product category
+- Add `ParameterApplication` entries referencing core parameters by ID
+- Assign product-specific weights to each parameter (must sum to ≤1.0)
+- Optionally filter applicable questions for this product
+- **Result**: Product-specific scoring configurations (e.g., REcycle_PV, REcycle_Laptop)
+
+**Step 3: Version and Publish**
+Lock specifications with Git tags for reproducible assessments:
+- Tag releases (e.g., `v1.0.0`) to version both core parameters and product configs
+- Generate schema artifacts (JSON Schema, SHACL, OWL)
+- Publish to documentation website
+- **Result**: Stable, citable specifications for assessments
+
+#### **Workflow B: Product Assessment** (for assessors/users)
+
+**Step 1: Create Assessment Instance**
+Initialize an `Assessment` object with metadata:
+- Generate unique assessment ID
+- Record timestamp and model version used
+- Capture `ProductInfo` (manufacturer, model, serial number, category)
+- Reference the applicable `indicator_specification_id` (e.g., "REcycle_PV")
+- **Result**: Documented assessment context
+
+**Step 2: Answer Questions for Each Parameter**
+For each parameter in the product configuration, answer all applicable questions:
+- Create `ParameterAssessment` entry linking to parameter ID
+- For each question, create `QuestionAnswer` with:
+  - Selected answer option ID
+  - Score from that answer (0.0-5.0)
+  - Optional notes/evidence
+- **Result**: Complete question responses with justification
+
+**Step 3: Calculate Parameter Scores**
+Compute weighted scores for each parameter:
+- **Formula**: `parameter_score = Σ(question_score × question_weight)`
+- Store in `ParameterAssessment.computed_score`
+- Verify weights sum to 1.0 within each parameter
+- **Result**: Normalized parameter scores (0.0-5.0 scale)
+
+**Step 4: Calculate Total Indicator Score**
+Compute overall indicator score across all parameters:
+- **Formula**: `total_score = Σ(parameter_score × parameter_weight) / 5.0`
+- Handle bonus parameters separately (can exceed 1.0)
+- Store in `Assessment.total_score`
+- **Result**: Final indicator score (0.0-1.0 scale, where 1.0 = best)
+
+**Step 5: Document and Export**
+Finalize the assessment with full traceability:
+- Ensure all required fields are populated
+- Include evidence and notes for transparency
+- Export to JSON, RDF, or other formats
+- Reference the specific model version used
+- **Result**: Complete, auditable assessment record
+
+### Completeness Validation
+
+**Requirement**: If an Assessment references a specific indicator-product configuration version (e.g., `REcycle_PV v1.0.0`), then **ALL** parameters and **ALL** questions from that version **MUST** be answered.
+
+#### Implementation
+
+The model enforces completeness through **SPARQL-based SHACL constraints** defined in `model/completeness-constraints.ttl`:
+
+1. **Parameter Coverage**: Validates that Assessment contains a `ParameterAssessment` for every parameter defined in the referenced `IndicatorProductConfiguration`
+2. **Question Coverage**: Validates that each `ParameterAssessment` contains a `QuestionAnswer` for every question defined in the referenced `ParameterSpecification`
+3. **Answer Selection**: Validates that each `QuestionAnswer` has a `selected_answer_id` (answer must be chosen)
+
+#### Format Support
+
+| Format | Completeness Validation | Notes |
+|--------|------------------------|-------|
+| **JSON Schema** | ❌ Not supported | Cannot validate cross-document references |
+| **SHACL** | ✅ **Full support** | SPARQL-based constraints validate completeness |
+| **OWL** | ❌ Not supported | Class-level constraints only |
+
+#### Usage
+
+When validating Assessment data:
+
+```bash
+# Load both the base SHACL and completeness constraints
+shacl validate \
+  --shapes generated/shacl.ttl \
+  --shapes generated/completeness-constraints.ttl \
+  --data assessment-data.ttl
+```
+
+**Validation will fail if:**
+- Assessment is missing any parameter from the specification
+- ParameterAssessment is missing any question from the parameter
+- QuestionAnswer does not have a selected answer
+
+### Architecture Overview
+
 The CE-RISE RE-Indicators data model implements a three-layer architecture for maximum reusability and clear versioning:
 
 ### 1. Core Model Layer (`model/model.yaml`)
@@ -98,25 +267,25 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 
 | Indicator | Status | Relevant Product Groups | Progress |
 |-----------|--------|------------------------|----------|
-| **REcycle** | ✅ Complete | PV, Battery, Heatpump, Laptop, Printer | All 5 products complete with product-specific parameters |
-| **REuse** | ✅ Complete | Laptop, Printer | All 2 products complete with shared core parameters |
-| **REpair** | ✅ Complete | Laptop | 1/1 product complete |
-| **REmanufacture** | ✅ Complete | Laptop, Printer | All 2 products complete with shared core parameters |
-| **REfurbish** | ✅ Complete | Laptop | 1/1 product complete |
+| **REcycle** | Complete | PV, Battery, Heatpump, Laptop, Printer | All 5 products complete with product-specific parameters |
+| **REuse** | Complete | Laptop, Printer | All 2 products complete with shared core parameters |
+| **REpair** | Complete | Laptop | 1/1 product complete |
+| **REmanufacture** | Complete | Laptop, Printer | All 2 products complete with shared core parameters |
+| **REfurbish** | Complete | Laptop | 1/1 product complete |
 
 **Total Scope**: 11 indicator-product combinations (all complete)
 
 ### Current Implementation Status
 
-#### ✅ Completed - REcycle Indicator (5/5 products)
+#### Completed - REcycle Indicator (5/5 products)
 
-#### ✅ Completed - REuse Indicator (2/2 products)
+#### Completed - REuse Indicator (2/2 products)
 
-#### ✅ Completed - REpair Indicator (1/1 products)
+#### Completed - REpair Indicator (1/1 products)
 
-#### ✅ Completed - REmanufacture Indicator (2/2 products)
+#### Completed - REmanufacture Indicator (2/2 products)
 
-#### ✅ Completed - REfurbish Indicator (1/1 products)
+#### Completed - REfurbish Indicator (1/1 products)
 
 
 ---

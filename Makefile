@@ -1,4 +1,4 @@
-all: generated/schema.json generated/shacl.ttl generated/model.ttl
+all: generated/schema.json generated/shacl.ttl generated/model.ttl generated/completeness-constraints.ttl
 
 generated/schema.json: model/model.yaml
 	mkdir -p generated
@@ -19,6 +19,11 @@ generated/model.ttl: model/model.yaml
 		 (echo "OWL generation failed, creating placeholder"; \
 		  echo "# OWL generation failed - check model syntax" > generated/model.ttl))
 	@echo "Generated OWL: $$(wc -l < generated/model.ttl) lines"
+
+generated/completeness-constraints.ttl: model/completeness-constraints.ttl
+	mkdir -p generated
+	cp model/completeness-constraints.ttl generated/completeness-constraints.ttl
+	@echo "Copied completeness constraints: $$(wc -l < generated/completeness-constraints.ttl) lines"
 
 clean:
 	rm -rf generated/*.json generated/*.ttl
