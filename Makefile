@@ -1,14 +1,20 @@
-all: generated/schema.json generated/shacl.ttl generated/model.ttl generated/completeness-constraints.ttl
+all: generated/schema.json generated/shacl.ttl generated/model.ttl
 
 generated/schema.json: model/model.yaml
 	mkdir -p generated
 	linkml generate json-schema model/model.yaml > generated/schema.json || (echo "Error generating JSON Schema"; exit 1)
 	@echo "Generated JSON Schema: $$(wc -l < generated/schema.json) lines"
 
-generated/shacl.ttl: model/model.yaml
+generated/shacl.ttl: model/model.yaml model/completeness-constraints.ttl
 	mkdir -p generated
 	linkml generate shacl model/model.yaml > generated/shacl.ttl || (echo "Error generating SHACL"; exit 1)
-	@echo "Generated SHACL: $$(wc -l < generated/shacl.ttl) lines"
+	@echo "Generated base SHACL: $$(wc -l < generated/shacl.ttl) lines"
+	@echo "" >> generated/shacl.ttl
+	@echo "# ============================================================================" >> generated/shacl.ttl
+	@echo "# COMPLETENESS CONSTRAINTS" >> generated/shacl.ttl
+	@echo "# ============================================================================" >> generated/shacl.ttl
+	cat model/completeness-constraints.ttl | grep -v "^@prefix" >> generated/shacl.ttl
+	@echo "Merged completeness constraints into SHACL: $$(wc -l < generated/shacl.ttl) lines"
 
 generated/model.ttl: model/model.yaml
 	mkdir -p generated
@@ -20,10 +26,7 @@ generated/model.ttl: model/model.yaml
 		  echo "# OWL generation failed - check model syntax" > generated/model.ttl))
 	@echo "Generated OWL: $$(wc -l < generated/model.ttl) lines"
 
-generated/completeness-constraints.ttl: model/completeness-constraints.ttl
-	mkdir -p generated
-	cp model/completeness-constraints.ttl generated/completeness-constraints.ttl
-	@echo "Copied completeness constraints: $$(wc -l < generated/completeness-constraints.ttl) lines"
+
 
 clean:
 	rm -rf generated/*.json generated/*.ttl

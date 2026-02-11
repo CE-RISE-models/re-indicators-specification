@@ -146,7 +146,7 @@ Finalize the assessment with full traceability:
 
 #### Implementation
 
-The model enforces completeness through **SPARQL-based SHACL constraints** defined in `model/completeness-constraints.ttl`:
+The model enforces completeness through **SPARQL-based SHACL constraints** automatically merged into `generated/shacl.ttl`:
 
 1. **Parameter Coverage**: Validates that Assessment contains a `ParameterAssessment` for every parameter defined in the referenced `IndicatorProductConfiguration`
 2. **Question Coverage**: Validates that each `ParameterAssessment` contains a `QuestionAnswer` for every question defined in the referenced `ParameterSpecification`
@@ -157,7 +157,7 @@ The model enforces completeness through **SPARQL-based SHACL constraints** defin
 | Format | Completeness Validation | Notes |
 |--------|------------------------|-------|
 | **JSON Schema** | ❌ Not supported | Cannot validate cross-document references |
-| **SHACL** | ✅ **Full support** | SPARQL-based constraints validate completeness |
+| **SHACL** | ✅ **Full support** | SPARQL-based constraints included in generated SHACL |
 | **OWL** | ❌ Not supported | Class-level constraints only |
 
 #### Usage
@@ -165,10 +165,9 @@ The model enforces completeness through **SPARQL-based SHACL constraints** defin
 When validating Assessment data:
 
 ```bash
-# Load both the base SHACL and completeness constraints
+# The generated SHACL includes completeness constraints automatically
 shacl validate \
   --shapes generated/shacl.ttl \
-  --shapes generated/completeness-constraints.ttl \
   --data assessment-data.ttl
 ```
 
