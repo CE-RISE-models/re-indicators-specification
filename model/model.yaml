@@ -3,7 +3,7 @@ name: re_indicators
 title: CE-RISE RE-Indicators Data Model
 description: Core data model for RE indicators specification and assessment
 license: https://creativecommons.org/licenses/by-nc/4.0/
-version: 0.0.2
+version: 0.0.3
 
 prefixes:
     linkml: https://w3id.org/linkml/

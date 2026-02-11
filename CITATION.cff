@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 title: CE-RISE RE-Indicators, Specification Data Model
 message: >-
-  v0.0.2 - Implementation of all indicators.
+  v0.0.3 - Added SHACL completeness constraints for validation.
 type: software
 doi: 10.5281/zenodo.17610026
 authors:

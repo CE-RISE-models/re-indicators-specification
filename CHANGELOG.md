@@ -2,6 +2,16 @@
 
 All notable changes to the CE-RISE RE-Indicators Specification Data Model will be documented in this file.
 
+## [0.0.3] - 2026-02-11
+
+### Added
+- SPARQL-based SHACL completeness constraints ensuring all parameters and questions are answered when an Assessment references a specific indicator-product configuration
+- Core Hierarchy documentation in README showing complete class structure
+- Workflow Sequence documentation explaining specification development and product assessment workflows
+
+### Changed
+- Completeness constraints automatically merged into generated SHACL file for single-file validation
+
 ## [0.0.2] - 2026-02-06
 
 ### Added
