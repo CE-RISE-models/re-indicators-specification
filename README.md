@@ -5,6 +5,10 @@
 
 This repository provides the data model specifying the RE-indicators in the CE-RISE project.
 
+Generated artifacts are intentionally split by purpose:
+- `schema.json`, `shacl.ttl`, and `model.ttl` are validation and semantics artifacts
+- `calculation.json` is a dedicated runtime scoring artifact with indicator configurations, parameter weights, question weights, and answer scores
+
 
 ---
 
@@ -157,6 +161,7 @@ The model enforces completeness through **SPARQL-based SHACL constraints** autom
 | Format | Completeness Validation | Notes |
 |--------|------------------------|-------|
 | **JSON Schema** | ❌ Not supported | Cannot validate cross-document references |
+| **Calculation Artifact** | ❌ Not applicable | Runtime scoring data only; not a validation artifact |
 | **SHACL** | ✅ **Full support** | SPARQL-based constraints included in generated SHACL |
 | **OWL** | ❌ Not supported | Class-level constraints only |
 
@@ -291,7 +296,7 @@ The CE-RISE project defines 5 core Resource Efficiency indicators with specific 
 
 ## Publishing
 
-Release artifacts for each version (`schema.json`, `shacl.ttl`, `model.owl`)  
+Release artifacts for each version (`schema.json`, `calculation.json`, `shacl.ttl`, `model.ttl`)  
 are served directly from this URL:
 ```
 https://ce-rise-models.codeberg.page/re-indicators-specification/
@@ -309,6 +314,7 @@ Files available in that directory typically include:
 
 - schema.yaml
 - schema.json
+- calculation.json
 - shacl.ttl
 - model.ttl
 - index.html

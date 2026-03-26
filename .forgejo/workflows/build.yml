@@ -22,7 +22,7 @@ jobs:
 
             - name: Install dependencies
               run: |
-                  python3 -m pip install --break-system-packages linkml pyyaml
+                  python3 -m pip install --break-system-packages linkml pyyaml rdflib
 
             - name: Generate JSON Schema
               timeout-minutes: 5
@@ -47,6 +47,14 @@ jobs:
                   make generated/model.ttl
                   echo "Generated OWL"
                   echo "All generated files:"
+                  ls -la generated/
+
+            - name: Generate calculation artifact
+              timeout-minutes: 5
+              run: |
+                  echo "Generating calculation artifact..."
+                  make generated/calculation.json
+                  echo "Generated calculation artifact"
                   ls -la generated/
 
             - name: Include LinkML YAML schema
@@ -214,6 +222,12 @@ jobs:
                               </div>
                           </li>
                           <li>
+                              <a href="calculation.json">Calculation Artifact</a>
+                              <div class="file-description">
+                                  Runtime scoring artifact containing indicator configurations, parameter weights, question weights, answer IDs, and scores
+                              </div>
+                          </li>
+                          <li>
                               <a href="shacl.ttl">SHACL (Turtle)</a>
                               <div class="file-description">
                                   SHACL shapes for RDF validation in Turtle format
@@ -261,7 +275,12 @@ jobs:
 
                   # Copy generated files
                   echo "Copying generated files..."
-                  cp -r generated/* .
+                  cp generated/schema.yaml .
+                  cp generated/schema.json .
+                  cp generated/calculation.json .
+                  cp generated/shacl.ttl .
+                  cp generated/model.ttl .
+                  cp generated/index.html .
                   echo "Files to deploy:"
                   ls -la
 

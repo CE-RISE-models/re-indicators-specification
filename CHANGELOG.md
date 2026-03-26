@@ -2,6 +2,14 @@
 
 All notable changes to the CE-RISE RE-Indicators Specification Data Model will be documented in this file.
 
+## [0.0.4] - 2026-03-26
+
+### Added
+- Dedicated generated `calculation.json` artifact for runtime scoring, separated from validation artifacts
+
+### Changed
+- Published artifacts now distinguish validation/semantics outputs (`schema.json`, `shacl.ttl`, `model.ttl`) from the runtime computation output (`calculation.json`)
+
 ## [0.0.3] - 2026-02-11
 
 ### Added
