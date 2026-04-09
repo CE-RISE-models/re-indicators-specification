@@ -24,6 +24,14 @@ jobs:
               run: |
                   python3 -m pip install --break-system-packages linkml pyyaml rdflib
 
+            - name: Generate resolved YAML schema
+              timeout-minutes: 5
+              run: |
+                  echo "Generating resolved YAML schema..."
+                  make generated/schema.yaml
+                  echo "Generated resolved YAML schema"
+                  ls -la generated/
+
             - name: Generate JSON Schema
               timeout-minutes: 5
               run: |
@@ -55,14 +63,6 @@ jobs:
                   echo "Generating calculation artifact..."
                   make generated/calculation.json
                   echo "Generated calculation artifact"
-                  ls -la generated/
-
-            - name: Include LinkML YAML schema
-              run: |
-                  echo "Copying LinkML YAML schema to generated/"
-                  mkdir -p generated
-                  cp model/model.yaml generated/schema.yaml
-                  echo "Files in generated/:"
                   ls -la generated/
 
             - name: Extract project metadata

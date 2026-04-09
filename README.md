@@ -9,6 +9,62 @@ Generated artifacts are intentionally split by purpose:
 - `schema.json`, `shacl.ttl`, and `model.ttl` are validation and semantics artifacts
 - `calculation.json` is a dedicated runtime scoring artifact with indicator configurations, parameter weights, question weights, and answer scores
 
+## Artefact Usage Guidance
+
+All published artefacts are derived from the same underlying LinkML data model, but they serve different roles and should not be used interchangeably.
+
+### 1. Full specification and canonical reference
+
+Use the published specification artefacts as the canonical source of truth for the model structure and identifiers:
+- `schema.yaml` is the standalone resolved LinkML schema including imported indicator and product modules
+- `schema.json` is the JSON Schema form of the model for JSON-oriented tooling
+- `shacl.ttl` is the RDF validation artefact, including completeness constraints
+- `model.ttl` is the OWL/RDF semantics artefact
+
+These artefacts define the model, identifiers, and validation/semantic structure. They are the authoritative reference for what parameters, questions, answers, and relationships exist in a given version.
+
+### 2. Runtime computation and frontend lookup
+
+Use `calculation.json` for runtime scoring and for frontend lookup of human-readable questionnaire content.
+
+This artefact is derived from the same specification, but is shaped for application use. It contains:
+- indicator-product configurations
+- parameter references and weights
+- question identifiers and weights
+- answer identifiers and scores
+- human-readable parameter names
+- human-readable question texts
+- human-readable answer texts
+
+Typical use cases:
+- computing scores from selected answers
+- resolving `parameter_id`, `question_id`, and `selected_answer_id` from assessment records into displayable labels and texts
+- driving frontend questionnaires from a versioned specification artefact
+
+### 3. Assessment data records
+
+Assessment records should remain normalized and reference the published specification rather than duplicating the full questionnaire text.
+
+In practice, an `Assessment` record should store:
+- `model_version`
+- `indicator_specification_id`
+- parameter identifiers
+- question identifiers
+- selected answer identifiers
+- computed scores and evidence fields
+
+Assessment records are not expected to embed the full parameter name, question text, or answer text. Client applications should resolve those values against the corresponding published specification artefact for the same version, typically `calculation.json`.
+
+### 4. Recommended integration pattern
+
+For developers and downstream users, the recommended pattern is:
+1. Publish a versioned model release
+2. Derive `schema.yaml`, `schema.json`, `shacl.ttl`, `model.ttl`, and `calculation.json` from that same version
+3. Create assessment records that reference that released specification by version and identifier
+4. Use `calculation.json` to render human-readable questionnaires and to interpret normalized assessment records
+5. Use `schema.json` or `shacl.ttl` for validation, depending on the data format and validation depth required
+
+This keeps records compact and stable while ensuring that all human-readable content and scoring logic remain versioned and reproducible.
 
 ---
 

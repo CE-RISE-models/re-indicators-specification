@@ -2,6 +2,15 @@
 
 All notable changes to the CE-RISE RE-Indicators Specification Data Model will be documented in this file.
 
+## [0.0.5] - 2026-04-09
+
+### Changed
+- Published `schema.yaml` is now generated as a standalone resolved LinkML schema including imported indicator and product modules, instead of copying only the root `model/model.yaml`
+- Forgejo Pages build now generates `schema.yaml` as part of the artefact pipeline before deployment
+
+### Fixed
+- `calculation.json` now includes human-readable parameter names, question texts, and answer texts in addition to identifiers, weights, and scores
+
 ## [0.0.4] - 2026-03-26
 
 ### Added

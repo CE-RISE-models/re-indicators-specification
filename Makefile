@@ -47,6 +47,19 @@ path.write_text(json.dumps(strip_node(data), indent=2, sort_keys=True) + "\n", e
 endef
 export STRIP_JSON_SCHEMA_PY
 
+define STRIP_RESOLVED_YAML_PY
+from pathlib import Path
+
+import yaml
+
+path = Path("generated/schema.yaml")
+data = yaml.safe_load(path.read_text(encoding="utf-8"))
+if isinstance(data, dict):
+    data.pop("imports", None)
+path.write_text(yaml.safe_dump(data, sort_keys=False, allow_unicode=False), encoding="utf-8")
+endef
+export STRIP_RESOLVED_YAML_PY
+
 define STRIP_SHACL_PY
 from pathlib import Path
 
@@ -358,6 +371,7 @@ def extract_answers(question_class, visible_classes, all_classes):
         answers.append(
             {
                 "answer_id": get_attribute_value(answer_class, "id", all_classes),
+                "text": get_attribute_value(answer_class, "text", all_classes),
                 "score": get_attribute_value(answer_class, "score", all_classes),
             }
         )
@@ -377,6 +391,7 @@ def extract_questions(parameter_class, visible_classes, all_classes, applicable_
         questions.append(
             {
                 "question_id": question_id,
+                "text": get_attribute_value(question_class, "text", all_classes),
                 "weight": get_attribute_value(question_class, "weight", all_classes),
                 "answers": extract_answers(question_class, visible_classes, all_classes),
             }
@@ -485,6 +500,8 @@ def build_indicator_payload(config_class, module_id, modules, all_classes):
         )
         parameter_payload = {
             "parameter_ref": parameter_ref,
+            "name": get_attribute_value(parameter_class, "name", all_classes),
+            "description": get_attribute_value(parameter_class, "description", all_classes),
             "weight": application.get("weight"),
             "questions": extract_questions(
                 parameter_class,
@@ -529,7 +546,13 @@ with open("generated/calculation.json", "w", encoding="utf-8") as handle:
 endef
 export GENERATE_CALCULATION_PY
 
-all: generated/schema.json generated/shacl.ttl generated/model.ttl generated/calculation.json
+all: generated/schema.yaml generated/schema.json generated/shacl.ttl generated/model.ttl generated/calculation.json
+
+generated/schema.yaml: $(MODEL_SOURCES)
+	mkdir -p generated
+	linkml generate yaml model/model.yaml > generated/schema.yaml || (echo "Error generating resolved YAML schema"; exit 1)
+	python3 -c "$$STRIP_RESOLVED_YAML_PY"
+	@echo "Generated resolved YAML schema: $$(wc -l < generated/schema.yaml) lines"
 
 generated/schema.json: $(MODEL_SOURCES)
 	mkdir -p generated
@@ -566,6 +589,6 @@ generated/calculation.json: $(MODEL_SOURCES)
 	@echo "Generated calculation artifact: $$(wc -l < generated/calculation.json) lines"
 
 clean:
-	rm -rf generated/*.json generated/*.ttl
+	rm -rf generated/*.json generated/*.ttl generated/*.yaml
 
 .PHONY: all clean
